@@ -11,15 +11,43 @@ def home(request):
 
 
 def signupUser(request):
-        b=Buyer()
-        b.name=request.POST.get('name')
-        #b.lname=request.POST.get('lname')
-        b.uname=request.POST.get('username')
-        b.email=request.POST.get('email')
-        pword=request.POST.get('password')
-        user = User.objects.create_user(username=b.uname, email=b.email, password=pword)
-        b.save()
-        return render(request, "index.html")
+        choice = request.POST.get('option')
+        if (choice == 'seller'):
+                s = Seller()
+                s.name = request.POST.get('name')
+                s.uname = request.POST.get('username')
+                s.email = request.POST.get('email')
+                pword = request.POST.get('password')
+                try:
+                        user = User.objects.create_user(username=s.uname, email=s.email, password=pword)
+                        s.save()
+                        return HttpResponseRedirect('/')
+                except:
+                        messages.error(request, "Username already exists")
+                        return render(request, "index.html")
+        else:
+                b = Buyer()
+                b.name = request.POST.get('name')
+                # #b.lname=request.POST.get('lname')
+                b.uname = request.POST.get('username')
+                b.email = request.POST.get('email')
+                pword = request.POST.get('password')
+                try:
+                        user = User.objects.create_user(username=b.uname, email=b.email, password=pword)
+                        b.save()
+                        return HttpResponseRedirect('/')
+                except:
+                        messages.error(request, "Username already exists")
+                        return render(request, "index.html")
+        # b=Buyer()
+        # b.name=request.POST.get('name')
+        # #b.lname=request.POST.get('lname')
+        # b.uname=request.POST.get('username')
+        # b.email=request.POST.get('email')
+        # pword=request.POST.get('password')
+        # user = User.objects.create_user(username=b.uname, email=b.email, password=pword)
+        # b.save()
+        # return render(request, "index.html")
 
 def loginDetails(request):
         if (request.method == "POST"):
@@ -38,3 +66,7 @@ def loginDetails(request):
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect('/')
+
+
+
+
