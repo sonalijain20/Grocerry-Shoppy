@@ -24,5 +24,5 @@ urlpatterns = [
     path('login/', views.loginDetails),
     path('logout/', views.logout),
     path('product/<str:kitcat>/', views.product),
-    #path('profile/', views.profile)
+    path('profile/', views.profile)
 ]
