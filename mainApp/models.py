@@ -35,12 +35,9 @@ class Seller(models.Model):
 class FrozenFoods(models.Model):
     name = models.CharField(max_length=50)
     desc = models.TextField()
-    img1 = models.ImageField(
-        upload_to='images/', default=None, blank=True, null=True)
-    img2 = models.ImageField(
-        upload_to='images/', default=None, blank=True, null=True)
-    img3 = models.ImageField(
-        upload_to='images/', default=None, blank=True, null=True)
+    img1 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
+    img2 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
+    img3 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     basePrice = models.IntegerField()
     discount = models.IntegerField(default=0, null=True, blank=True)
     finalPrice = models.IntegerField()
@@ -61,12 +58,9 @@ class FrozenFoods(models.Model):
 class Bakery(models.Model):
     name = models.CharField(max_length=50)
     desc = models.TextField()
-    img1 = models.ImageField(
-        upload_to='images/', default=None, blank=True, null=True)
-    img2 = models.ImageField(
-        upload_to='images/', default=None, blank=True, null=True)
-    img3 = models.ImageField(
-        upload_to='images/', default=None, blank=True, null=True)
+    img1 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
+    img2 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
+    img3 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     basePrice = models.IntegerField()
     discount = models.IntegerField(default=0, null=True, blank=True)
     finalPrice = models.IntegerField()
@@ -87,12 +81,9 @@ class Bakery(models.Model):
 class Pulses(models.Model):
     name = models.CharField(max_length=50)
     desc = models.TextField()
-    img1 = models.ImageField(
-        upload_to='images/', default=None, blank=True, null=True)
-    img2 = models.ImageField(
-        upload_to='images/', default=None, blank=True, null=True)
-    img3 = models.ImageField(
-        upload_to='images/', default=None, blank=True, null=True)
+    img1 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
+    img2 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
+    img3 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     basePrice = models.IntegerField()
     discount = models.IntegerField(default=0, null=True, blank=True)
     finalPrice = models.IntegerField()
@@ -223,6 +214,10 @@ class Beverages(models.Model):
 class KitchenCategory(models.Model):
     vegetables=models.ForeignKey(Vegetables, on_delete=models.CASCADE)
     fruits=models.ForeignKey(Fruits, on_delete=models.CASCADE)
+    pulses=models.ForeignKey(Pulses, on_delete=models.CASCADE)
+    frozen_foods=models.ForeignKey(FrozenFoods, on_delete=models.CASCADE)
+    bakery=models.ForeignKey(Bakery, on_delete=models.CASCADE)
+
 
     def __str__(self):
         return str(self.id) + " " + self.name
