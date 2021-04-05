@@ -8,8 +8,8 @@ from django.contrib import messages
 # Create your views 'here.
 
 def home(request):
-        kitcat = KitchenCategory.objects.all()
-        return render(request, "index.html", {"Kitchen": kitcat})
+        kit = KitchenCategory.objects.all()
+        return render(request, "index.html", {"KitCat": kit})
 
 
 def signupUser(request):
@@ -77,27 +77,28 @@ def profile(request):
     return render(request, "profile.html")
 
 
-def product(request, kitcat):
-    if(kitcat=='Beverages'):
+def product(request, cat):
+    kit = KitchenCategory.objects.all()
+    if(cat=='Beverages'):
         p=Beverages.objects.all()
-    if(kitcat=='Frozen Foods'):
+    if(cat=='Frozen Foods'):
         p=FrozenFoods.objects.all()
-    if(kitcat=='Pulses'):
+    if(cat=='Pulses'):
         p=Pulses.objects.all()
-    if(kitcat=='Vegetables'):
+    if(cat=='Vegetables'):
         p=Vegetables.objects.all()
-    if(kitcat=='Fruits'):
+    if(cat=='Fruits'):
         p=Fruits.objects.all()
-    if(kitcat=='Snacks'):
+    if(cat=='Snacks'):
         p=Snacks.objects.all()
-    if(kitcat=='Spices'):
+    if(cat=='Spices'):
         p=Spices.objects.all()
-    if(kitcat=='Bakery'):
+    if(cat=='Bakery'):
         p=Bakery.objects.all()
-    print("\n\n\n\n\n\n")
-    print(kitcat)
-    print("\n\n\n\n\n\n")
-    return render(request, "product.html", {"Product": p, "Kitchen": kitcat})
+    print("\n\n\n\n")
+    print(cat)
+    print("\n\n\n\n")
+    return render(request, "product.html", {"Product": p, "Category": cat, "KitCat": kit})
 
 # def productInfo(request, id):
 
