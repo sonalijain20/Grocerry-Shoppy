@@ -23,6 +23,9 @@ class Seller(models.Model):
     name = models.CharField(max_length=20)
     uname = models.CharField(max_length=20)
     email = models.EmailField()
+    bankName = models.CharField(default=None, null=True, max_length=28, blank=True)
+    ifscCode = models.CharField(default=None, null=True, max_length=28, blank=True)
+    accountNumber = models.CharField(default=None, null=True, max_length=28, blank=True)
 
     def __str__(self):
         return str(self.id) + " " + self.name
