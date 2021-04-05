@@ -3,3 +3,6 @@ from .models import *
 # Register your models here.
 admin.site.register(Buyer)
 admin.site.register(Seller)
+admin.site.register(FrozenFoods)
+admin.site.register(Pulses)
+admin.site.register(Bakery)
