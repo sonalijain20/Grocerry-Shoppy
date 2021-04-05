@@ -109,7 +109,7 @@ class Pulses(models.Model):
     def __str__(self):
         return str(self.id) + " " + self.name
 
-<<<<<<< HEAD
+
 class Spices(models.Model):
     name = models.CharField(max_length=50)
     quantity = models.IntegerField()
@@ -128,7 +128,7 @@ class Spices(models.Model):
     img2 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     img3 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     seller_details=models.ForeignKey(Seller,on_delete=models.CASCADE)
-=======
+
 
 class Vegetables(models.Model):
     name= models.CharField(max_length=50)
@@ -148,12 +148,12 @@ class Vegetables(models.Model):
     img1=models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     img2=models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     img3=models.ImageField(upload_to='images/', default=None, blank=True, null=True)
->>>>>>> 75bb77e12ed8909f1084a9ef9f989fbce655e25c
+
 
     def __str__(self):
         return str(self.id) + " " + self.name
 
-<<<<<<< HEAD
+
 class Snacks(models.Model):
     name = models.CharField(max_length=50)
     quantity = models.IntegerField()
@@ -172,7 +172,7 @@ class Snacks(models.Model):
     img2 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     img3 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     seller_details = models.ForeignKey(Seller, on_delete=models.CASCADE)
-=======
+
 class Fruits(models.Model):
     name= models.CharField(max_length=50)
     quantity=models.IntegerField()
@@ -191,12 +191,12 @@ class Fruits(models.Model):
     img1=models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     img2=models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     img3=models.ImageField(upload_to='images/', default=None, blank=True, null=True)
->>>>>>> 75bb77e12ed8909f1084a9ef9f989fbce655e25c
+
 
     def __str__(self):
         return str(self.id) + " " + self.name
 
-<<<<<<< HEAD
+
 class Beverages(models.Model):
     name = models.CharField(max_length=50)
     quantity = models.IntegerField()
@@ -218,7 +218,7 @@ class Beverages(models.Model):
 
     def __str__(self):
         return str(self.id) + " " + self.name
-=======
+
 
 class KitchenCategory(models.Model):
     vegetables=models.ForeignKey(Vegetables, on_delete=models.CASCADE)
@@ -226,4 +226,4 @@ class KitchenCategory(models.Model):
 
     def __str__(self):
         return str(self.id) + " " + self.name
->>>>>>> 75bb77e12ed8909f1084a9ef9f989fbce655e25c
+
