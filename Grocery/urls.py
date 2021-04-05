@@ -23,5 +23,6 @@ urlpatterns = [
     path('signup/', views.signupUser),
     path('login/', views.loginDetails),
     path('logout/', views.logout),
+    path('product/<str:kitcat>/', views.product),
     #path('profile/', views.profile)
 ]

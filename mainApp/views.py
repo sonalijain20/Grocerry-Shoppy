@@ -69,5 +69,11 @@ def logout(request):
     return HttpResponseRedirect('/')
 
 
+def product(request, kitcat):
+        if(kitcat=='Beverages'):
+                p=Beverages.objects.all()
+        return render(request, "product.html", {"Product": p, "Kitchen": kitcat})
+
+
 
 

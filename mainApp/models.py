@@ -198,7 +198,7 @@ class Beverages(models.Model):
     l500_quan = models.IntegerField(default=0, blank=True, null=True)
     l1 = models.BooleanField(default=None, blank=True, null=True)
     l1_quan = models.IntegerField(default=0, blank=True, null=True)
-    l1 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
+    img1 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     img2 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     img3 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     seller_details = models.ForeignKey(Seller, on_delete=models.CASCADE)
@@ -208,12 +208,7 @@ class Beverages(models.Model):
 
 
 class KitchenCategory(models.Model):
-    vegetables=models.ForeignKey(Vegetables, on_delete=models.CASCADE)
-    fruits=models.ForeignKey(Fruits, on_delete=models.CASCADE)
-    pulses=models.ForeignKey(Pulses, on_delete=models.CASCADE)
-    frozen_foods=models.ForeignKey(FrozenFoods, on_delete=models.CASCADE)
-    bakery=models.ForeignKey(Bakery, on_delete=models.CASCADE)
-
+    name=models.CharField(max_length=50, default=None, blank=True, null=True )
 
     def __str__(self):
         return str(self.id) + " " + self.name

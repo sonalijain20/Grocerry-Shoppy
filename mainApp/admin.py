@@ -12,10 +12,5 @@ admin.site.register(Snacks)
 admin.site.register(Spices)
 admin.site.register(Bakery)
 admin.site.register(KitchenCategory)
-admin.site.register(Snacks)
-admin.site.register(Beverages)
-admin.site.register(Spices)
-admin.site.register(Pulses)
-admin.site.register(Bakery)
-admin.site.register(FrozenFoods)
+
 
