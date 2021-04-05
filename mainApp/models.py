@@ -24,6 +24,7 @@ class Seller(models.Model):
     def __str__(self):
         return str(self.id) + " " + self.name
 
+<<<<<<< HEAD
 class Spices(models.Model):
     name = models.CharField(max_length=50)
     quantity = models.IntegerField()
@@ -42,10 +43,32 @@ class Spices(models.Model):
     img2 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     img3 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     seller_details=models.ForeignKey(Seller,on_delete=models.CASCADE)
+=======
+
+class Vegetables(models.Model):
+    name= models.CharField(max_length=50)
+    quantity=models.IntegerField()
+    basePrice = models.IntegerField()
+    discount = models.IntegerField(default=0, null=True, blank=True)
+    finalPrice = models.IntegerField()
+    gm100=models.BooleanField(default=False, blank=True, null=True)
+    gm100_quan = models.IntegerField(default=0, null=True, blank=True)
+    gm250=models.BooleanField(default=False, blank=True, null=True)
+    gm250_quan = models.IntegerField(default=0, null=True, blank=True)
+    gm500=models.BooleanField(default=False, blank=True, null=True)
+    gm500_quan = models.IntegerField(default=0, null=True, blank=True)
+    kg1=models.BooleanField(default=False, blank=True, null=True)
+    kg1_quan = models.IntegerField(default=0, null=True, blank=True)
+    seller_details=models.ForeignKey(Seller, on_delete=models.CASCADE)
+    img1=models.ImageField(upload_to='images/', default=None, blank=True, null=True)
+    img2=models.ImageField(upload_to='images/', default=None, blank=True, null=True)
+    img3=models.ImageField(upload_to='images/', default=None, blank=True, null=True)
+>>>>>>> 75bb77e12ed8909f1084a9ef9f989fbce655e25c
 
     def __str__(self):
         return str(self.id) + " " + self.name
 
+<<<<<<< HEAD
 class Snacks(models.Model):
     name = models.CharField(max_length=50)
     quantity = models.IntegerField()
@@ -64,10 +87,31 @@ class Snacks(models.Model):
     img2 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     img3 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     seller_details = models.ForeignKey(Seller, on_delete=models.CASCADE)
+=======
+class Fruits(models.Model):
+    name= models.CharField(max_length=50)
+    quantity=models.IntegerField()
+    basePrice = models.IntegerField()
+    discount = models.IntegerField(default=0, null=True, blank=True)
+    finalPrice = models.IntegerField()
+    gm100=models.BooleanField(default=False, blank=True, null=True)
+    gm100_quan = models.IntegerField(default=0, null=True, blank=True)
+    gm250=models.BooleanField(default=False, blank=True, null=True)
+    gm250_quan = models.IntegerField(default=0, null=True, blank=True)
+    gm500=models.BooleanField(default=False, blank=True, null=True)
+    gm500_quan = models.IntegerField(default=0, null=True, blank=True)
+    kg1=models.BooleanField(default=False, blank=True, null=True)
+    kg1_quan = models.IntegerField(default=0, null=True, blank=True)
+    seller_details=models.ForeignKey(Seller, on_delete=models.CASCADE)
+    img1=models.ImageField(upload_to='images/', default=None, blank=True, null=True)
+    img2=models.ImageField(upload_to='images/', default=None, blank=True, null=True)
+    img3=models.ImageField(upload_to='images/', default=None, blank=True, null=True)
+>>>>>>> 75bb77e12ed8909f1084a9ef9f989fbce655e25c
 
     def __str__(self):
         return str(self.id) + " " + self.name
 
+<<<<<<< HEAD
 class Beverages(models.Model):
     name = models.CharField(max_length=50)
     quantity = models.IntegerField()
@@ -89,3 +133,12 @@ class Beverages(models.Model):
 
     def __str__(self):
         return str(self.id) + " " + self.name
+=======
+
+class KitchenCategory(models.Model):
+    vegetables=models.ForeignKey(Vegetables, on_delete=models.CASCADE)
+    fruits=models.ForeignKey(Fruits, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.id) + " " + self.name
+>>>>>>> 75bb77e12ed8909f1084a9ef9f989fbce655e25c
