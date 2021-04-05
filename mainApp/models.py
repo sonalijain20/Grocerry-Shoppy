@@ -103,7 +103,6 @@ class Pulses(models.Model):
 
 class Spices(models.Model):
     name = models.CharField(max_length=50)
-    quantity = models.IntegerField()
     basePrice = models.IntegerField()
     discount = models.IntegerField(default=0, null=True, blank=True)
     finalPrice = models.IntegerField()
@@ -120,10 +119,11 @@ class Spices(models.Model):
     img3 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     seller_details=models.ForeignKey(Seller,on_delete=models.CASCADE)
 
+    def __str__(self):
+        return str(self.id) + " " + self.name
 
 class Vegetables(models.Model):
     name= models.CharField(max_length=50)
-    quantity=models.IntegerField()
     basePrice = models.IntegerField()
     discount = models.IntegerField(default=0, null=True, blank=True)
     finalPrice = models.IntegerField()
@@ -147,7 +147,6 @@ class Vegetables(models.Model):
 
 class Snacks(models.Model):
     name = models.CharField(max_length=50)
-    quantity = models.IntegerField()
     basePrice = models.IntegerField()
     discount = models.IntegerField(default=0, null=True, blank=True)
     finalPrice = models.IntegerField()
@@ -164,9 +163,10 @@ class Snacks(models.Model):
     img3 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     seller_details = models.ForeignKey(Seller, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return str(self.id) + " " + self.name
 class Fruits(models.Model):
     name= models.CharField(max_length=50)
-    quantity=models.IntegerField()
     basePrice = models.IntegerField()
     discount = models.IntegerField(default=0, null=True, blank=True)
     finalPrice = models.IntegerField()
@@ -190,7 +190,6 @@ class Fruits(models.Model):
 
 class Beverages(models.Model):
     name = models.CharField(max_length=50)
-    quantity = models.IntegerField()
     basePrice = models.IntegerField()
     discount = models.IntegerField(default=0, null=True, blank=True)
     finalPrice = models.IntegerField()
@@ -202,7 +201,7 @@ class Beverages(models.Model):
     l500_quan = models.IntegerField(default=0, blank=True, null=True)
     l1 = models.BooleanField(default=None, blank=True, null=True)
     l1_quan = models.IntegerField(default=0, blank=True, null=True)
-    l1 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
+    img1 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     img2 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     img3 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     seller_details = models.ForeignKey(Seller, on_delete=models.CASCADE)
