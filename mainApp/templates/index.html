@@ -1,9 +1,4 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="zxx">
@@ -113,6 +108,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</form>
 					</div>
 				</div>
+				{% block body %}
 				<!-- //cart details -->
 				<div class="clearfix"></div>
 			</div>
@@ -247,13 +243,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="modal_body_left modal_body_left1">
 						<h3 class="agileinfo_sign"> Profile</h3>
                         <div>
-                            <a href="#" class="nav-stylehead">Personal Information</a>
+                            <a href="/profile/" class="nav-stylehead">Personal Information</a>
                         </div><br>
                         <div>
-                            <a href="#" class="nav-stylehead">Bank Details</a>
+                            <a href="/profile/" class="nav-stylehead">Bank Details</a>
                         </div><br>
                         <div>
-                            <a href="#" class="nav-stylehead">Order History</a>
+                            <a href="/profile/" class="nav-stylehead">Order History</a>
                         </div><br>
                         <div>
                             <a href="#" class="nav-stylehead">Wish List</a>
@@ -1464,6 +1460,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 		</div>
 	</div>
+	{% endblock %}
 	<!-- //special offers -->
 	<!-- newsletter -->
 	<div class="footer-top">
@@ -1580,6 +1577,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="clearfix"></div>
 				</div>
 				<!-- //footer categories -->
+
+
+			
 				<!-- quick links -->
 				<div class="col-sm-5 address-right">
 					<div class="col-xs-6 footer-grids">
@@ -1655,6 +1655,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="clearfix"> </div>
 					</div>
 				</div>
+
+				
 				<!-- //social icons -->
 				<div class="clearfix"></div>
 			</div>
