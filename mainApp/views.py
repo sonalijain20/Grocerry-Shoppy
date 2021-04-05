@@ -80,7 +80,27 @@ def profile(request):
 def product(request, kitcat):
     if(kitcat=='Beverages'):
         p=Beverages.objects.all()
+    if(kitcat=='Frozen Foods'):
+        p=FrozenFoods.objects.all()
+    if(kitcat=='Pulses'):
+        p=Pulses.objects.all()
+    if(kitcat=='Vegetables'):
+        p=Vegetables.objects.all()
+    if(kitcat=='Fruits'):
+        p=Fruits.objects.all()
+    if(kitcat=='Snacks'):
+        p=Snacks.objects.all()
+    if(kitcat=='Spices'):
+        p=Spices.objects.all()
+    if(kitcat=='Bakery'):
+        p=Bakery.objects.all()
+    print("\n\n\n\n\n\n")
+    print(kitcat)
+    print("\n\n\n\n\n\n")
     return render(request, "product.html", {"Product": p, "Kitchen": kitcat})
+
+# def productInfo(request, id):
+
 
 
 
