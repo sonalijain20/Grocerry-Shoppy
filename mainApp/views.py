@@ -7,7 +7,8 @@ from django.contrib import messages
 
 # Create your views 'here.
 def home(request):
-        return render(request, "index.html")
+        kitcat = KitchenCategory.objects.all()
+        return render(request, "index.html", {"Kitchen": kitcat})
 
 
 def signupUser(request):
