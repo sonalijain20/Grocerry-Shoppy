@@ -7,9 +7,9 @@ from django.contrib import messages
 
 # Create your views 'here.
 
-
 def home(request):
-    return render(request, "index.html")
+        kit = KitchenCategory.objects.all()
+        return render(request, "index.html", {"KitCat": kit})
 
 
 def signupUser(request):
@@ -75,3 +75,34 @@ def logout(request):
 
 def profile(request):
     return render(request, "profile.html")
+
+
+def product(request, cat):
+    kit = KitchenCategory.objects.all()
+    if(cat=='Beverages'):
+        p=Beverages.objects.all()
+    if(cat=='Frozen Foods'):
+        p=FrozenFoods.objects.all()
+    if(cat=='Pulses'):
+        p=Pulses.objects.all()
+    if(cat=='Vegetables'):
+        p=Vegetables.objects.all()
+    if(cat=='Fruits'):
+        p=Fruits.objects.all()
+    if(cat=='Snacks'):
+        p=Snacks.objects.all()
+    if(cat=='Spices'):
+        p=Spices.objects.all()
+    if(cat=='Bakery'):
+        p=Bakery.objects.all()
+    print("\n\n\n\n")
+    print(cat)
+    print("\n\n\n\n")
+    return render(request, "product.html", {"Product": p, "Category": cat, "KitCat": kit})
+
+# def productInfo(request, id):
+
+
+
+
+
