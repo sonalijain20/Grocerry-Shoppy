@@ -1,4 +1,4 @@
-{% extends 'index.html' %}
+mana{% extends 'index.html' %}
 {% load static %}
 {% block body %}
 <!-- checkout page -->
@@ -13,6 +13,7 @@
                 <i></i>
             </span>
         </h3>
+
         </div>
 
 
@@ -138,6 +139,15 @@
                 <i></i>
             </span>
         </h3>
+            <label>Bank Name</label><br>
+                            <input type="text"  name="bank" value="{{User.bankName}}" /><br>
+							<label>IFSC CODE</label><br>
+                            <input type="text"  name="ifsc" value="{{User.ifscCode}}"/><br>
+							<label>Account Number</label><br>
+                            <input type="text"  name="account" value="{{User.accountNumber}}"/><br> <br>
+                            <button type="submit" class="btn btn-success" aria-label="Left Align">Update</button>
+    </div>
+</div>
 
 <!-- //checkout page -->
 
