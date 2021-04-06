@@ -1,26 +1,47 @@
-<<<<<<< HEAD
-mana{% extends 'index.html' %}
-=======
+<!-- contact -->
 {% extends 'index.html' %}
->>>>>>> 5fd63f059346e4d030061f2c83d857366b6049ce
 {% load static %}
 {% block body %}
-<!-- checkout page -->
 <div class="privacy">
     <div class="container">
         <!-- tittle heading -->
-        <div class="main">
-        <h3 class="tittle-w3l" text-align="center">Personal Information
-            <span class="heading-style">
-                <i></i>
-                <i></i>
-                <i></i>
-            </span>
+        <h3 class="tittle-w3l">Personal Information
+            <div class="contact agileits">
+                <div class="contact-agileinfo">
+                    <div class="contact-form wthree">
+                        
+                            <p>Welcome</p><h2>{{User.uname}}</h2>
+                            <br>
+                            <form method="post">
+                                {%csrf_token %}
+                            <div class="">
+                                <input type="text" name="name" placeholder="Name" value="{{User.name}}" required="">
+                            </div>
+                            <div class="">
+                                <input class="text" type="text" name="uname" placeholder="Username" value="{{User.uname}}" required="">
+                            </div>
+                            <div class="">
+                                <input class="email" type="email" name="email" placeholder="Email"  value="{{User.email}}" required="">
+                            </div>
+                            <div class="">
+                                <input class="text" type="text" name="address1" placeholder="Address" value="{{User.address1}}" required="">
+                            </div>
+                            <div class="">
+                                <input class="text" type="text" name="landmark" placeholder="Landmark" value="{{User.landmark}}" required="">
+                            </div>
+                            <div class="">
+                                <input class="text" type="text" name="city" placeholder="City" value="{{User.city}}" required="">
+                            </div>
+                            <div class="">
+                                <input class="text" type="text" name="state" placeholder="State" value="{{User.state}}" required="">
+                            </div>
+                            <div class="">
+                                <input class="text" type="text" name="pin" placeholder="Pin" value="{{User.pin}}" required="">
+                            </div>
+                            <input type="submit" value="Update">
+                        </form>
+                    </div>
         </h3>
-
-        </div>
-
-
 <div class="privacy">
     <div class="container">
         <!-- tittle heading -->
@@ -131,6 +152,7 @@ mana{% extends 'index.html' %}
                 </tr>
             </tbody>
         </table>
+        
     </div>
 </div>
 <div class="privacy">
@@ -143,17 +165,10 @@ mana{% extends 'index.html' %}
                 <i></i>
             </span>
         </h3>
-            <label>Bank Name</label><br>
-                            <input type="text"  name="bank" value="{{User.bankName}}" /><br>
-							<label>IFSC CODE</label><br>
-                            <input type="text"  name="ifsc" value="{{User.ifscCode}}"/><br>
-							<label>Account Number</label><br>
-                            <input type="text"  name="account" value="{{User.accountNumber}}"/><br> <br>
-                            <button type="submit" class="btn btn-success" aria-label="Left Align">Update</button>
-    </div>
-</div>
 
 <!-- //checkout page -->
 
 
-{% endblock %}
+
+
+        {% endblock %}

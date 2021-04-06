@@ -12,4 +12,3 @@ admin.site.register(Bakery)
 admin.site.register(Beverages)
 admin.site.register(Snacks)
 admin.site.register(Spices)
-
