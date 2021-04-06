@@ -5,11 +5,12 @@ from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
+
 # Create your views 'here.
 
 def home(request):
-        kit = KitchenCategory.objects.all()
-        return render(request, "index.html", {"KitCat": kit})
+    kit = KitchenCategory.objects.all()
+    return render(request, "index.html", {"KitCat": kit})
 
 
 def signupUser(request):
@@ -73,36 +74,58 @@ def logout(request):
     return HttpResponseRedirect('/')
 
 
+@login_required(login_url='/login/')
 def profile(request):
-    return render(request, "profile.html")
+    user = User.objects.get(username=request.user)
+    if(user.is_superuser):
+        return HttpResponseRedirect('/admin/')
+    else:
+        try:
+            s = Seller.objects.get(uname=request.user)
+            products = Product.objects.filter(seller=s)
+            if(request.method == "POST"):
+                s.name = request.POST.get('name')
+                s.uname = request.POST.get('uname')
+                s.email = request.POST.get('email')
+                s.save()
+                return HttpResponseRedirect('/profile/')
+            return render(request, "seller.html", {"User": s, "Product": products})
+        except:
+            b = Buyer.objects.get(uname=request.user)
+            if (request.method == "POST"):
+                b.name = request.POST.get('name')
+                b.uname = request.POST.get('uname')
+                b.email = request.POST.get('email')
+                b.address1 = request.POST.get('address1')
+                b.landmark = request.POST.get('landmark')
+                b.city = request.POST.get('city')
+                b.state = request.POST.get('state')
+                b.pin = request.POST.get('pin')
+                b.save()
+            return render(request, "buyer.html", {"User": b})
 
 
 def product(request, cat):
     kit = KitchenCategory.objects.all()
-    if(cat=='Beverages'):
-        p=Beverages.objects.all()
-    if(cat=='Frozen Foods'):
-        p=FrozenFoods.objects.all()
-    if(cat=='Pulses'):
-        p=Pulses.objects.all()
-    if(cat=='Vegetables'):
-        p=Vegetables.objects.all()
-    if(cat=='Fruits'):
-        p=Fruits.objects.all()
-    if(cat=='Snacks'):
-        p=Snacks.objects.all()
-    if(cat=='Spices'):
-        p=Spices.objects.all()
-    if(cat=='Bakery'):
-        p=Bakery.objects.all()
+    if(cat == 'Beverages'):
+        p = Beverages.objects.all()
+    if(cat == 'Frozen Foods'):
+        p = FrozenFoods.objects.all()
+    if(cat == 'Pulses'):
+        p = Pulses.objects.all()
+    if(cat == 'Vegetables'):
+        p = Vegetables.objects.all()
+    if(cat == 'Fruits'):
+        p = Fruits.objects.all()
+    if(cat == 'Snacks'):
+        p = Snacks.objects.all()
+    if(cat == 'Spices'):
+        p = Spices.objects.all()
+    if(cat == 'Bakery'):
+        p = Bakery.objects.all()
     print("\n\n\n\n")
     print(cat)
     print("\n\n\n\n")
     return render(request, "product.html", {"Product": p, "Category": cat, "KitCat": kit})
 
 # def productInfo(request, id):
-
-
-
-
-

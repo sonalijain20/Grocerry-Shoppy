@@ -1,0 +1,40 @@
+<!-- contact -->
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+<div class="contact agileits">
+    <div class="contact-agileinfo">
+        <div class="contact-form wthree">
+            
+                <p>Welcome</p><h2>{{User.uname}}</h2>
+                <br>
+                <form method="post">
+                    {%csrf_token %}
+                <div class="">
+                    <input type="text" name="name" placeholder="Name" value="{{User.name}}" required="">
+                </div>
+                <div class="">
+                    <input class="text" type="text" name="uname" placeholder="Username" value="{{User.uname}}" required="">
+                </div>
+                <div class="">
+                    <input class="email" type="email" name="email" placeholder="Email"  value="{{User.email}}" required="">
+                </div>
+                <div class="">
+                    <input class="text" type="text" name="address1" placeholder="Address" value="{{User.address1}}" required="">
+                </div>
+                <div class="">
+                    <input class="text" type="text" name="landmark" placeholder="Landmark" value="{{User.landmark}}" required="">
+                </div>
+                <div class="">
+                    <input class="text" type="text" name="city" placeholder="City" value="{{User.city}}" required="">
+                </div>
+                <div class="">
+                    <input class="text" type="text" name="state" placeholder="State" value="{{User.state}}" required="">
+                </div>
+                <div class="">
+                    <input class="text" type="text" name="pin" placeholder="Pin" value="{{User.pin}}" required="">
+                </div>
+                <input type="submit" value="Update">
+            </form>
+        </div>
+        {% endblock %}
