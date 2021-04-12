@@ -192,7 +192,7 @@ class KitchenCategory(models.Model):
         return str(self.id) + " " + self.name
 
 
-class wishlist(models.Model):
+class WishList(models.Model):
     user = models.ForeignKey(Buyer, on_delete=models.CASCADE)
     frozenFoods = models.ForeignKey(FrozenFoods, on_delete=models.CASCADE)
     bakery = models.ForeignKey(Bakery, on_delete=models.CASCADE)
@@ -202,7 +202,10 @@ class wishlist(models.Model):
     snacks = models.ForeignKey(Snacks, on_delete=models.CASCADE)
     fruits = models.ForeignKey(Fruits, on_delete=models.CASCADE)
     beverages = models.ForeignKey(Beverages, on_delete=models.CASCADE)
-    kitchenCategory = models.ForeignKey(KitchenCategory, on_delete=models.CASCADE)
+    cat = models.ForeignKey(KitchenCategory, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.id)
+
+
+#class Cart(models.Model):

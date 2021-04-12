@@ -127,6 +127,7 @@ def profile(request):
                 return HttpResponseRedirect('/profile/')
             return render(request, "buyer.html", {"User": b, "KitCat": kit})
 
+
 def product(request, cat):
     kit = KitchenCategory.objects.all()
     if(cat=='Beverages'):
@@ -170,6 +171,7 @@ def productInfo(request, num, cat):
         p=Snacks.objects.get(id=num)
     return render(request, "productinfo.html", {"Product":p, "KitCat": kit})
 
+
 def addBakery(request):
     kit = KitchenCategory.objects.all()
     user= User.objects.get(username=request.user)
@@ -193,6 +195,7 @@ def addBakery(request):
         except:
             return HttpResponseRedirect('/')
     return render(request, "addbakery.html", {"KitCat": kit})
+
 
 def addPulses(request):
     kit = KitchenCategory.objects.all()
@@ -219,6 +222,7 @@ def addPulses(request):
             return HttpResponseRedirect('/')
     return render(request, "addpulses.html", {"KitCat": kit})
 
+
 def addSnacks(request):
     kit = KitchenCategory.objects.all()
     user= User.objects.get(username=request.user)
@@ -244,6 +248,7 @@ def addSnacks(request):
             return HttpResponseRedirect('/')
     return render(request, "addsnacks.html", {"KitCat": kit})
 
+
 def addFruits(request):
     kit = KitchenCategory.objects.all()
     user= User.objects.get(username=request.user)
@@ -268,6 +273,7 @@ def addFruits(request):
         except:
             return HttpResponseRedirect('/')
     return render(request, "addfruits.html", {"KitCat": kit})
+
 
 def addVegetables(request):
     kit = KitchenCategory.objects.all()
@@ -320,6 +326,7 @@ def addFrozenfoods(request):
             return HttpResponseRedirect('/')
     return render(request, "addfrozenfood.html", {"KitCat": kit})
 
+
 def addSpices(request):
     kit = KitchenCategory.objects.all()
     user= User.objects.get(username=request.user)
@@ -344,6 +351,7 @@ def addSpices(request):
         except:
             return HttpResponseRedirect('/')
     return render(request, "addspices.html", {"KitCat": kit})
+
 
 def addBeverages(request):
     kit = KitchenCategory.objects.all()
@@ -372,10 +380,11 @@ def addBeverages(request):
     return render(request, "addbeverages.html", {"KitCat": kit})
 
 
+@login_required(login_url='/login/')
 def cart(request):
     kit = KitchenCategory.objects.all()
-    return render(request, "cart.html", {"KitCat": kit})
 
+    return render(request, "cart.html", {"KitCat": kit})
 
 
 def productInfo(request, num, cat):
@@ -397,6 +406,7 @@ def productInfo(request, num, cat):
     if(cat=='Snacks'):
         p=Snacks.objects.get(id=num)
     return render(request, "productinfo.html", {"Product":p, "KitCat": kit})
+
 
 def deleteProduct(request, num, cat):
     user = User.objects.get(username=request.user)
@@ -428,6 +438,7 @@ def deleteProduct(request, num, cat):
     return HttpResponseRedirect('/profile/')
     # return render(request, "seller.html", {"Product":p, "KitCat": kit})
 
+
 def editProduct(request,num, cat):
     user = User.objects.get(username=request.user)
     kit = KitchenCategory.objects.all()
@@ -447,6 +458,7 @@ def editProduct(request,num, cat):
             return HttpResponseRedirect('/profile/')
         return render(request,"editproduct.html",{"Product":bev,"KitCat": kit})
 
+
 @login_required(login_url='/login/')
 def wishlistDetails(request, num):
     user = User.objects.get(username=request.user)
@@ -457,15 +469,15 @@ def wishlistDetails(request, num):
         return HttpResponseRedirect('/profile/')
     except:
         user = Buyer.objects.get(uname=request.user)
-        w = wishlist()
-        FrozenFoods = FrozenFoods.objects.get(id=num)
-        Bakery = Bakery.objects.get(id=num)
-        Spices = Spices.objects.get(id=num)
-        Pulses = Pulses.objects.get(id=num)
-        Vegetables = Vegetables.objects.get(id=num)
-        Snacks = Snacks.objects.get(id=num)
-        Fruits = Fruits.objects.get(id=num)
-        Beverages = Beverages.objects.get(id=num)
+        w = WishList()
+        w.frozenFoods = FrozenFoods.objects.get(id=num)
+        w.bakery = Bakery.objects.get(id=num)
+        w.spices = Spices.objects.get(id=num)
+        w.pulses = Pulses.objects.get(id=num)
+        w.vegetables = Vegetables.objects.get(id=num)
+        w.snacks = Snacks.objects.get(id=num)
+        w.fruits = Fruits.objects.get(id=num)
+        w.beverages = Beverages.objects.get(id=num)
         w.user = user
         w.product = product
         w.save()
@@ -482,13 +494,13 @@ def wishlistBuyer(request):
         return HttpResponseRedirect('/profile/')
     except:
         user = Buyer.objects.get(uname=request.user)
-        wish = wishlist.objects.filter(user=user)
+        wish = WishList.objects.filter(user=user)
         return render(request, "wishlist.html",
                       {"Wish": wish})
 
 
 @login_required(login_url='/login/')
 def wishlistDelete(request, num):
-    wish = wishlist.objects.get(id=num)
+    wish = WishList.objects.get(id=num)
     wish.delete()
     return HttpResponseRedirect('/wishlist/')
