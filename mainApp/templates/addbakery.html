@@ -1,0 +1,91 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+<!--<section id="form">&lt;!&ndash;form&ndash;&gt;-->
+<!--		<div class="container">-->
+<!--			<div class="row">-->
+
+<!--				<div class="col-sm-4">-->
+
+<!--					<div class="signup-form">&lt;!&ndash;sign up form&ndash;&gt;-->
+<!--						<h2>Add Bakery</h2>-->
+
+<!--						<form method="post" enctype="multipart/form-data">-->
+<!--							{%csrf_token %}-->
+<!--							<label>Name</label>-->
+<!--							<input type="text"  name="name"/><br><br>-->
+<!--							<label>Description</label>-->
+<!--							<textarea name="description"></textarea><br><br>-->
+
+<!--							<label>Base Price</label>-->
+<!--                            <input type="number"  name= "baseprice"/><br><br>-->
+<!--							<label>Discount</label>-->
+<!--                            <input type="number"  name="discount" />-->
+<!--							<label>gm100</label>-->
+<!--							<select name="gm100" class="form-select">-->
+<!--								<option value="1">False</option>-->
+<!--								<option value="2">True</option>-->
+<!--							</select>-->
+<!--							<label>gm250</label>-->
+<!--							<select name="gm250" class="form-select">-->
+<!--								<option value="1">False</option>-->
+<!--								<option value="2">True</option>-->
+<!--							</select>-->
+<!--							<label>gm500</label>-->
+<!--							<select name="gm500" class="form-select">-->
+
+<!--								<option value="1">False</option>-->
+<!--								<option value="2">True</option>-->
+<!--							</select>-->
+<!--							<label>1kg</label>-->
+<!--							<select name="1kg" class="form-select">-->
+
+<!--								<option value="1">False</option>-->
+<!--								<option value="2">True</option>-->
+<!--							</select>-->
+
+<!--							<label> Image1</label>-->
+<!--							<input type="file" name="img1"><br>-->
+<!--							<label> Image2</label>-->
+<!--							<input type="file" name="img2"><br>-->
+<!--							<label> Image3</label>-->
+<!--							<input type="file" name="img3"><br>-->
+<!--							<button type="submit" class="btn btn-default">Add product</button>-->
+<!--						</form>-->
+
+
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--		</div>-->
+
+<!--</section>-->
+<div class="contact agileits">
+                <div class="contact-agileinfo">
+                    <div class="contact-form wthree">
+                        <h2>Add Bakery Product</h2>
+                        <br>
+                        <form method="post" enctype="multipart/form-data">
+                            {%csrf_token %}
+                            <div class="">
+                                <input type="text" name="name" placeholder="Product Name" value="{{Bakery.name}}" required="">
+                            </div>
+                            <div class="">
+                                <input class="text" type="text" name="description" placeholder="Product description" value="{{Bakery.desc}}" required="">
+                            </div>
+                            <div class="">
+                                <input class="email" type="text" name="baseprice" placeholder="Base price"  value="{{Bakery.basePrice}}" required="">
+                            </div>
+                            <div class="">
+                                <input class="text" type="text" name="discount" placeholder="discount"  value="{{Bakery.discount}}">
+                            </div>
+                            <label> Image1</label>
+                            <input type="file" name="img1"><br>
+                            <label> Image2</label>
+                            <input type="file" name="img2"><br>
+                            <label> Image3</label>
+                            <input type="file" name="img3"><br>
+                            <button type="submit" class="btn btn-success">Add Product</button>
+                        </form>
+                    </div>
+{% endblock %}

@@ -5,23 +5,23 @@
 <div class="privacy">
     <div class="container">
         <!-- tittle heading -->
-        <h3 class="tittle-w3l">Personal Information
+        <h3 class="tittle-w3l">Personal Information <br><br>
             <div class="contact agileits">
                 <div class="contact-agileinfo">
                     <div class="contact-form wthree">
-                        
+
                             <p>Welcome</p><h2>{{User.uname}}</h2>
                             <br>
                             <form method="post">
                                 {%csrf_token %}
                             <div class="">
-                                <input type="text" name="name" placeholder="Name" value="{{User.name}}" required="">
+                                <input type="text" name="name" placeholder="Name" value="{{User.name}}">
                             </div>
                             <div class="">
-                                <input class="text" type="text" name="uname" placeholder="Username" value="{{User.uname}}" required="">
+                                <input class="text" type="text" name="uname" placeholder="Username" value="{{User.uname}}" >
                             </div>
                             <div class="">
-                                <input class="email" type="email" name="email" placeholder="Email"  value="{{User.email}}" required="">
+                                <input class="email" type="email" name="email" placeholder="Email"  value="{{User.email}}" >
                             </div>
                             <div class="">
                                 <input class="text" type="text" name="address1" placeholder="Address" value="{{User.address1}}" required="">
@@ -38,6 +38,13 @@
                             <div class="">
                                 <input class="text" type="text" name="pin" placeholder="Pin" value="{{User.pin}}" required="">
                             </div>
+                            <h1 class="tittle-w3l">Bank Details</h1>
+                            <div class="">
+                                <input type="text" name="bankName" placeholder="Bank Name" value="{{User.bankName}}" >
+                            </div>
+                            <div class="">
+                                <input class="text" type="text" name="accountNumber" placeholder="Account Number" value="{{User.accountNumber}}" required="">
+                            </div>
                             <input type="submit" value="Update">
                         </form>
                     </div>
@@ -52,7 +59,7 @@
                 <i></i>
             </span>
         </h3>
-        
+
 
 <div class="checkout-right">
     <h4>Your shopping cart contains:
@@ -66,7 +73,6 @@
                     <th>Product</th>
                     <th>Quantity</th>
                     <th>Product Name</th>
-                    <th>Date</th>
 
                     <th>Price</th>
                     <th>Remove</th>
@@ -153,21 +159,14 @@
                 </tr>
             </tbody>
         </table>
-        
+
     </div>
 </div>
 <div class="privacy">
     <div class="container">
-        <!-- tittle heading -->
-        <h3 class="tittle-w3l">Bank Details
-            <span class="heading-style">
-                <i></i>
-                <i></i>
-                <i></i>
-            </span>
-        </h3>
 
-<!-- //checkout page -->
+
+
 
 
 

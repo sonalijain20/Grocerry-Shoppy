@@ -6,27 +6,27 @@
 	</div>
 	<!-- //banner-2 -->
 	<!-- page -->
-	<div class="services-breadcrumb">
-		<div class="agile_inner_breadcrumb">
-			<div class="container">
-				<ul class="w3_short">
-					<li>
-						<a href="/">Home</a>
-						<i>|</i>
-					</li>
-					{% for i in Category %}
-					<li>{{i.name}}</li>
-					{% endfor %}
-				</ul>
-			</div>
-		</div>
-	</div>
+<!--	<div class="services-breadcrumb">-->
+<!--		<div class="agile_inner_breadcrumb">-->
+<!--			<div class="container">-->
+<!--				<ul class="w3_short">-->
+<!--					<li>-->
+<!--						<a href="/">Home</a>-->
+<!--						<i>|</i>-->
+<!--					</li>-->
+<!--					{% for i in Category %}-->
+<!--					<li>{{i.name}}</li>-->
+<!--					{% endfor %}-->
+<!--				</ul>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--	</div>-->
 	<!-- //page -->
 	<!-- top Products -->
 	<div class="ads-grid">
 		<div class="container">
 			<!-- tittle heading -->
-			<h3 class="tittle-w3l">{{i.name}}
+			<h3 class="tittle-w3l"> Products
 				<span class="heading-style">
 					<i></i>
 					<i></i>
@@ -275,7 +275,7 @@
 								<img src="{{i.img1.url}}" alt="" width="200px" height="130px">
 									<div class="men-cart-pro">
 										<div class="inner-men-cart-pro">
-											<a href="" class="link-product-add-cart">Quick View</a>
+											<a href="/productinfo/{{i.id}}/{{i.cat}}/" class="link-product-add-cart">Quick View</a>
 										</div>
 									</div>
 									<span class="product-new-top">New</span>
@@ -289,19 +289,11 @@
 										<del>{{i.basePrice}}</del>
 									</div>
 									<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-										<form action="#" method="post">
-											<fieldset>
-												<input type="hidden" name="cmd" value="_cart" />
-												<input type="hidden" name="add" value="1" />
-												<input type="hidden" name="business" value=" " />
-												<input type="hidden" name="item_name" value="Zeeba Basmati Rice - 5 KG" />
-												<input type="hidden" name="amount" value="950.00" />
-												<input type="hidden" name="discount_amount" value="1.00" />
-												<input type="hidden" name="currency_code" value="USD" />
-												<input type="hidden" name="return" value=" " />
-												<input type="hidden" name="cancel_return" value=" " />
-												<input type="submit" name="submit" value="Add to cart" class="button" />
-											</fieldset>
+										<form method="post" action="/productinfo/{{i.id}}/{{i.cat}}/">
+											{% csrf_token %}
+											<button type="submit"class="button" type="submit" name="submit">
+												<i class="fa fa-cart-plus">Add to Cart</i>
+											</button>
 										</form>
 									</div>
 

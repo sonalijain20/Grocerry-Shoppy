@@ -22,25 +22,39 @@
                             <div class="">
                                 <input class="email" type="email" name="email" placeholder="Email"  value="{{User.email}}" required="">
                             </div>
-                            <div class="">
-                                <input class="text" type="text" name="address1" placeholder="Address" value="{{User.address1}}" required="">
+                                <div class="">
+                                <input class="text" type="text" name="phone" placeholder="phone"  value="{{User.phone}}">
                             </div>
-                            <div class="">
-                                <input class="text" type="text" name="landmark" placeholder="Landmark" value="{{User.landmark}}" required="">
+                                <div class="">
+                                <input class="text" type="text" name="address" placeholder="address"  value="{{User.address}}" required="">
+                            </div><div class="">
+                                <input class="text" type="text" name="city" placeholder="city"  value="{{User.city}}" required="">
                             </div>
-                            <div class="">
-                                <input class="text" type="text" name="city" placeholder="City" value="{{User.city}}" required="">
+                                       <div class="">
+                                <input type="text" name="bankname" placeholder="Name" value="{{User.bankName}}" required="">
                             </div>
-                            <div class="">
-                                <input class="text" type="text" name="state" placeholder="State" value="{{User.state}}" required="">
+                                <div class="">
+                                <input type="text" name="ifsc code" placeholder="code" value="{{User.ifscCode}}" required="">
                             </div>
-                            <div class="">
-                                <input class="text" type="text" name="pin" placeholder="Pin" value="{{User.pin}}" required="">
+                                <div class="">
+                                <input type="text" name="Account number" placeholder="account number" value="{{User.accountnumber}}" required="">
                             </div>
+
+
+
                             <input type="submit" value="Update">
                         </form>
                     </div>
         </h3>
+
+                        <a class="btn btn-info" href="/addbakery/">Add Bakery</a>
+                        <a class="btn btn-info" href="/addpulses/">Add pulses</a>
+                        <a class="btn btn-info" href="/addsnacks/">Add Snacks</a>
+                        <a class="btn btn-info" href="/addfruits/">Add Fruits</a>
+                        <a class="btn btn-info" href="/addvegetables/">Add Vegetables</a>
+                        <a class="btn btn-info" href="/addfrozenfood/">Add Frozen food</a>
+                        <a class="btn btn-info" href="/addspices/">Add Spices</a>
+                        <a class="btn btn-info" href="/addbeverages/">Add Beverages</a>
 <div class="privacy">
     <div class="container">
         <!-- tittle heading -->
@@ -54,115 +68,190 @@
 
 
 <div class="checkout-right">
-    <h4>Your shopping cart contains:
-        <span>3 Products</span>
     </h4>
     <div class="table-responsive">
         <table class="timetable_sub">
             <thead>
                 <tr>
-                    <th>SL No.</th>
-                    <th>Product</th>
-                    <th>Quality</th>
-                    <th>Product Name</th>
-
-                    <th>Price</th>
+					<th>Product</th>
+                    <th>Name</th>
+                    <th>Product Category</th>
+                    <th>Base Price</th>
+                    <th>Discount</th>
+					<th>Final Price</th>
+                    <th>Quantity Available</th>
                     <th>Remove</th>
                 </tr>
             </thead>
             <tbody>
+			{% for i in Beverages %}
                 <tr class="rem1">
-                    <td class="invert">1</td>
+
                     <td class="invert-image">
-                        <a href="single2.html">
-                            <img src="images/a7.jpg" alt=" " class="img-responsive">
-                        </a>
+						<img src="{{i.img1.url}}" alt=" " class="img-responsive" width="200px">
                     </td>
-                    <td class="invert">
-                        <div class="quantity">
-                            <div class="quantity-select">
-                                <div class="entry value-minus">&nbsp;</div>
-                                <div class="entry value">
-                                    <span>1</span>
-                                </div>
-                                <div class="entry value-plus active">&nbsp;</div>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="invert">Spotzero Spin Mop</td>
-                    <td class="invert">$888.00</td>
+                    <td class="invert"><b>{{i.name}}</b></td>
+                    <td>{{i.cat}}</td>
+					<td>{{i.basePrice}}</td>
+					 <td class="invert">{{i.discount}}</td>
+					<td>{{i.finalPrice}}</td>
+					<td>{{i.quantity}}</td>
                     <td class="invert">
                         <div class="rem">
-                            <div class="close1"> </div>
+<!--                            <div class="close1"> </div>-->
+
+                            <a href="/deleteproduct/{{i.id}}/{{i.cat}}" class="fa fa-trash"></a><br>
+                            <a href="/editproduct/{{i.id}}/{{i.cat}}" class="fas fa-edit"></a>
                         </div>
                     </td>
                 </tr>
-                <tr class="rem2">
-                    <td class="invert">2</td>
+			{% endfor %}
+			{% for i in Fruits %}
+                <tr class="rem1">
+
                     <td class="invert-image">
-                        <a href="single2.html">
-                            <img src="images/s6.jpg" alt=" " class="img-responsive">
-                        </a>
+						<img src="{{i.img1.url}}" alt=" " class="img-responsive" width="200px">
                     </td>
-                    <td class="invert">
-                        <div class="quantity">
-                            <div class="quantity-select">
-                                <div class="entry value-minus">&nbsp;</div>
-                                <div class="entry value">
-                                    <span>1</span>
-                                </div>
-                                <div class="entry value-plus active">&nbsp;</div>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="invert">Fair & Lovely, 80 g</td>
-                    <td class="invert">$121.60</td>
+                    <td class="invert"><b>{{i.name}}</b></td>
+                    <td>{{i.cat}}</td>
+					<td>{{i.basePrice}}</td>
+					 <td class="invert">{{i.discount}}</td>
+					<td>{{i.finalPrice}}</td>
+					<td>{{i.quantity}}</td>
                     <td class="invert">
                         <div class="rem">
-                            <div class="close2"> </div>
+                           <a href="/deleteproduct/{{i.id}}/{{i.cat}}" class="fa fa-trash"></a>
+                            <a href="/editproduct/{{i.id}}/{{i.cat}}" class="fas fa-edit"></a>
                         </div>
                     </td>
                 </tr>
-                <tr class="rem3">
-                    <td class="invert">3</td>
+			{% endfor %}
+			{% for i in Snacks %}
+                <tr class="rem1">
+
                     <td class="invert-image">
-                        <a href="single.html">
-                            <img src="images/s5.jpg" alt=" " class="img-responsive">
-                        </a>
+						<img src="{{i.img1.url}}" alt=" " class="img-responsive" width="200px">
                     </td>
-                    <td class="invert">
-                        <div class="quantity">
-                            <div class="quantity-select">
-                                <div class="entry value-minus">&nbsp;</div>
-                                <div class="entry value">
-                                    <span>1</span>
-                                </div>
-                                <div class="entry value-plus active">&nbsp;</div>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="invert">Sprite, 2.25L (Pack of 2)</td>
-                    <td class="invert">$180.00</td>
+                    <td class="invert"><b>{{i.name}}</b></td>
+                    <td>{{i.cat}}</td>
+					<td>{{i.basePrice}}</td>
+					 <td class="invert">{{i.discount}}</td>
+					<td>{{i.finalPrice}}</td>
+					<td>{{i.quantity}}</td>
                     <td class="invert">
                         <div class="rem">
-                            <div class="close3"> </div>
+                           <a href="/deleteproduct/{{i.id}}/{{i.cat}}" class="fa fa-trash"></a> <br>
+                            <a href="/editproduct/{{i.id}}/{{i.cat}}" class="fas fa-edit"></a>
                         </div>
                     </td>
                 </tr>
+			{% endfor %}
+            {% for i in Spices %}
+                <tr class="rem1">
+
+                    <td class="invert-image">
+						<img src="{{i.img1.url}}" alt=" " class="img-responsive" width="200px">
+                    </td>
+                    <td class="invert"><b>{{i.name}}</b></td>
+                    <td>{{i.cat}}</td>
+					<td>{{i.basePrice}}</td>
+					 <td class="invert">{{i.discount}}</td>
+					<td>{{i.finalPrice}}</td>
+					<td>{{i.quantity}}</td>
+                    <td class="invert">
+                        <div class="rem">
+                            <a href="/deleteproduct/{{i.id}}/{{i.cat}}" class="fa fa-trash"></a>
+                            <a href="/editproduct/{{i.id}}/{{i.cat}}" class="fas fa-edit"></a>
+                        </div>
+                    </td>
+                </tr>
+			{% endfor %}
+            {% for i in Vegetables %}
+                <tr class="rem1">
+
+                    <td class="invert-image">
+						<img src="{{i.img1.url}}" alt=" " class="img-responsive" width="200px">
+                    </td>
+                    <td class="invert"><b>{{i.name}}</b></td>
+                    <td>{{i.cat}}</td>
+					<td>{{i.basePrice}}</td>
+					 <td class="invert">{{i.discount}}</td>
+					<td>{{i.finalPrice}}</td>
+					<td>{{i.quantity}}</td>
+                    <td class="invert">
+                        <div class="rem">
+                            <a href="/deleteproduct/{{i.id}}/{{i.cat}}" class="fa fa-trash"></a>
+                            <a href="/editproduct/{{i.id}}/{{i.cat}}" class="fas fa-edit"></a>
+                        </div>
+                    </td>
+                </tr>
+			{% endfor %}
+            {% for i in FrozenFoods %}
+                <tr class="rem1">
+
+                    <td class="invert-image">
+						<img src="{{i.img1.url}}" alt=" " class="img-responsive" width="200px">
+                    </td>
+                    <td class="invert"><b>{{i.name}}</b></td>
+                    <td>{{i.cat}}</td>
+					<td>{{i.basePrice}}</td>
+					 <td class="invert">{{i.discount}}</td>
+					<td>{{i.finalPrice}}</td>
+					<td>{{i.quantity}}</td>
+                    <td class="invert">
+                        <div class="rem">
+                            <a href="/deleteproduct/{{i.id}}/{{i.cat}}" class="fa fa-trash"></a>
+                            <a href="/editproduct/{{i.id}}/{{i.cat}}" class="fas fa-edit"></a>
+                        </div>
+                    </td>
+                </tr>
+			{% endfor %}
+            {% for i in Pulses %}
+                <tr class="rem1">
+
+                    <td class="invert-image">
+						<img src="{{i.img1.url}}" alt=" " class="img-responsive" width="200px">
+                    </td>
+                    <td class="invert"><b>{{i.name}}</b></td>
+                    <td>{{i.cat}}</td>
+					<td>{{i.basePrice}}</td>
+					 <td class="invert">{{i.discount}}</td>
+					<td>{{i.finalPrice}}</td>
+					<td>{{i.quantity}}</td>
+                    <td class="invert">
+                        <div class="rem">
+                            <a href="/deleteproduct/{{i.id}}/{{i.cat}}" class="fa fa-trash"></a>
+                            <a href="/editproduct/{{i.id}}/{{i.cat}}" class="fas fa-edit"></a>
+                        </div>
+                    </td>
+                </tr>
+			{% endfor %}
+            {% for i in Bakery %}
+                <tr class="rem1">
+
+                    <td class="invert-image">
+						<img src="{{i.img1.url}}" alt=" " class="img-responsive" width="200px">
+                    </td>
+                    <td class="invert"><b>{{i.name}}</b></td>
+                    <td>{{i.cat}}</td>
+					<td>{{i.basePrice}}</td>
+					 <td class="invert">{{i.discount}}</td>
+					<td>{{i.finalPrice}}</td>
+					<td>{{i.quantity}}</td>
+                    <td class="invert">
+                        <div class="rem">
+                            <a href="/deleteproduct/{{i.id}}/{{i.cat}}" class="fa fa-trash"></a>
+                            <a href="/editproduct/{{i.id}}/{{i.cat}}" class="fas fa-edit"></a>
+                        </div>
+                    </td>
+                </tr>
+			{% endfor %}
             </tbody>
         </table>
 
     </div>
 </div>
-<div class="privacy">
-    <div class="container">
-        <!-- tittle heading -->
-        <h3 class="tittle-w3l">Bank Details
-            <span class="heading-style">
-                <i></i>
-                <i></i>
-                <i></i>
-            </span>
-        </h3>
+
+
 
 		{% endblock %}
