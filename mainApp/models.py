@@ -208,4 +208,18 @@ class WishList(models.Model):
         return str(self.id)
 
 
-#class Cart(models.Model):
+class Cart(models.Model):
+    user = models.ForeignKey(Buyer, on_delete=models.CASCADE)
+    frozenFoods = models.ForeignKey(FrozenFoods, on_delete=models.CASCADE)
+    bakery = models.ForeignKey(Bakery, on_delete=models.CASCADE)
+    spices = models.ForeignKey(Spices, on_delete=models.CASCADE)
+    pulses = models.ForeignKey(Pulses, on_delete=models.CASCADE)
+    vegetables = models.ForeignKey(Vegetables, on_delete=models.CASCADE)
+    snacks = models.ForeignKey(Snacks, on_delete=models.CASCADE)
+    fruits = models.ForeignKey(Fruits, on_delete=models.CASCADE)
+    beverages = models.ForeignKey(Beverages, on_delete=models.CASCADE)
+    cat = models.ForeignKey(KitchenCategory, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+
+    def __str__(self):
+        return str(self.id)
