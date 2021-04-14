@@ -289,8 +289,10 @@
 										<del>{{i.basePrice}}</del>
 									</div>
 									<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-										<form method="post" action="/productinfo/{{i.id}}/{{i.cat}}/">
+										<form method="post" action="/cart/{{i.id}}/{{i.cat}}/">
 											{% csrf_token %}
+											<input type="hidden" value="1" name="quantity">
+											<input type="hidden" value="{{i.finalPrice}}" name="frice">
 											<button type="submit"class="button" type="submit" name="submit">
 												<i class="fa fa-cart-plus">Add to Cart</i>
 											</button>

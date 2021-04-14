@@ -41,70 +41,31 @@
 				</div>
 			</div>
 			<div class="col-md-7 single-right-left simpleCart_shelfItem">
-				<h3>{{Product.name}}</h3>
-				<div class="rating1">
-					<span class="starRating">
-						<input id="rating5" type="radio" name="rating" value="5">
-						<label for="rating5">5</label>
-						<input id="rating4" type="radio" name="rating" value="4">
-						<label for="rating4">4</label>
-						<input id="rating3" type="radio" name="rating" value="3" checked="">
-						<label for="rating3">3</label>
-						<input id="rating2" type="radio" name="rating" value="2">
-						<label for="rating2">2</label>
-						<input id="rating1" type="radio" name="rating" value="1">
-						<label for="rating1">1</label>
-					</span>
-				</div>
+				<h3><b>{{Product.name}}</b></h3>
+				<h7>{{Product.size}}</h7>
 				<p>
 					<span class="item_price">Rs{{Product.basePrice}}</span>
 					<del>{{Product.finalPrice}}</del>
 				</p>
-<!--				<form action="" method="post">-->
-<!--					<div class="single-infoagile">-->
-<!--						<p><span class="item_price">Sizes Available</span></p>-->
-<!--						<select class="form-control" name="size">-->
-<!--							{% if Product.gm100 %}-->
-<!--							<option value="gm100"> 100gm</option>-->
-<!--							{% endif %}-->
-<!--							{% if Product.gm250 %}-->
-<!--							<option value="gm250"> 250gm</option>-->
-<!--							{% endif %}-->
-<!--							{% if Product.gm500 %}-->
-<!--							<option value="gm500"> 500gm</option>-->
-<!--							{% endif %}-->
-<!--							{% if Product.kg1 %}-->
-<!--							<option value="kg1"> kg1</option>-->
-<!--							{% endif %}-->
-<!--						</select>-->
-<!--						{% if Product.gm100 %}-->
-<!--						<p><span class="item_price">Qunatity For 100gm</span></p>-->
-<!--						<select class="form-control" name="quantity">-->
-<!--							<option>hgehf</option>-->
-<!--						</select>-->
-<!--						{% endif%}-->
-<!--						{% if Product.gm250 %}-->
-<!--						<p><span class="item_price">Qunatity For 250gm</span></p>-->
-<!--						<select class="form-control" name="quantity">-->
-<!--							<option>hgehf</option>-->
-<!--						</select>-->
-<!--						{% endif%}-->
-<!--						{% if Product.gm500 %}-->
-<!--						<p><span class="item_price">Qunatity For 500gm</span></p>-->
-<!--						<select class="form-control" name="quantity">-->
-<!--							<option>hgehf</option>-->
-<!--						</select>-->
-<!--						{% endif%}-->
-<!--					</div>-->
-<!--					<div class="product-single-w3l">-->
-<!--						<p>{{Product.desc}}</p>-->
-<!--					</div>-->
-<!--					<div class="occasion-cart">-->
-<!--						<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">-->
-<!--							<input type="submit" name="submit" value="Add to cart" class="button" />-->
-<!--						</div>-->
-<!--					</div>-->
-<!--				</form>-->
+				<form action="/cart/{{Product.id}}/{{Product.cat}}/" method="post">
+					{% csrf_token %}
+					<div class="occasion-cart">
+						<label>Quantity </label>
+					<input type="number" max="{{Product.quantity}}" name="quantity" value="1"><br>
+					<input type="hidden" name="fprice" value="{{Product.finalPrice}}"><br>
+						<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
+							<br><input type="submit" name="submit" value="Add to cart" class="button" />
+						</div>
+					</div>
+				</form>
+				<div class="product-single-w3l">
+					<p>
+						<i class="fa fa-hand-o-right" aria-hidden="true"></i>Product Description</p>
+					<ul>
+						{{Product.desc}}
+					</ul>
+
+				</div>
 			</div>
 			<div class="clearfix"> </div>
 		</div>

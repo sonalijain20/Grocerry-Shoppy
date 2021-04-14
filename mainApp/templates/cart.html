@@ -1,5 +1,66 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block body %}
-<h3>helooooo</h3>
+<div class="privacy">
+    <div class="container">
+        <!-- tittle heading -->
+        <h3 class="tittle-w3l">Your Cart
+            <span class="heading-style">
+                <i></i>
+                <i></i>
+                <i></i>
+            </span>
+        </h3>
+<div class="checkout-right">
+    <h4>Your shopping cart contains:
+        <span></span>
+    </h4>
+    <div class="table-responsive">
+        <table class="timetable_sub">
+            <thead>
+                <tr>
+
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Product Name</th>
+
+                    <th>Price</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for i in Cart %}
+                <tr class="rem1">
+                    <td class="invert-image">
+                        <a href="{{i.img1.url}}">
+                            <img src="images/a7.jpg" alt=" " class="img-responsive">
+                        </a>
+                    </td>
+                    <td class="invert">
+                        <div class="quantity">
+                            <div class="quantity-select">
+                                <div class="entry value-minus">&nbsp;</div>
+                                <div class="entry value">
+                                    <span>1</span>
+                                </div>
+                                <div class="entry value-plus active">&nbsp;</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="invert">{{i.name}}</td>
+                    <td class="invert">$888.00</td>
+                    <td class="invert">
+                        <div class="rem">
+                            <div class="close1"> </div>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+        <div class="privacy">
+    <div class="container">
 {% endblock %}
