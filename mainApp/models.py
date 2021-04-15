@@ -164,7 +164,7 @@ class Fruits(models.Model):
     img3=models.ImageField(upload_to='images/', default=None, blank=True, null=True)
 
     def __str__(self):
-        return str(self.id) + " " + self.name
+        return str(self.id)
 
 
 class Beverages(models.Model):
@@ -189,7 +189,7 @@ class KitchenCategory(models.Model):
     name=models.CharField(max_length=50, default=None, blank=True, null=True )
 
     def __str__(self):
-        return str(self.id) + " " + self.name
+        return str(self.id)
 
 
 class WishList(models.Model):
@@ -210,7 +210,6 @@ class WishList(models.Model):
 
 class Cart(models.Model):
     user = models.ForeignKey(Buyer, on_delete=models.CASCADE)
-
     frozenFoods = models.ForeignKey(FrozenFoods, on_delete=models.CASCADE, null=True, blank=True)
     bakery = models.ForeignKey(Bakery, on_delete=models.CASCADE, null=True, blank=True)
     spices = models.ForeignKey(Spices, on_delete=models.CASCADE, null=True, blank=True)
@@ -230,7 +229,7 @@ class Cart(models.Model):
 
 class CheckOut(models.Model):
     user= models.ForeignKey(Buyer, on_delete=models.CASCADE)
-    cart = models.ForeignKey(Cart, on_delete=models.DO_NOTHING)
+    # cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     total = models.IntegerField()
     name = models.CharField(max_length=20, default=None)
     phone = models.CharField(max_length=20, default=None)
@@ -240,3 +239,20 @@ class CheckOut(models.Model):
     state = models.CharField(max_length=20)
     pin = models.CharField(max_length=20)
     date = models.DateTimeField(auto_now=True)
+
+
+class OrdersPlaced(models.Model):
+    user = models.ForeignKey(Buyer, on_delete=models.CASCADE)
+    frozenFoods = models.ForeignKey(FrozenFoods, on_delete=models.CASCADE, null=True, blank=True)
+    bakery = models.ForeignKey(Bakery, on_delete=models.CASCADE, null=True, blank=True)
+    spices = models.ForeignKey(Spices, on_delete=models.CASCADE, null=True, blank=True)
+    pulses = models.ForeignKey(Pulses, on_delete=models.CASCADE, null=True, blank=True)
+    vegetables = models.ForeignKey(Vegetables, on_delete=models.CASCADE, null=True, blank=True)
+    snacks = models.ForeignKey(Snacks, on_delete=models.CASCADE, null=True, blank=True)
+    fruits = models.ForeignKey(Fruits, on_delete=models.CASCADE, null=True, blank=True)
+    beverages = models.ForeignKey(Beverages, on_delete=models.CASCADE, null=True, blank=True)
+    cat = models.ForeignKey(KitchenCategory, on_delete=models.CASCADE, null=True, blank=True)
+    quantity = models.IntegerField(default=1)
+    finalPrice = models.IntegerField(default=0)
+    date = models.DateTimeField(auto_now=True)
+
