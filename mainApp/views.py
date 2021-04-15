@@ -186,6 +186,8 @@ def addBakery(request):
             p.basePrice = int( request.POST.get('baseprice'))
             p.discount = request.POST.get('discount')
             p.finalPrice=p.basePrice-(p.basePrice*int(p.discount))//100
+            p.size = request.POST.get('size')
+            p.quantity = request.POST.get('quantity')
             p.img1 = request.FILES.get('img1')
             p.img2 = request.FILES.get('img2')
             p.img3 = request.FILES.get('img3')
@@ -211,7 +213,8 @@ def addPulses(request):
             p.basePrice = int( request.POST.get('baseprice'))
             p.discount = request.POST.get('discount')
             p.finalPrice=p.basePrice-(p.basePrice*int(p.discount))//100
-
+            p.size = request.POST.get('size')
+            p.quantity = request.POST.get('quantity')
             p.img1 = request.FILES.get('img1')
             p.img2 = request.FILES.get('img2')
             p.img3 = request.FILES.get('img3')
@@ -237,7 +240,8 @@ def addSnacks(request):
             p.basePrice = int( request.POST.get('baseprice'))
             p.discount = request.POST.get('discount')
             p.finalPrice=p.basePrice-(p.basePrice*int(p.discount))//100
-
+            p.size = request.POST.get('size')
+            p.quantity = request.POST.get('quantity')
             p.img1 = request.FILES.get('img1')
             p.img2 = request.FILES.get('img2')
             p.img3 = request.FILES.get('img3')
@@ -263,7 +267,8 @@ def addFruits(request):
             p.basePrice = int( request.POST.get('baseprice'))
             p.discount = request.POST.get('discount')
             p.finalPrice=p.basePrice-(p.basePrice*int(p.discount))//100
-
+            p.size = request.POST.get('size')
+            p.quantity = request.POST.get('quantity')
             p.img1 = request.FILES.get('img1')
             p.img2 = request.FILES.get('img2')
             p.img3 = request.FILES.get('img3')
@@ -289,7 +294,8 @@ def addVegetables(request):
             p.basePrice = int( request.POST.get('baseprice'))
             p.discount = request.POST.get('discount')
             p.finalPrice=p.basePrice-(p.basePrice*int(p.discount))//100
-
+            p.size = request.POST.get('size')
+            p.quantity = request.POST.get('quantity')
             p.img1 = request.FILES.get('img1')
             p.img2 = request.FILES.get('img2')
             p.img3 = request.FILES.get('img3')
@@ -315,7 +321,8 @@ def addFrozenfoods(request):
             p.basePrice = int( request.POST.get('baseprice'))
             p.discount = request.POST.get('discount')
             p.finalPrice=p.basePrice-(p.basePrice*int(p.discount))//100
-
+            p.size = request.POST.get('size')
+            p.quantity = request.POST.get('quantity')
             p.img1 = request.FILES.get('img1')
             p.img2 = request.FILES.get('img2')
             p.img3 = request.FILES.get('img3')
@@ -341,7 +348,8 @@ def addSpices(request):
             p.basePrice = int( request.POST.get('baseprice'))
             p.discount = request.POST.get('discount')
             p.finalPrice=p.basePrice-(p.basePrice*int(p.discount))//100
-
+            p.size = request.POST.get('size')
+            p.quantity = request.POST.get('quantity')
             p.img1 = request.FILES.get('img1')
             p.img2 = request.FILES.get('img2')
             p.img3 = request.FILES.get('img3')
@@ -367,8 +375,8 @@ def addBeverages(request):
             p.basePrice = int( request.POST.get('baseprice'))
             p.discount = request.POST.get('discount')
             p.finalPrice=p.basePrice-(p.basePrice*int(p.discount))//100
-
-
+            p.size = request.POST.get('size')
+            p.quantity = request.POST.get('quantity')
             p.img1 = request.FILES.get('img1')
             p.img2 = request.FILES.get('img2')
             p.img3 = request.FILES.get('img3')
@@ -445,18 +453,109 @@ def editProduct(request,num, cat):
     if (user.is_superuser):
         return HttpResponseRedirect('/admin/')
     if(cat=='Beverages'):
-        bev=Beverages.objects.get(id=num)
+        p=Beverages.objects.get(id=num)
         if(request.method=='POST'):
             s = Seller.objects.get(uname=request.user)
-            bev.name = request.POST.get('name')
-            bev.desc = request.POST.get('description')
-            bev.basePrice = int(request.POST.get('baseprice'))
-            bev.discount = request.POST.get('discount')
-            bev.finalPrice = bev.basePrice - bev.basePrice * int(bev.discount) // 100
-            bev.seller = s
-            bev.save()
+            p.name = request.POST.get('name')
+            p.desc = request.POST.get('description')
+            p.basePrice = int(request.POST.get('baseprice'))
+            p.discount = request.POST.get('discount')
+            p.finalPrice = p.basePrice - p.basePrice * int(p.discount) // 100
+            p.seller_details = s
+            p.save()
             return HttpResponseRedirect('/profile/')
-        return render(request,"editproduct.html",{"Product":bev,"KitCat": kit})
+
+    if (cat == 'Vegetables'):
+        veg = Vegetables.objects.get(id=num)
+        if (request.method == 'POST'):
+            s = Seller.objects.get(uname=request.user)
+            p.name = request.POST.get('name')
+            p.desc = request.POST.get('description')
+            p.basePrice = int(request.POST.get('baseprice'))
+            p.discount = request.POST.get('discount')
+            p.finalPrice = p.basePrice - p.basePrice * int(p.discount) // 100
+            p.seller_details = s
+            p.save()
+            return HttpResponseRedirect('/profile/')
+
+    if (cat == 'Fruits'):
+        p = Fruits.objects.get(id=num)
+        if (request.method == 'POST'):
+            s = Seller.objects.get(uname=request.user)
+            p.name = request.POST.get('name')
+            p.desc = request.POST.get('description')
+            p.basePrice = int(request.POST.get('baseprice'))
+            p.discount = request.POST.get('discount')
+            p.finalPrice = p.basePrice - p.basePrice * int(p.discount) // 100
+            p.seller_details = s
+            p.save()
+            return HttpResponseRedirect('/profile/')
+
+    if (cat == 'Spices'):
+        p = Spices.objects.get(id=num)
+        if (request.method == 'POST'):
+            s = Seller.objects.get(uname=request.user)
+            p.name = request.POST.get('name')
+            p.desc = request.POST.get('description')
+            p.basePrice = int(request.POST.get('baseprice'))
+            p.discount = request.POST.get('discount')
+            p.finalPrice = p.basePrice - p.basePrice * int(p.discount) // 100
+            p.seller_details = s
+            p.save()
+            return HttpResponseRedirect('/profile/')
+
+    if (cat == 'Snacks'):
+        p = Snacks.objects.get(id=num)
+        if (request.method == 'POST'):
+            s = Seller.objects.get(uname=request.user)
+            p.name = request.POST.get('name')
+            p.desc = request.POST.get('description')
+            p.basePrice = int(request.POST.get('baseprice'))
+            p.discount = request.POST.get('discount')
+            p.finalPrice = p.basePrice - p.basePrice * int(p.discount) // 100
+            p.seller_details = s
+            p.save()
+            return HttpResponseRedirect('/profile/')
+
+    if (cat == 'Bakery'):
+        p = Bakery.objects.get(id=num)
+        if (request.method == 'POST'):
+            s = Seller.objects.get(uname=request.user)
+            p.name = request.POST.get('name')
+            p.desc = request.POST.get('description')
+            p.basePrice = int(request.POST.get('baseprice'))
+            p.discount = request.POST.get('discount')
+            p.finalPrice = p.basePrice - p.basePrice * int(p.discount) // 100
+            p.seller_details = s
+            p.save()
+            return HttpResponseRedirect('/profile/')
+
+    if (cat == 'Pulses'):
+        p = Pulses.objects.get(id=num)
+        if (request.method == 'POST'):
+            s = Seller.objects.get(uname=request.user)
+            p.name = request.POST.get('name')
+            p.desc = request.POST.get('description')
+            p.basePrice = int(request.POST.get('baseprice'))
+            p.discount = request.POST.get('discount')
+            p.finalPrice = p.basePrice - p.basePrice * int(p.discount) // 100
+            p.seller_details = s
+            p.save()
+            return HttpResponseRedirect('/profile/')
+
+    if (cat == 'FrozenFoods'):
+        p = FrozenFoods.objects.get(id=num)
+        if (request.method == 'POST'):
+            s = Seller.objects.get(uname=request.user)
+            p.name = request.POST.get('name')
+            p.desc = request.POST.get('description')
+            p.basePrice = int(request.POST.get('baseprice'))
+            p.discount = request.POST.get('discount')
+            p.finalPrice = p.basePrice - p.basePrice * int(p.discount) // 100
+            p.seller_details = s
+            p.save()
+            return HttpResponseRedirect('/profile/')
+    return render(request, "editproduct.html", {"Product":p,"KitCat": kit})
 
 
 @login_required(login_url='/login/')

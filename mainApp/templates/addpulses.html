@@ -11,16 +11,23 @@
                             <form method="post" enctype="multipart/form-data">
                                 {%csrf_token %}
                             <div class="">
-                                <input type="text" name="name" placeholder="Product Name" value="{{Bakery.name}}" required="">
+                                <input type="text" name="name" placeholder="Product Name" value="{{Pulses.name}}" required="">
                             </div>
                             <div class="">
-                                <input class="text" type="text" name="description" placeholder="Product description" value="{{Bakery.desc}}" required="">
+                                <input class="text" type="text" name="description" placeholder="Product description" value="{{Pulses.desc}}" required="">
                             </div>
                             <div class="">
-                                <input class="email" type="text" name="baseprice" placeholder="Base price"  value="{{Bakery.basePrice}}" required="">
+                                <input class="email" type="text" name="baseprice" placeholder="Base price"  value="{{Pulses.basePrice}}" required="">
                             </div>
                                 <div class="">
-                                <input class="text" type="text" name="discount" placeholder="discount"  value="{{Bakery.discount}}">
+                                <input class="text" type="text" name="discount" placeholder="discount"  value="{{Pulses.discount}}">
+                            </div>
+
+                                <div class="">
+                                <input class="text" type="text" name="size" placeholder="size"  value="{{Pulses.size}}">
+                            </div>
+                                <div class="">
+                                <input class="text" type="text" name="quantity" placeholder="quantity"  value="{{Pulses.quantity}}">
                             </div>
 							<label> Image1</label>
 							<input type="file" name="img1"><br>
