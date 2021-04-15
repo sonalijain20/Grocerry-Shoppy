@@ -54,6 +54,7 @@ def signupUser(request):
 
 
 def loginDetails(request):
+    kit = KitchenCategory.objects.all()
     if (request.method == "POST"):
         uname = request.POST.get('uname')
         pword = request.POST.get('password')
@@ -64,7 +65,7 @@ def loginDetails(request):
             return HttpResponseRedirect('/')
         else:
             messages.error(request, "Invalid Username or password")
-    return render(request, "index.html")
+    return render(request, "index.html", {"KitCat": kit})
 
 
 def logout(request):
@@ -364,6 +365,7 @@ def addBeverages(request):
             return HttpResponseRedirect('/')
     return render(request, "addbeverages.html", {"KitCat": kit})
 
+
 def cartDetails(request):
     kit = KitchenCategory.objects.all()
     if(request.user.is_anonymous):
@@ -428,6 +430,7 @@ def cart(request, num, cat):
 
     return render(request, "cart.html", {"KitCat": kit})
 
+
 def deleteCart(request, num):
     user = User.objects.get(username=request.user)
     kit = KitchenCategory.objects.all()
@@ -436,15 +439,6 @@ def deleteCart(request, num):
     cart = Cart.objects.get(id=num)
     cart.delete()
     return HttpResponseRedirect('/cartdetails/')
-
-
-
-
-
-
-
-
-
 
 
 def productInfo(request, num, cat):
@@ -668,6 +662,7 @@ def checkOut(request):
     except:
         user = Buyer.objects.get(uname=request.user)
         if (request.method == "POST"):
+            t=0
             ch = CheckOut()
             ch.user = user
             ch.address1 = request.POST.get('address1')
@@ -678,10 +673,24 @@ def checkOut(request):
             ch.email = request.POST.get('email')
             ch.phone = request.POST.get('phone')
             cart = Cart.objects.filter(user=user)
-            ch.cart = cart[0]
-            ch.total = cart[0].total
+            for i in cart:
+                t = t + i.total
+                order=OrdersPlaced()
+                if(i.cat==KitchenCategory.objects.get(name='Fruits')):
+                    print("\n\n\n\n\n\n")
+                    # f=i.fruits
+                    # print(type(f))
+                    order.user = i.user
+                    order.fruits = i.fruits
+                    print("\n\n\n\nn\n\n\n hello")
+                    order.quantity = i.quantity
+                    order.finalPrice = i.finalPrice
+                    order.save()
+            if(t<1000):
+                t+=150
+            ch.total = t
             ch.save()
-            #cart.delete()
+            cart.delete()
             return HttpResponseRedirect('/payment/')
         return render(request, "checkout.html", {"User": user})
 
