@@ -388,7 +388,7 @@ def cart(request, num, cat):
         return HttpResponseRedirect('/admin/')
     kit = KitchenCategory.objects.all()
     if (request.method == 'POST'):
-        # try:
+        try:
             c = Cart()
             if(cat=='Bakery'):
                 c.bakery=Bakery.objects.get(id=num)
@@ -408,17 +408,34 @@ def cart(request, num, cat):
                 c.vegetables = Vegetables.objects.get(id=num)
             c.user = Buyer.objects.get(uname=request.user)
             c.cat = KitchenCategory.objects.get(name=cat)
-            c.quantity = request.POST.get('quantity')
-            print("\n\n\n\n\n")
+            c.quantity = int(request.POST.get('quantity'))
             print(type(c.quantity))
             c.finalPrice = int(request.POST.get('fprice'))
             c.total = c.finalPrice * c.quantity
             c.save()
-            return render(request, "cart.html", {"KitCat": kit})
-        # except:
-        #     return HttpResponseRedirect('/login/')
+            return HttpResponseRedirect('/cartdetails/')
+        except:
+            return HttpResponseRedirect('/login/')
 
     return render(request, "cart.html", {"KitCat": kit})
+
+def deleteCart(request, num):
+    user = User.objects.get(username=request.user)
+    kit = KitchenCategory.objects.all()
+    if (user.is_superuser):
+        return HttpResponseRedirect('/admin/')
+    cart = Cart.objects.get(id=num)
+    cart.delete()
+    return HttpResponseRedirect('/cartdetails/')
+
+
+
+
+
+
+
+
+
 
 
 def productInfo(request, num, cat):
@@ -539,3 +556,35 @@ def wishlistDelete(request, num):
     wish = WishList.objects.get(id=num)
     wish.delete()
     return HttpResponseRedirect('/wishlist/')
+
+
+def checkOut(request):
+    user = User.objects.get(username=request.user)
+    if (user.is_superuser):
+        return HttpResponseRedirect('/admin/')
+    try:
+        user = Seller.objects.get(uname=request.user)
+        return HttpResponseRedirect('/profile/')
+    except:
+        user = Buyer.objects.get(uname=request.user)
+        if (request.method == "POST"):
+            ch = CheckOut()
+            ch.user = user
+            ch.address1 = request.POST.get('address1')
+            ch.pin = request.POST.get('pin')
+            ch.state = request.POST.get('state')
+            ch.city = request.POST.get('city')
+            ch.name = request.POST.get('name')
+            ch.email = request.POST.get('email')
+            ch.phone = request.POST.get('phone')
+            cart = Cart.objects.filter(user=user)
+            ch.cart = cart[0]
+            ch.total = cart[0].total
+            ch.save()
+            #cart.delete()
+            return HttpResponseRedirect('/payment/')
+        return render(request, "checkout.html", {"User": user})
+
+
+def payment(request):
+    return render(request, "payment.html")

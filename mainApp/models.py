@@ -210,6 +210,7 @@ class WishList(models.Model):
 
 class Cart(models.Model):
     user = models.ForeignKey(Buyer, on_delete=models.CASCADE)
+
     frozenFoods = models.ForeignKey(FrozenFoods, on_delete=models.CASCADE, null=True, blank=True)
     bakery = models.ForeignKey(Bakery, on_delete=models.CASCADE, null=True, blank=True)
     spices = models.ForeignKey(Spices, on_delete=models.CASCADE, null=True, blank=True)
@@ -225,3 +226,17 @@ class Cart(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+
+class CheckOut(models.Model):
+    user= models.ForeignKey(Buyer, on_delete=models.CASCADE)
+    cart = models.ForeignKey(Cart, on_delete=models.DO_NOTHING)
+    total = models.IntegerField()
+    name = models.CharField(max_length=20, default=None)
+    phone = models.CharField(max_length=20, default=None)
+    email = models.CharField(max_length=20, default=None)
+    address1 = models.CharField(max_length=50)
+    city = models.CharField(max_length=20)
+    state = models.CharField(max_length=20)
+    pin = models.CharField(max_length=20)
+    date = models.DateTimeField(auto_now=True)
