@@ -4,6 +4,10 @@
 <div class="privacy">
     <div class="container">
         <!-- tittle heading -->
+
+{% if not Cart %}
+        <h3 class="tittle-w3l">Your Cart is empty. </h3>
+{% else %}
         <h3 class="tittle-w3l">Your Cart
             <span class="heading-style">
                 <i></i>
@@ -31,11 +35,6 @@
             <tbody>
             {% for i in Cart %}
                 <tr class="rem1">
-<!--                    <td class="invert-image">-->
-<!--                        <a href="{{i.img1.url}}">-->
-<!--                            <img src="images/a7.jpg" alt=" " class="img-responsive">-->
-<!--                        </a>-->
-<!--                    </td>-->
                     {% if i.snacks %}
                     <td class="invert-image"><img src="{{i.snacks.img1.url}}"></td>
                     {% endif %}
@@ -133,6 +132,7 @@
 
     </div>
 </div>
+        {% endif %}
         <div class="privacy">
     <div class="container">
 {% endblock %}
