@@ -50,7 +50,7 @@ class FrozenFoods(models.Model):
     basePrice = models.IntegerField()
     discount = models.IntegerField(default=0, null=True, blank=True)
     finalPrice = models.IntegerField()
-    size = models.IntegerField(default=0, null=True, blank=True)
+    size = models.CharField(max_length=10)
     quantity = models.IntegerField(default=0,null=True, blank=True)
     seller_details = models.ForeignKey(Seller, on_delete=models.CASCADE)
 
@@ -69,7 +69,7 @@ class Bakery(models.Model):
     basePrice = models.IntegerField()
     discount = models.IntegerField(default=0, null=True, blank=True)
     finalPrice = models.IntegerField()
-    size = models.IntegerField(default=0, null=True, blank=True)
+    size = models.CharField(max_length=10)
     quantity = models.IntegerField(default=0, null=True, blank=True)
     seller_details = models.ForeignKey(Seller, on_delete=models.CASCADE)
 
@@ -87,7 +87,7 @@ class Pulses(models.Model):
     basePrice = models.IntegerField()
     discount = models.IntegerField(default=0, null=True, blank=True)
     finalPrice = models.IntegerField()
-    size = models.IntegerField(default=0, null=True, blank=True)
+    size = models.CharField(max_length=10)
     quantity = models.IntegerField(default=0, null=True, blank=True)
     seller_details = models.ForeignKey(Seller, on_delete=models.CASCADE)
 
@@ -105,7 +105,7 @@ class Spices(models.Model):
     img1 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     img2 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     img3 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
-    size = models.IntegerField(default=0, null=True, blank=True)
+    size = models.CharField(max_length=10)
     quantity = models.IntegerField(default=0, null=True, blank=True)
     seller_details=models.ForeignKey(Seller,on_delete=models.CASCADE)
 
@@ -124,7 +124,7 @@ class Vegetables(models.Model):
     img1=models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     img2=models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     img3=models.ImageField(upload_to='images/', default=None, blank=True, null=True)
-    size = models.IntegerField(default=0, null=True, blank=True)
+    size = models.CharField(max_length=10)
     quantity = models.IntegerField(default=0, null=True, blank=True)
 
     def __str__(self):
@@ -141,7 +141,7 @@ class Snacks(models.Model):
     img1 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     img2 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     img3 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
-    size = models.IntegerField(default=0, null=True, blank=True)
+    size = models.CharField(max_length=10)
     quantity = models.IntegerField(default=0, null=True, blank=True)
     seller_details = models.ForeignKey(Seller, on_delete=models.CASCADE)
 
@@ -157,7 +157,7 @@ class Fruits(models.Model):
     finalPrice = models.IntegerField()
     desc = models.TextField()
     seller_details=models.ForeignKey(Seller, on_delete=models.CASCADE)
-    size = models.IntegerField(default=0, null=True, blank=True)
+    size = models.CharField(max_length=10)
     quantity = models.IntegerField(default=0, null=True, blank=True)
     img1=models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     img2=models.ImageField(upload_to='images/', default=None, blank=True, null=True)
@@ -178,7 +178,7 @@ class Beverages(models.Model):
     img2 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     img3 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     seller_details = models.ForeignKey(Seller, on_delete=models.CASCADE)
-    size = models.IntegerField(default=0, null=True, blank=True)
+    size = models.CharField(max_length=10)
     quantity = models.IntegerField(default=0, null=True, blank=True)
 
     def __str__(self):
@@ -208,4 +208,35 @@ class WishList(models.Model):
         return str(self.id)
 
 
-#class Cart(models.Model):
+class Cart(models.Model):
+    user = models.ForeignKey(Buyer, on_delete=models.CASCADE)
+
+    frozenFoods = models.ForeignKey(FrozenFoods, on_delete=models.CASCADE, null=True, blank=True)
+    bakery = models.ForeignKey(Bakery, on_delete=models.CASCADE, null=True, blank=True)
+    spices = models.ForeignKey(Spices, on_delete=models.CASCADE, null=True, blank=True)
+    pulses = models.ForeignKey(Pulses, on_delete=models.CASCADE, null=True, blank=True)
+    vegetables = models.ForeignKey(Vegetables, on_delete=models.CASCADE, null=True, blank=True)
+    snacks = models.ForeignKey(Snacks, on_delete=models.CASCADE, null=True, blank=True)
+    fruits = models.ForeignKey(Fruits, on_delete=models.CASCADE, null=True, blank=True)
+    beverages = models.ForeignKey(Beverages, on_delete=models.CASCADE, null=True, blank=True)
+    cat = models.ForeignKey(KitchenCategory, on_delete=models.CASCADE, null=True, blank=True)
+    quantity = models.IntegerField(default=1)
+    finalPrice = models.IntegerField(default=0)
+    total=models.IntegerField(default=0)
+
+    def __str__(self):
+        return str(self.id)
+
+
+class CheckOut(models.Model):
+    user= models.ForeignKey(Buyer, on_delete=models.CASCADE)
+    cart = models.ForeignKey(Cart, on_delete=models.DO_NOTHING)
+    total = models.IntegerField()
+    name = models.CharField(max_length=20, default=None)
+    phone = models.CharField(max_length=20, default=None)
+    email = models.CharField(max_length=20, default=None)
+    address1 = models.CharField(max_length=50)
+    city = models.CharField(max_length=20)
+    state = models.CharField(max_length=20)
+    pin = models.CharField(max_length=20)
+    date = models.DateTimeField(auto_now=True)

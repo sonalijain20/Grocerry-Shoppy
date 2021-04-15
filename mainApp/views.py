@@ -149,29 +149,6 @@ def product(request, cat):
     return render(request, "product.html", {"Product": p, "Category": cat, "KitCat": kit})
 
 
-def productInfo(request, num, cat):
-    kit = KitchenCategory.objects.all()
-    print("\n\n\n")
-    print(cat)
-    if(cat=='FrozenFoods'):
-        p=FrozenFoods.objects.get(id=num)
-    if(cat=='Fruits'):
-        p=Fruits.objects.get(id=num)
-    if(cat=='Beverages'):
-        p=Beverages.objects.get(id=num)
-    if(cat=='Spices'):
-        p=Spices.objects.get(id=num)
-    if(cat=='Pulses'):
-        p=Pulses.objects.get(id=num)
-    if(cat=='Vegetables'):
-        p=Vegetables.objects.get(id=num)
-    if(cat=='Bakery'):
-        p=Bakery.objects.get(id=num)
-    if(cat=='Snacks'):
-        p=Snacks.objects.get(id=num)
-    return render(request, "productinfo.html", {"Product":p, "KitCat": kit})
-
-
 def addBakery(request):
     kit = KitchenCategory.objects.all()
     user= User.objects.get(username=request.user)
@@ -387,12 +364,87 @@ def addBeverages(request):
             return HttpResponseRedirect('/')
     return render(request, "addbeverages.html", {"KitCat": kit})
 
+def cartDetails(request):
+    kit = KitchenCategory.objects.all()
+    if(request.user.is_anonymous):
+        return HttpResponseRedirect('/login/')
+    user = User.objects.get(username=request.user)
+    if(user.is_superuser):
+        return HttpResponseRedirect('/admin/')
+    try:
+        Seller.objects.get(uname=request.user)
+        return HttpResponseRedirect('/profile/')
+    except:
+        b = Buyer.objects.get(uname=request.user)
+        cart = Cart.objects.filter(user=b)
+        subtotal = 0
+        for i in cart:
+            subtotal += i.total
+        if (subtotal < 1000):
+            delivery = 150
+        else:
+            delivery = 0
+        finalAmount = subtotal + delivery
+
+    return render(request,"cart.html", {"KitCat": kit, "Cart": cart, "Sub": subtotal, "Delivery": delivery, "Final": finalAmount})
+
+
 
 @login_required(login_url='/login/')
-def cart(request):
+def cart(request, num, cat):
+    user = User.objects.get(username=request.user)
+    if (user.is_superuser):
+        return HttpResponseRedirect('/admin/')
     kit = KitchenCategory.objects.all()
+    if (request.method == 'POST'):
+        try:
+            c = Cart()
+            if(cat=='Bakery'):
+                c.bakery=Bakery.objects.get(id=num)
+            if(cat=='Beverages'):
+                c.beverages=Beverages.objects.get(id=num)
+            if(cat=='Spices'):
+                c.spices=Spices.objects.get(id=num)
+            if(cat=='Snacks'):
+                c.snacks=Snacks.objects.get(id=num)
+            if(cat=='Pulses'):
+                c.pulses=Pulses.objects.get(id=num)
+            if (cat == 'Frozen Foods'):
+                c.frozenFoods = FrozenFoods.objects.get(id=num)
+            if (cat == 'Fruits'):
+                c.fruits = Fruits.objects.get(id=num)
+            if (cat == 'Vegetables'):
+                c.vegetables = Vegetables.objects.get(id=num)
+            c.user = Buyer.objects.get(uname=request.user)
+            c.cat = KitchenCategory.objects.get(name=cat)
+            c.quantity = int(request.POST.get('quantity'))
+            print(type(c.quantity))
+            c.finalPrice = int(request.POST.get('fprice'))
+            c.total = c.finalPrice * c.quantity
+            c.save()
+            return HttpResponseRedirect('/cartdetails/')
+        except:
+            return HttpResponseRedirect('/login/')
 
     return render(request, "cart.html", {"KitCat": kit})
+
+def deleteCart(request, num):
+    user = User.objects.get(username=request.user)
+    kit = KitchenCategory.objects.all()
+    if (user.is_superuser):
+        return HttpResponseRedirect('/admin/')
+    cart = Cart.objects.get(id=num)
+    cart.delete()
+    return HttpResponseRedirect('/cartdetails/')
+
+
+
+
+
+
+
+
+
 
 
 def productInfo(request, num, cat):
@@ -413,7 +465,8 @@ def productInfo(request, num, cat):
         p=Bakery.objects.get(id=num)
     if(cat=='Snacks'):
         p=Snacks.objects.get(id=num)
-    return render(request, "productinfo.html", {"Product":p, "KitCat": kit})
+    dic={"Product":p, "KitCat": kit, "Quan": str(p.quantity)}
+    return render(request, "productinfo.html", dic)
 
 
 def deleteProduct(request, num, cat):
@@ -603,3 +656,35 @@ def wishlistDelete(request, num):
     wish = WishList.objects.get(id=num)
     wish.delete()
     return HttpResponseRedirect('/wishlist/')
+
+
+def checkOut(request):
+    user = User.objects.get(username=request.user)
+    if (user.is_superuser):
+        return HttpResponseRedirect('/admin/')
+    try:
+        user = Seller.objects.get(uname=request.user)
+        return HttpResponseRedirect('/profile/')
+    except:
+        user = Buyer.objects.get(uname=request.user)
+        if (request.method == "POST"):
+            ch = CheckOut()
+            ch.user = user
+            ch.address1 = request.POST.get('address1')
+            ch.pin = request.POST.get('pin')
+            ch.state = request.POST.get('state')
+            ch.city = request.POST.get('city')
+            ch.name = request.POST.get('name')
+            ch.email = request.POST.get('email')
+            ch.phone = request.POST.get('phone')
+            cart = Cart.objects.filter(user=user)
+            ch.cart = cart[0]
+            ch.total = cart[0].total
+            ch.save()
+            #cart.delete()
+            return HttpResponseRedirect('/payment/')
+        return render(request, "checkout.html", {"User": user})
+
+
+def payment(request):
+    return render(request, "payment.html")
