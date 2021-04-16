@@ -184,6 +184,8 @@ def addBakery(request):
             p.finalPrice=p.basePrice-(p.basePrice*int(p.discount))//100
             p.size = request.POST.get('size')
             p.quantity = request.POST.get('quantity')
+            if(int(p.quantity)>0):
+                p.stock=True
             p.img1 = request.FILES.get('img1')
             p.img2 = request.FILES.get('img2')
             p.img3 = request.FILES.get('img3')
@@ -211,6 +213,8 @@ def addPulses(request):
             p.finalPrice=p.basePrice-(p.basePrice*int(p.discount))//100
             p.size = request.POST.get('size')
             p.quantity = request.POST.get('quantity')
+            if (int(p.quantity) > 0):
+                p.stock = True
             p.img1 = request.FILES.get('img1')
             p.img2 = request.FILES.get('img2')
             p.img3 = request.FILES.get('img3')
@@ -238,6 +242,8 @@ def addSnacks(request):
             p.finalPrice=p.basePrice-(p.basePrice*int(p.discount))//100
             p.size = request.POST.get('size')
             p.quantity = request.POST.get('quantity')
+            if (int(p.quantity) > 0):
+                p.stock = True
             p.img1 = request.FILES.get('img1')
             p.img2 = request.FILES.get('img2')
             p.img3 = request.FILES.get('img3')
@@ -265,6 +271,8 @@ def addFruits(request):
             p.finalPrice=p.basePrice-(p.basePrice*int(p.discount))//100
             p.size = request.POST.get('size')
             p.quantity = request.POST.get('quantity')
+            if (int(p.quantity) > 0):
+                p.stock = True
             p.img1 = request.FILES.get('img1')
             p.img2 = request.FILES.get('img2')
             p.img3 = request.FILES.get('img3')
@@ -292,6 +300,8 @@ def addVegetables(request):
             p.finalPrice=p.basePrice-(p.basePrice*int(p.discount))//100
             p.size = request.POST.get('size')
             p.quantity = request.POST.get('quantity')
+            if (int(p.quantity) > 0):
+                p.stock = True
             p.img1 = request.FILES.get('img1')
             p.img2 = request.FILES.get('img2')
             p.img3 = request.FILES.get('img3')
@@ -319,6 +329,8 @@ def addFrozenfoods(request):
             p.finalPrice=p.basePrice-(p.basePrice*int(p.discount))//100
             p.size = request.POST.get('size')
             p.quantity = request.POST.get('quantity')
+            if (int(p.quantity) > 0):
+                p.stock = True
             p.img1 = request.FILES.get('img1')
             p.img2 = request.FILES.get('img2')
             p.img3 = request.FILES.get('img3')
@@ -346,6 +358,8 @@ def addSpices(request):
             p.finalPrice=p.basePrice-(p.basePrice*int(p.discount))//100
             p.size = request.POST.get('size')
             p.quantity = request.POST.get('quantity')
+            if (int(p.quantity) > 0):
+                p.stock = True
             p.img1 = request.FILES.get('img1')
             p.img2 = request.FILES.get('img2')
             p.img3 = request.FILES.get('img3')
@@ -373,6 +387,8 @@ def addBeverages(request):
             p.finalPrice=p.basePrice-(p.basePrice*int(p.discount))//100
             p.size = request.POST.get('size')
             p.quantity = request.POST.get('quantity')
+            if (int(p.quantity) > 0):
+                p.stock = True
             p.img1 = request.FILES.get('img1')
             p.img2 = request.FILES.get('img2')
             p.img3 = request.FILES.get('img3')
@@ -526,6 +542,11 @@ def editProduct(request,num, cat):
             p.basePrice = int(request.POST.get('baseprice'))
             p.discount = request.POST.get('discount')
             p.finalPrice = p.basePrice - p.basePrice * int(p.discount) // 100
+            p.quantity = request.POST.get('quantity')
+            if (int(p.quantity) > 0):
+                p.stock = True
+            else:
+                p.stock = False
             p.seller_details = s
             p.save()
             return HttpResponseRedirect('/profile/')
@@ -539,6 +560,11 @@ def editProduct(request,num, cat):
             p.basePrice = int(request.POST.get('baseprice'))
             p.discount = request.POST.get('discount')
             p.finalPrice = p.basePrice - p.basePrice * int(p.discount) // 100
+            p.quantity = request.POST.get('quantity')
+            if (int(p.quantity) > 0):
+                p.stock = True
+            else:
+                p.stock = False
             p.seller_details = s
             p.save()
             return HttpResponseRedirect('/profile/')
@@ -552,6 +578,11 @@ def editProduct(request,num, cat):
             p.basePrice = int(request.POST.get('baseprice'))
             p.discount = request.POST.get('discount')
             p.finalPrice = p.basePrice - p.basePrice * int(p.discount) // 100
+            p.quantity = request.POST.get('quantity')
+            if (int(p.quantity) > 0):
+                p.stock = True
+            else:
+                p.stock = False
             p.seller_details = s
             p.save()
             return HttpResponseRedirect('/profile/')
@@ -565,6 +596,11 @@ def editProduct(request,num, cat):
             p.basePrice = int(request.POST.get('baseprice'))
             p.discount = request.POST.get('discount')
             p.finalPrice = p.basePrice - p.basePrice * int(p.discount) // 100
+            p.quantity = request.POST.get('quantity')
+            if (int(p.quantity) > 0):
+                p.stock = True
+            else:
+                p.stock = False
             p.seller_details = s
             p.save()
             return HttpResponseRedirect('/profile/')
@@ -578,6 +614,11 @@ def editProduct(request,num, cat):
             p.basePrice = int(request.POST.get('baseprice'))
             p.discount = request.POST.get('discount')
             p.finalPrice = p.basePrice - p.basePrice * int(p.discount) // 100
+            p.quantity = request.POST.get('quantity')
+            if (int(p.quantity) > 0):
+                p.stock = True
+            else:
+                p.stock = False
             p.seller_details = s
             p.save()
             return HttpResponseRedirect('/profile/')
@@ -591,6 +632,11 @@ def editProduct(request,num, cat):
             p.basePrice = int(request.POST.get('baseprice'))
             p.discount = request.POST.get('discount')
             p.finalPrice = p.basePrice - p.basePrice * int(p.discount) // 100
+            p.quantity = request.POST.get('quantity')
+            if (int(p.quantity) > 0):
+                p.stock = True
+            else:
+                p.stock = False
             p.seller_details = s
             p.save()
             return HttpResponseRedirect('/profile/')
@@ -604,6 +650,11 @@ def editProduct(request,num, cat):
             p.basePrice = int(request.POST.get('baseprice'))
             p.discount = request.POST.get('discount')
             p.finalPrice = p.basePrice - p.basePrice * int(p.discount) // 100
+            p.quantity = request.POST.get('quantity')
+            if (int(p.quantity) > 0):
+                p.stock = True
+            else:
+                p.stock = False
             p.seller_details = s
             p.save()
             return HttpResponseRedirect('/profile/')
@@ -617,6 +668,11 @@ def editProduct(request,num, cat):
             p.basePrice = int(request.POST.get('baseprice'))
             p.discount = request.POST.get('discount')
             p.finalPrice = p.basePrice - p.basePrice * int(p.discount) // 100
+            p.quantity = request.POST.get('quantity')
+            if (int(p.quantity) > 0):
+                p.stock = True
+            else:
+                p.stock = False
             p.seller_details = s
             p.save()
             return HttpResponseRedirect('/profile/')
@@ -702,6 +758,10 @@ def checkOut(request):
                     order.save()
                     p = Fruits.objects.get(id=i.fruits.id)
                     p.quantity = p.quantity - i.quantity
+                    if (int(p.quantity) > 0):
+                        p.stock = True
+                    else:
+                        p.stock = False
                     p.save()
                 if (i.cat == KitchenCategory.objects.get(name='Bakery')):
                     order.user = i.user
@@ -711,6 +771,10 @@ def checkOut(request):
                     order.save()
                     p = Bakery.objects.get(id=i.bakery.id)
                     p.quantity = p.quantity - i.quantity
+                    if (int(p.quantity) > 0):
+                        p.stock = True
+                    else:
+                        p.stock = False
                     p.save()
                 if (i.cat == KitchenCategory.objects.get(name='Spices')):
                     order.user = i.user
@@ -720,6 +784,10 @@ def checkOut(request):
                     order.save()
                     p = Spices.objects.get(id=i.spices.id)
                     p.quantity = p.quantity - i.quantity
+                    if (int(p.quantity) > 0):
+                        p.stock = True
+                    else:
+                        p.stock = False
                     p.save()
                 if (i.cat == KitchenCategory.objects.get(name='Snacks')):
                     order.user = i.user
@@ -729,6 +797,10 @@ def checkOut(request):
                     order.save()
                     p = Snacks.objects.get(id=i.snacks.id)
                     p.quantity = p.quantity - i.quantity
+                    if (int(p.quantity) > 0):
+                        p.stock = True
+                    else:
+                        p.stock = False
                     p.save()
                 if (i.cat == KitchenCategory.objects.get(name='Beverages')):
                     order.user = i.user
@@ -738,6 +810,10 @@ def checkOut(request):
                     order.save()
                     p = Beverages.objects.get(id=i.beverages.id)
                     p.quantity = p.quantity - i.quantity
+                    if (int(p.quantity) > 0):
+                        p.stock = True
+                    else:
+                        p.stock = False
                     p.save()
                 if (i.cat == KitchenCategory.objects.get(name='Pulses')):
                     order.user = i.user
@@ -747,6 +823,10 @@ def checkOut(request):
                     order.save()
                     p = Pulses.objects.get(id=i.pulses.id)
                     p.quantity = p.quantity - i.quantity
+                    if (int(p.quantity) > 0):
+                        p.stock = True
+                    else:
+                        p.stock = False
                     p.save()
                 if (i.cat == KitchenCategory.objects.get(name='Frozen Foods')):
                     order.user = i.user
@@ -756,6 +836,10 @@ def checkOut(request):
                     order.save()
                     p = FrozenFoods.objects.get(id=i.frozenFoods.id)
                     p.quantity = p.quantity - i.quantity
+                    if (int(p.quantity) > 0):
+                        p.stock = True
+                    else:
+                        p.stock = False
                     p.save()
                 if (i.cat == KitchenCategory.objects.get(name='Snacks')):
                     order.user = i.user
@@ -765,6 +849,10 @@ def checkOut(request):
                     order.save()
                     p = Vegetables.objects.get(id=i.vegetables.id)
                     p.quantity = p.quantity - i.quantity
+                    if (int(p.quantity) > 0):
+                        p.stock = True
+                    else:
+                        p.stock = False
                     p.save()
             if(t<1000):
                 t+=150

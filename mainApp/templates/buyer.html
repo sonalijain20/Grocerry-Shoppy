@@ -69,15 +69,19 @@
         <table class="timetable_sub">
             <thead>
                 <tr>
+
                     <th>Product</th>
                     <th>Product Name</th>
                     <th>Quantity</th>
                     <th>Price</th>
+                    <th>Date</th>
+
                 </tr>
             </thead>
             <tbody>
             {% for i in Order %}
                 <tr class="rem1">
+
                     {% if i.snacks %}
                     <td class="invert-image"><img src="{{i.snacks.img1.url}}"></td>
                     {% endif %}
@@ -130,6 +134,7 @@
 
                     <td class="invert">{{i.quantity}}</td>
                     <td class="invert">{{i.finalPrice}}</td>
+                    <td>{{i.date}}</td>
                 </tr>
             {% endfor %}
             </tbody>
