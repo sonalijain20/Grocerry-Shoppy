@@ -164,7 +164,7 @@ class Fruits(models.Model):
     img3=models.ImageField(upload_to='images/', default=None, blank=True, null=True)
 
     def __str__(self):
-        return str(self.id)
+        return str(self.id) + " " + self.name
 
 
 class Beverages(models.Model):
