@@ -102,9 +102,15 @@
 											{% csrf_token %}
 											<input type="hidden" value="1" name="quantity">
 											<input type="hidden" value="{{i.finalPrice}}" name="fprice">
+											{% if (i.quantity)<0 %}
+											<button type="submit"class="button" type="submit" name="submit" style="pointer-events: none">
+												<i class="fa fa-cart-plus">Out of Stock</i>
+											</button>
+											{% else %}
 											<button type="submit"class="button" type="submit" name="submit">
 												<i class="fa fa-cart-plus">Add to Cart</i>
 											</button>
+											{% endif %}
 										</form>
 									</div>
 
