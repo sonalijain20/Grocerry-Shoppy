@@ -7,8 +7,8 @@ from django.contrib import messages
 
 
 def home(request):
-        kit = KitchenCategory.objects.all()
-        return render(request, "index.html", {"KitCat": kit})
+    kit = KitchenCategory.objects.all()
+    return render(request, "index.html", {"KitCat": kit})
 
 
 def signupUser(request):
@@ -42,15 +42,6 @@ def signupUser(request):
         except:
             messages.error(request, "Username already exists")
             return render(request, "index.html")
-    # b=Buyer()
-    # b.name=request.POST.get('name')
-    # #b.lname=request.POST.get('lname')
-    # b.uname=request.POST.get('username')
-    # b.email=request.POST.get('email')
-    # pword=request.POST.get('password')
-    # user = User.objects.create_user(username=b.uname, email=b.email, password=pword)
-    # b.save()
-    # return render(request, "index.html")
 
 
 def loginDetails(request):
@@ -81,7 +72,6 @@ def profile(request):
     else:
         try:
             s = Seller.objects.get(uname=request.user)
-            print("/n/n/n/n/n/n/n/n/nhello")
             bakery = Bakery.objects.filter(seller_details=s)
             spices = Spices.objects.filter(seller_details=s)
             snacks = Snacks.objects.filter(seller_details=s)
@@ -97,6 +87,12 @@ def profile(request):
                 s.phone = request.POST.get('phone')
                 s.address = request.POST.get('address')
                 s.city = request.POST.get('city')
+                s.pin = request.POST.get('pin')
+                s.state = request.POST.get('state')
+                s.landmark = request.POST.get('landmark')
+                s.bankName = request.POST.get('bankName')
+                s.ifscCode = request.POST.get('ifscCode')
+                s.accountNumber = request.POST.get('accountNumber')
                 s.save()
                 return HttpResponseRedirect('/profile/')
             return render(request, "seller.html", {
@@ -113,11 +109,13 @@ def profile(request):
             })
         except:
             b = Buyer.objects.get(uname=request.user)
+            order = OrdersPlaced.objects.filter(user = b)
             if (request.method == "POST"):
                 b.name = request.POST.get('name')
                 b.uname = request.POST.get('uname')
                 b.email = request.POST.get('email')
-                b.address1 = request.POST.get('address1')
+                b.phone = request.POST.get('phone')
+                b.address = request.POST.get('address')
                 b.landmark = request.POST.get('landmark')
                 b.city = request.POST.get('city')
                 b.state = request.POST.get('state')
@@ -126,28 +124,55 @@ def profile(request):
                 b.accountNumber = request.POST.get('accountNumber')
                 b.save()
                 return HttpResponseRedirect('/profile/')
-            return render(request, "buyer.html", {"User": b, "KitCat": kit})
+            return render(request, "buyer.html", {"User": b, "KitCat": kit, "Order": order})
 
 
 def product(request, cat):
     kit = KitchenCategory.objects.all()
-    if(cat=='Beverages'):
-        p=Beverages.objects.all()
-    if(cat=='Frozen Foods'):
-        p=FrozenFoods.objects.all()
-    if(cat=='Pulses'):
-        p=Pulses.objects.all()
-    if(cat=='Vegetables'):
-        p=Vegetables.objects.all()
-    if(cat=='Fruits'):
-        p=Fruits.objects.all()
-    if(cat=='Snacks'):
-        p=Snacks.objects.all()
-    if(cat=='Spices'):
-        p=Spices.objects.all()
-    if(cat=='Bakery'):
-        p=Bakery.objects.all()
-    return render(request, "product.html", {"Product": p, "Category": cat, "KitCat": kit})
+    if(request.user.is_anonymous):
+        if(cat=='Beverages'):
+            p=Beverages.objects.all()
+        if(cat=='Frozen Foods'):
+            p=FrozenFoods.objects.all()
+        if(cat=='Pulses'):
+            p=Pulses.objects.all()
+        if(cat=='Vegetables'):
+            p=Vegetables.objects.all()
+        if(cat=='Fruits'):
+            p=Fruits.objects.all()
+        if(cat=='Snacks'):
+            p=Snacks.objects.all()
+        if(cat=='Spices'):
+            p=Spices.objects.all()
+        if(cat=='Bakery'):
+            p=Bakery.objects.all()
+        return render(request, "product.html", {"Product": p, "Category": cat, "KitCat": kit})
+    user = User.objects.get(username=request.user)
+    if (user.is_superuser):
+        return HttpResponseRedirect('/admin/')
+    try:
+        user = Seller.objects.get(uname=request.user)
+        return HttpResponseRedirect('/profile/')
+    except:
+        b = Buyer.objects.get(uname=request.user)
+        cart = Cart.objects.filter(user=b)
+        if (cat == 'Beverages'):
+            p = Beverages.objects.all()
+        if (cat == 'Frozen Foods'):
+            p = FrozenFoods.objects.all()
+        if (cat == 'Pulses'):
+            p = Pulses.objects.all()
+        if (cat == 'Vegetables'):
+            p = Vegetables.objects.all()
+        if (cat == 'Fruits'):
+            p = Fruits.objects.all()
+        if (cat == 'Snacks'):
+            p = Snacks.objects.all()
+        if (cat == 'Spices'):
+            p = Spices.objects.all()
+        if (cat == 'Bakery'):
+            p = Bakery.objects.all()
+        return render(request, "product.html", {"Product": p, "Category": cat, "KitCat": kit, "Cart": cart})
 
 
 def addBakery(request):
@@ -166,6 +191,8 @@ def addBakery(request):
             p.finalPrice=p.basePrice-(p.basePrice*int(p.discount))//100
             p.size = request.POST.get('size')
             p.quantity = request.POST.get('quantity')
+            if(int(p.quantity)>0):
+                p.stock=True
             p.img1 = request.FILES.get('img1')
             p.img2 = request.FILES.get('img2')
             p.img3 = request.FILES.get('img3')
@@ -193,6 +220,8 @@ def addPulses(request):
             p.finalPrice=p.basePrice-(p.basePrice*int(p.discount))//100
             p.size = request.POST.get('size')
             p.quantity = request.POST.get('quantity')
+            if (int(p.quantity) > 0):
+                p.stock = True
             p.img1 = request.FILES.get('img1')
             p.img2 = request.FILES.get('img2')
             p.img3 = request.FILES.get('img3')
@@ -220,6 +249,8 @@ def addSnacks(request):
             p.finalPrice=p.basePrice-(p.basePrice*int(p.discount))//100
             p.size = request.POST.get('size')
             p.quantity = request.POST.get('quantity')
+            if (int(p.quantity) > 0):
+                p.stock = True
             p.img1 = request.FILES.get('img1')
             p.img2 = request.FILES.get('img2')
             p.img3 = request.FILES.get('img3')
@@ -247,6 +278,8 @@ def addFruits(request):
             p.finalPrice=p.basePrice-(p.basePrice*int(p.discount))//100
             p.size = request.POST.get('size')
             p.quantity = request.POST.get('quantity')
+            if (int(p.quantity) > 0):
+                p.stock = True
             p.img1 = request.FILES.get('img1')
             p.img2 = request.FILES.get('img2')
             p.img3 = request.FILES.get('img3')
@@ -274,6 +307,8 @@ def addVegetables(request):
             p.finalPrice=p.basePrice-(p.basePrice*int(p.discount))//100
             p.size = request.POST.get('size')
             p.quantity = request.POST.get('quantity')
+            if (int(p.quantity) > 0):
+                p.stock = True
             p.img1 = request.FILES.get('img1')
             p.img2 = request.FILES.get('img2')
             p.img3 = request.FILES.get('img3')
@@ -301,6 +336,8 @@ def addFrozenfoods(request):
             p.finalPrice=p.basePrice-(p.basePrice*int(p.discount))//100
             p.size = request.POST.get('size')
             p.quantity = request.POST.get('quantity')
+            if (int(p.quantity) > 0):
+                p.stock = True
             p.img1 = request.FILES.get('img1')
             p.img2 = request.FILES.get('img2')
             p.img3 = request.FILES.get('img3')
@@ -328,6 +365,8 @@ def addSpices(request):
             p.finalPrice=p.basePrice-(p.basePrice*int(p.discount))//100
             p.size = request.POST.get('size')
             p.quantity = request.POST.get('quantity')
+            if (int(p.quantity) > 0):
+                p.stock = True
             p.img1 = request.FILES.get('img1')
             p.img2 = request.FILES.get('img2')
             p.img3 = request.FILES.get('img3')
@@ -355,6 +394,8 @@ def addBeverages(request):
             p.finalPrice=p.basePrice-(p.basePrice*int(p.discount))//100
             p.size = request.POST.get('size')
             p.quantity = request.POST.get('quantity')
+            if (int(p.quantity) > 0):
+                p.stock = True
             p.img1 = request.FILES.get('img1')
             p.img2 = request.FILES.get('img2')
             p.img3 = request.FILES.get('img3')
@@ -389,7 +430,6 @@ def cartDetails(request):
         finalAmount = subtotal + delivery
 
     return render(request,"cart.html", {"KitCat": kit, "Cart": cart, "Sub": subtotal, "Delivery": delivery, "Final": finalAmount})
-
 
 
 @login_required(login_url='/login/')
@@ -508,6 +548,11 @@ def editProduct(request,num, cat):
             p.basePrice = int(request.POST.get('baseprice'))
             p.discount = request.POST.get('discount')
             p.finalPrice = p.basePrice - p.basePrice * int(p.discount) // 100
+            p.quantity = request.POST.get('quantity')
+            if (int(p.quantity) > 0):
+                p.stock = True
+            else:
+                p.stock = False
             p.seller_details = s
             p.save()
             return HttpResponseRedirect('/profile/')
@@ -521,6 +566,11 @@ def editProduct(request,num, cat):
             p.basePrice = int(request.POST.get('baseprice'))
             p.discount = request.POST.get('discount')
             p.finalPrice = p.basePrice - p.basePrice * int(p.discount) // 100
+            p.quantity = request.POST.get('quantity')
+            if (int(p.quantity) > 0):
+                p.stock = True
+            else:
+                p.stock = False
             p.seller_details = s
             p.save()
             return HttpResponseRedirect('/profile/')
@@ -534,6 +584,11 @@ def editProduct(request,num, cat):
             p.basePrice = int(request.POST.get('baseprice'))
             p.discount = request.POST.get('discount')
             p.finalPrice = p.basePrice - p.basePrice * int(p.discount) // 100
+            p.quantity = request.POST.get('quantity')
+            if (int(p.quantity) > 0):
+                p.stock = True
+            else:
+                p.stock = False
             p.seller_details = s
             p.save()
             return HttpResponseRedirect('/profile/')
@@ -547,6 +602,11 @@ def editProduct(request,num, cat):
             p.basePrice = int(request.POST.get('baseprice'))
             p.discount = request.POST.get('discount')
             p.finalPrice = p.basePrice - p.basePrice * int(p.discount) // 100
+            p.quantity = request.POST.get('quantity')
+            if (int(p.quantity) > 0):
+                p.stock = True
+            else:
+                p.stock = False
             p.seller_details = s
             p.save()
             return HttpResponseRedirect('/profile/')
@@ -560,6 +620,11 @@ def editProduct(request,num, cat):
             p.basePrice = int(request.POST.get('baseprice'))
             p.discount = request.POST.get('discount')
             p.finalPrice = p.basePrice - p.basePrice * int(p.discount) // 100
+            p.quantity = request.POST.get('quantity')
+            if (int(p.quantity) > 0):
+                p.stock = True
+            else:
+                p.stock = False
             p.seller_details = s
             p.save()
             return HttpResponseRedirect('/profile/')
@@ -573,6 +638,11 @@ def editProduct(request,num, cat):
             p.basePrice = int(request.POST.get('baseprice'))
             p.discount = request.POST.get('discount')
             p.finalPrice = p.basePrice - p.basePrice * int(p.discount) // 100
+            p.quantity = request.POST.get('quantity')
+            if (int(p.quantity) > 0):
+                p.stock = True
+            else:
+                p.stock = False
             p.seller_details = s
             p.save()
             return HttpResponseRedirect('/profile/')
@@ -586,6 +656,11 @@ def editProduct(request,num, cat):
             p.basePrice = int(request.POST.get('baseprice'))
             p.discount = request.POST.get('discount')
             p.finalPrice = p.basePrice - p.basePrice * int(p.discount) // 100
+            p.quantity = request.POST.get('quantity')
+            if (int(p.quantity) > 0):
+                p.stock = True
+            else:
+                p.stock = False
             p.seller_details = s
             p.save()
             return HttpResponseRedirect('/profile/')
@@ -599,6 +674,11 @@ def editProduct(request,num, cat):
             p.basePrice = int(request.POST.get('baseprice'))
             p.discount = request.POST.get('discount')
             p.finalPrice = p.basePrice - p.basePrice * int(p.discount) // 100
+            p.quantity = request.POST.get('quantity')
+            if (int(p.quantity) > 0):
+                p.stock = True
+            else:
+                p.stock = False
             p.seller_details = s
             p.save()
             return HttpResponseRedirect('/profile/')
@@ -676,16 +756,110 @@ def checkOut(request):
             for i in cart:
                 t = t + i.total
                 order=OrdersPlaced()
-                if(i.cat==KitchenCategory.objects.get(name='Fruits')):
-                    print("\n\n\n\n\n\n")
-                    # f=i.fruits
-                    # print(type(f))
+                if(i.cat == KitchenCategory.objects.get(name = 'Fruits')):
                     order.user = i.user
                     order.fruits = i.fruits
-                    print("\n\n\n\nn\n\n\n hello")
                     order.quantity = i.quantity
-                    order.finalPrice = i.finalPrice
+                    order.finalPrice = i.total
                     order.save()
+                    p = Fruits.objects.get(id=i.fruits.id)
+                    p.quantity = p.quantity - i.quantity
+                    if (int(p.quantity) > 0):
+                        p.stock = True
+                    else:
+                        p.stock = False
+                    p.save()
+                if (i.cat == KitchenCategory.objects.get(name='Bakery')):
+                    order.user = i.user
+                    order.bakery = i.bakery
+                    order.quantity = i.quantity
+                    order.finalPrice = i.total
+                    order.save()
+                    p = Bakery.objects.get(id=i.bakery.id)
+                    p.quantity = p.quantity - i.quantity
+                    if (int(p.quantity) > 0):
+                        p.stock = True
+                    else:
+                        p.stock = False
+                    p.save()
+                if (i.cat == KitchenCategory.objects.get(name='Spices')):
+                    order.user = i.user
+                    order.spices = i.spices
+                    order.quantity = i.quantity
+                    order.finalPrice = i.total
+                    order.save()
+                    p = Spices.objects.get(id=i.spices.id)
+                    p.quantity = p.quantity - i.quantity
+                    if (int(p.quantity) > 0):
+                        p.stock = True
+                    else:
+                        p.stock = False
+                    p.save()
+                if (i.cat == KitchenCategory.objects.get(name='Snacks')):
+                    order.user = i.user
+                    order.snacks = i.snacks
+                    order.quantity = i.quantity
+                    order.finalPrice = i.total
+                    order.save()
+                    p = Snacks.objects.get(id=i.snacks.id)
+                    p.quantity = p.quantity - i.quantity
+                    if (int(p.quantity) > 0):
+                        p.stock = True
+                    else:
+                        p.stock = False
+                    p.save()
+                if (i.cat == KitchenCategory.objects.get(name='Beverages')):
+                    order.user = i.user
+                    order.beverages = i.beverages
+                    order.quantity = i.quantity
+                    order.finalPrice = i.total
+                    order.save()
+                    p = Beverages.objects.get(id=i.beverages.id)
+                    p.quantity = p.quantity - i.quantity
+                    if (int(p.quantity) > 0):
+                        p.stock = True
+                    else:
+                        p.stock = False
+                    p.save()
+                if (i.cat == KitchenCategory.objects.get(name='Pulses')):
+                    order.user = i.user
+                    order.pulses = i.pulses
+                    order.quantity = i.quantity
+                    order.finalPrice = i.total
+                    order.save()
+                    p = Pulses.objects.get(id=i.pulses.id)
+                    p.quantity = p.quantity - i.quantity
+                    if (int(p.quantity) > 0):
+                        p.stock = True
+                    else:
+                        p.stock = False
+                    p.save()
+                if (i.cat == KitchenCategory.objects.get(name='Frozen Foods')):
+                    order.user = i.user
+                    order.frozenFoods = i.frozenFoods
+                    order.quantity = i.quantity
+                    order.finalPrice = i.total
+                    order.save()
+                    p = FrozenFoods.objects.get(id=i.frozenFoods.id)
+                    p.quantity = p.quantity - i.quantity
+                    if (int(p.quantity) > 0):
+                        p.stock = True
+                    else:
+                        p.stock = False
+                    p.save()
+                if (i.cat == KitchenCategory.objects.get(name='Snacks')):
+                    order.user = i.user
+                    order.vegetables = i.vegetables
+                    order.quantity = i.quantity
+                    order.finalPrice = i.total
+                    order.save()
+                    p = Vegetables.objects.get(id=i.vegetables.id)
+                    p.quantity = p.quantity - i.quantity
+                    if (int(p.quantity) > 0):
+                        p.stock = True
+                    else:
+                        p.stock = False
+                    p.save()
             if(t<1000):
                 t+=150
             ch.total = t

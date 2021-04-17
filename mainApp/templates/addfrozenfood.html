@@ -3,39 +3,47 @@
 {% block body %}
 
 <div class="contact agileits">
-                <div class="contact-agileinfo">
-                    <div class="contact-form wthree">
-
-                            <h2>Add Frozen foods</h2>
-                            <br>
-                            <form method="post" enctype="multipart/form-data">
-                                {%csrf_token %}
-                            <div class="">
-                                <input type="text" name="name" placeholder="Product Name" value="{{FrozenFoods.name}}" required="">
-                            </div>
-                            <div class="">
-                                <input class="text" type="text" name="description" placeholder="Product description" value="{{FrozenFoods.desc}}" required="">
-                            </div>
-                            <div class="">
-                                <input class="email" type="text" name="baseprice" placeholder="Base price"  value="{{FrozenFoods.basePrice}}" required="">
-                            </div>
-                                <div class="">
-                                <input class="text" type="text" name="discount" placeholder="discount"  value="{{FrozenFoods.discount}}">
-                            </div>
-                                <div class="">
-                                <input class="text" type="text" name="size" placeholder="size"  value="{{FrozenFoods.size}}">
-                            </div>
-                                <div class="">
-                                <input class="text" type="text" name="quantity" placeholder="quantity"  value="{{FrozenFoods.quantity}}">
-                            </div>
-							<label> Image1</label>
-							<input type="file" name="img1"><br>
-							<label> Image2</label>
-							<input type="file" name="img2"><br>
-							<label> Image3</label>
-							<input type="file" name="img3"><br>
-
-                        <button type="submit" class="btn btn-success">Add Product</button>
-                        </form>
-                    </div>
+    <div class="contact-agileinfo">
+        <div class="contact-form wthree">
+            <h3 class="tittle-w3l">Add Frozen Food
+                <span class="heading-style">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </span>
+            </h3>
+            <br>
+            <form method="post" enctype="multipart/form-data">
+                {%csrf_token %}
+                <div class="">
+                    <input type="text" name="name" placeholder="Product Name" value="{{FrozenFoods.name}}" required="">
+                </div>
+                <div class="">
+                    <input class="text" type="text" name="description" placeholder="Product description" value="{{FrozenFoods.desc}}" required="">
+                </div>
+                <div class="">
+                    <input class="email" type="text" name="baseprice" placeholder="Base price"  value="{{FrozenFoods.basePrice}}" required="">
+                </div>
+                <div class="">
+                    <input class="text" type="text" name="discount" placeholder="discount"  value="{{FrozenFoods.discount}}">
+                </div>
+                <div class="">
+                    <input class="text" type="text" name="size" placeholder="size"  value="{{FrozenFoods.size}}">
+                </div>
+                <div class="">
+                    <input class="text" type="text" name="quantity" placeholder="quantity"  value="{{FrozenFoods.quantity}}">
+                </div>
+                <label> Image1</label>
+                <input type="file" name="img1"><br>
+                <label> Image2</label>
+                <input type="file" name="img2"><br>
+                <label> Image3</label>
+                <input type="file" name="img3"><br>
+                <h3 class="tittle-w3l">
+                    <button type="submit" class="btn btn-info">Add Product</button>
+                </h3>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

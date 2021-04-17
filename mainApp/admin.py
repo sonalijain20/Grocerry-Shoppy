@@ -14,4 +14,10 @@ admin.site.register(Snacks)
 admin.site.register(Spices)
 admin.site.register(Cart)
 admin.site.register(CheckOut)
-admin.site.register(OrdersPlaced)
+# admin.site.register(OrdersPlaced)
+
+class Order(admin.ModelAdmin):
+    readonly_fields=['date']
+
+
+admin.site.register(OrdersPlaced, Order)
