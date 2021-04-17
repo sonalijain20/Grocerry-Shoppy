@@ -167,7 +167,6 @@ class Fruits(models.Model):
     img2 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     img3 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
 
-
     def __str__(self):
         return str(self.id)+ " " + self.name
 
@@ -200,15 +199,15 @@ class KitchenCategory(models.Model):
 
 class WishList(models.Model):
     user = models.ForeignKey(Buyer, on_delete=models.CASCADE)
-    frozenFoods = models.ForeignKey(FrozenFoods, on_delete=models.CASCADE)
-    bakery = models.ForeignKey(Bakery, on_delete=models.CASCADE)
-    spices = models.ForeignKey(Spices, on_delete=models.CASCADE)
-    pulses = models.ForeignKey(Pulses, on_delete=models.CASCADE)
-    vegetables = models.ForeignKey(Vegetables, on_delete=models.CASCADE)
-    snacks = models.ForeignKey(Snacks, on_delete=models.CASCADE)
-    fruits = models.ForeignKey(Fruits, on_delete=models.CASCADE)
-    beverages = models.ForeignKey(Beverages, on_delete=models.CASCADE)
-    cat = models.ForeignKey(KitchenCategory, on_delete=models.CASCADE)
+    frozenFoods = models.ForeignKey(FrozenFoods, on_delete=models.CASCADE, null=True, blank=True)
+    bakery = models.ForeignKey(Bakery, on_delete=models.CASCADE, null=True, blank=True)
+    spices = models.ForeignKey(Spices, on_delete=models.CASCADE, null=True, blank=True)
+    pulses = models.ForeignKey(Pulses, on_delete=models.CASCADE, null=True, blank=True)
+    vegetables = models.ForeignKey(Vegetables, on_delete=models.CASCADE, null=True, blank=True)
+    snacks = models.ForeignKey(Snacks, on_delete=models.CASCADE, null=True, blank=True)
+    fruits = models.ForeignKey(Fruits, on_delete=models.CASCADE, null=True, blank=True)
+    beverages = models.ForeignKey(Beverages, on_delete=models.CASCADE, null=True, blank=True)
+    cat = models.ForeignKey(KitchenCategory, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return str(self.id)

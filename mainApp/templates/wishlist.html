@@ -2,182 +2,218 @@
 {% load static %}
 {% block body %}
 <div class="privacy">
-	<div class="container">
+    <div class="container">
 		{% if not Wish %}
-		<h3 class="tittle-w3l">Your Wishlist is empty. </h3>
+			<h3 class="tittle-w3l">Your Cart is empty. </h3>
 		{% else %}
-		<h3 class="tittle-w3l">Your Wishlist
-            <span class="heading-style">
-                <i></i>
-                <i></i>
-                <i></i>
-            </span>
-        </h3>
-		<div class="table-responsive cart_info">
-			<table class="table table-condensed">
-				<thead>
-				<tr class="cart_menu">
-					<td class="image">Item</td>
-					<td class="description"></td>
-					<td class="price">Basic Price</td>
-					<td class="price">Final Price</td>
-					<td></td>
-				</tr>
-				</thead>
-				<tbody>
+			<h3 class="tittle-w3l">Your Wishlist
+                <span class="heading-style">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </span>
+            </h3>
+			<div class="checkout-right">
+				<div class="table-responsive">
+					<table class="timetable_sub">
+						<thead>
+							<tr>
+								<th>Product</th>
+								<th>Name</th>
+								<th>Basic Price</th>
+								<th>Discount</th>
+								<th>Final Price</th>
+								<th>Buy</th>
+								<th>Remove</th>
+							</tr>
+						</thead>
+						<tbody>
 						{% for i in Wish %}
-						<tr>
-					{% if i.snacks %}
-                    <td class="invert-image"><img src="{{i.snacks.img1.url}}"></td>
-                    {% endif %}
-                    {% if i.pulses %}
-                    <td class="invert"><img src="{{i.pulses.img1.url}}" width="50px" height="50px"></td>
-                    {% endif %}
-                    {% if i.bakery %}
-                    <td class="invert"><img src="{{i.bakery.img1.url}}" width="50px" height="50px"></td>
-                    {% endif %}
-                    {% if i.vegetables %}
-                    <td class="invert"><img src="{{i.vegetables.img1.url}}" width="50px" height="50px"></td>
-                    {% endif %}
-                    {% if i.fruits %}
-                    <td class="invert"><img src="{{i.fruits.img1.url}}" width="50px" height="50px"></td>
-                    {% endif %}
-                    {% if i.spices %}
-                    <td class="invert"><img src="{{i.spices.img1.url}}" width="50px" height="50px"></td>
-                    {% endif %}
-                    {% if i.frozenFoods %}
-                    <td class="invert"><img src="{{i.frozenFoods.img1.url}}" width="50px" height="50px"></td>
-                    {% endif %}
-                    {% if i.beverages %}
-                    <td class="invert"><img src="{{i.beverages.img1.url}}" width="50px" height="50px"></td>
-                    {% endif %}
-							<!-- <td class="cart_product">
-								<a href=""><img src="{{i.product.img1.url}}" width="150px" height="150px" alt=""></a>
-							</td> -->
-					{% if i.snacks %}
-					<td class="cart_description">
-						<h4><a href="">{{i.snacks.name}}</a></h4>
-					</td>
-					{% endif %}
-					{% if i.pulses %}
-					<td class="cart_description">
-						<h4><a href="">{{i.pulses.name}}</a></h4>
-					</td>
-					{% endif %}
-					{% if i.bakery %}
-					<td class="cart_description">
-						<h4><a href="">{{i.bakery.name}}</a></h4>
-					</td>
-					{% endif %}
-					{% if i.vegetables %}
-					<td class="cart_description">
-						<h4><a href="">{{i.vegetables.name}}</a></h4>
-					</td>
-					{% endif %}
-					{% if i.fruits %}
-					<td class="cart_description">
-						<h4><a href="">{{i.fruits.name}}</a></h4>
-					</td>
-					{% endif %}
-					{% if i.frozenFoods %}
-					<td class="cart_description">
-						<h4><a href="">{{i.frozenFoods.name}}</a></h4>
-					</td>
-					{% endif %}
-					{% if i.beverages %}
-					<td class="cart_description">
-						<h4><a href="">{{i.beverages.name}}</a></h4>
-					</td>
-					{% endif %}
-
-					{% if i.snacks %}
-					<td class="cart_price">
-						<p>Rs{{i.snacks.basePrice}}</p>
-					</td>
-					{% endif %}
-					{% if i.pulses %}
-					<td class="cart_price">
-						<p>Rs{{i.pulses.basePrice}}</p>
-					</td>
-					{% endif %}
-					{% if i.bakery %}
-					<td class="cart_price">
-						<p>Rs{{i.bakery.basePrice}}</p>
-					</td>
-					{% endif %}
-					{% if i.vegetables %}
-					<td class="cart_price">
-						<p>Rs{{i.vegetables.basePrice}}</p>
-					</td>
-					{% endif %}
-					{% if i.fruits %}
-					<td class="cart_price">
-						<p>Rs{{i.fruits.basePrice}}</p>
-					</td>
-					{% endif %}
-					{% if i.frozenFoods %}
-					<td class="cart_price">
-						<p>Rs{{i.frozenFoods.basePrice}}</p>
-					</td>
-					{% endif %}
-					{% if i.beverages %}
-					<td class="cart_price">
-						<p>Rs{{i.beverages.basePrice}}</p>
-					</td>
-					{% endif %}
-
-					{% if i.snacks %}
-						<td class="cart_price">
-							<p>Rs{{i.snacks.finalPrice}}</p>
-						</td>
-					{% endif %}
-					{% if i.pulses %}
-						<td class="cart_price">
-							<p>Rs{{i.pulses.finalPrice}}</p>
-						</td>
-					{% endif %}
-					{% if i.bakery %}
-						<td class="cart_price">
-							<p>Rs{{i.bakery.finalPrice}}</p>
-						</td>
-					{% endif %}
-					{% if i.vegetables %}
-						<td class="cart_price">
-							<p>Rs{{i.vegetables.finalPrice}}</p>
-						</td>
-					{% endif %}
-					{% if i.fruits %}
-						<td class="cart_price">
-							<p>Rs{{i.fruits.finalPrice}}</p>
-						</td>
-					{% endif %}
-					{% if i.frozenFoods %}
-						<td class="cart_price">
-							<p>Rs{{i.frozenFoods.finalPrice}}</p>
-						</td>
-					{% endif %}
-					{% if i.beverages %}
-						<td class="cart_price">
-							<p>Rs{{i.beverages.finalPrice}}</p>
-						</td>
-					{% endif %}
-							<td class="cart_delete">
-								{% if i.product.stock %}
-								<a class="btn btn-primary" href="/product/{{i.product.id}}/">Buy</a>
-								{% else %}
-								<a class="btn btn-primary" href="/product/{{i.product.id}}/" style="pointer-events: none">Out of Stock</a>
+							<tr class="rem1">
+								{% if i.snacks %}
+								<td class="invert-image"><img src="{{i.snacks.img1.url}}"></td>
 								{% endif %}
-							</td>
-							<td class="cart_delete">
-								<a class="btn btn-primary" href="/deletewishlist/{{i.id}}/"><i class="fa fa-times"></i></a>
-							</td>
-						</tr>
+								{% if i.pulses %}
+								<td class="invert"><img src="{{i.pulses.img1.url}}" width="50px" height="50px"></td>
+								{% endif %}
+								{% if i.bakery %}
+								<td class="invert"><img src="{{i.bakery.img1.url}}" width="50px" height="50px"></td>
+								{% endif %}
+								{% if i.vegetables %}
+								<td class="invert"><img src="{{i.vegetables.img1.url}}" width="50px" height="50px"></td>
+								{% endif %}
+								{% if i.fruits %}
+								<td class="invert"><img src="{{i.fruits.img1.url}}" width="50px" height="50px"></td>
+								{% endif %}
+								{% if i.spices %}
+								<td class="invert"><img src="{{i.spices.img1.url}}" width="50px" height="50px"></td>
+								{% endif %}
+								{% if i.frozenFoods %}
+								<td class="invert"><img src="{{i.frozenFoods.img1.url}}" width="50px" height="50px"></td>
+								{% endif %}
+								{% if i.beverages %}
+								<td class="invert"><img src="{{i.beverages.img1.url}}" width="50px" height="50px"></td>
+								{% endif %}
+
+								{% if i.snacks %}
+								<td class="invert">{{i.snacks.name}}</td>
+								{% endif %}
+								{% if i.pulses %}
+								<td class="invert">{{i.pulses.name}}</td>
+								{% endif %}
+								{% if i.bakery %}
+								<td class="invert">{{i.bakery.name}}</td>
+								{% endif %}
+								{% if i.vegetables %}
+								<td class="invert">{{i.vegetables.name}}</td>
+								{% endif %}
+								{% if i.fruits %}
+								<td class="invert">{{i.fruits.name}}</td>
+								{% endif %}
+								{% if i.spices %}
+								<td class="invert">{{i.spices.name}}</td>
+								{% endif %}
+								{% if i.frozenFoods %}
+								<td class="invert">{{i.frozenFoods.name}}</td>
+								{% endif %}
+								{% if i.beverages %}
+								<td class="invert">{{i.beverages.name}}</td>
+								{% endif %}
+
+								{% if i.snacks %}
+								<td class="cart_price">
+									<p>Rs{{i.snacks.basePrice}}</p>
+								</td>
+								{% endif %}
+								{% if i.pulses %}
+								<td class="cart_price">
+									<p>Rs{{i.pulses.basePrice}}</p>
+								</td>
+								{% endif %}
+								{% if i.bakery %}
+								<td class="cart_price">
+									<p>Rs{{i.bakery.basePrice}}</p>
+								</td>
+								{% endif %}
+								{% if i.vegetables %}
+								<td class="cart_price">
+									<p>Rs{{i.vegetables.basePrice}}</p>
+								</td>
+								{% endif %}
+								{% if i.fruits %}
+								<td class="cart_price">
+									<p>Rs{{i.fruits.basePrice}}</p>
+								</td>
+								{% endif %}
+								{% if i.frozenFoods %}
+								<td class="cart_price">
+									<p>Rs{{i.frozenFoods.basePrice}}</p>
+								</td>
+								{% endif %}
+								{% if i.beverages %}
+								<td class="cart_price">
+									<p>Rs{{i.beverages.basePrice}}</p>
+								</td>
+								{% endif %}
+
+								{% if i.snacks %}
+								<td class="cart_price">
+									<p>Rs{{i.snacks.discount}}</p>
+								</td>
+								{% endif %}
+								{% if i.pulses %}
+								<td class="cart_price">
+									<p>Rs{{i.pulses.discount}}</p>
+								</td>
+								{% endif %}
+								{% if i.bakery %}
+								<td class="cart_price">
+									<p>Rs{{i.bakery.discount}}</p>
+								</td>
+								{% endif %}
+								{% if i.vegetables %}
+								<td class="cart_price">
+									<p>Rs{{i.vegetables.discount}}</p>
+								</td>
+								{% endif %}
+								{% if i.fruits %}
+								<td class="cart_price">
+									<p>Rs{{i.fruits.discount}}</p>
+								</td>
+								{% endif %}
+								{% if i.frozenFoods %}
+								<td class="cart_price">
+									<p>Rs{{i.frozenFoods.discount}}</p>
+								</td>
+								{% endif %}
+								{% if i.beverages %}
+								<td class="cart_price">
+									<p>Rs{{i.beverages.discount}}</p>
+								</td>
+								{% endif %}
+
+								{% if i.snacks %}
+								<td class="cart_price">
+									<p>Rs{{i.snacks.finalPrice}}</p>
+								</td>
+								{% endif %}
+								{% if i.pulses %}
+									<td class="cart_price">
+										<p>Rs{{i.pulses.finalPrice}}</p>
+									</td>
+								{% endif %}
+								{% if i.bakery %}
+									<td class="cart_price">
+										<p>Rs{{i.bakery.finalPrice}}</p>
+									</td>
+								{% endif %}
+								{% if i.vegetables %}
+									<td class="cart_price">
+										<p>Rs{{i.vegetables.finalPrice}}</p>
+									</td>
+								{% endif %}
+								{% if i.fruits %}
+									<td class="cart_price">
+										<p>Rs{{i.fruits.finalPrice}}</p>
+									</td>
+								{% endif %}
+								{% if i.frozenFoods %}
+									<td class="cart_price">
+										<p>Rs{{i.frozenFoods.finalPrice}}</p>
+									</td>
+								{% endif %}
+								{% if i.beverages %}
+									<td class="cart_price">
+										<p>Rs{{i.beverages.finalPrice}}</p>
+									</td>
+								{% endif %}
+
+								{% if i.beverages %}
+									<td>
+										<form method="post" action="/productinfo/{{i.beverages.id}}/{{i.cat}}/">
+											{% csrf_token %}
+											<button type="submit">
+												<i class="fa fa-shopping-bag" aria-hidden="true"></i>
+											</button>
+										</form>
+									</td>
+								{% endif %}
+								<td class="invert">
+									<div class="rem">
+									   <a href="/deletewishlist/{{i.id}}/" class="fa fa-trash"></a><br>
+									</div>
+								</td>
+							</tr>
 						{% endfor %}
-					</tbody>
-				</table>
+						</tbody>
+					</table>
+				</div>
 			</div>
-		</div>
-	{% endif %}
+		{% endif %}
+	</div>
+</div>
+
+
 
 
 

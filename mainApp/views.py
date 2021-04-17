@@ -146,6 +146,8 @@ def product(request, cat):
             p=Spices.objects.all()
         if(cat=='Bakery'):
             p=Bakery.objects.all()
+        print("\n\n\n\n-------------------------")
+        print(cat)
         return render(request, "product.html", {"Product": p, "Category": cat, "KitCat": kit})
     user = User.objects.get(username=request.user)
     if (user.is_superuser):
@@ -423,7 +425,7 @@ def cartDetails(request):
         subtotal = 0
         for i in cart:
             subtotal += i.total
-        if (subtotal < 1000):
+        if (subtotal < 500):
             delivery = 150
         else:
             delivery = 0
@@ -481,22 +483,22 @@ def deleteCart(request, num):
 
 def productInfo(request, num, cat):
     kit = KitchenCategory.objects.all()
-    if(cat=='FrozenFoods'):
-        p=FrozenFoods.objects.get(id=num)
-    if(cat=='Fruits'):
-        p=Fruits.objects.get(id=num)
-    if(cat=='Beverages'):
-        p=Beverages.objects.get(id=num)
-    if(cat=='Spices'):
-        p=Spices.objects.get(id=num)
-    if(cat=='Pulses'):
+    if (cat == 'Beverages' or cat == '1'):
+        p = Beverages.objects.get(id=num)
+    if(cat=='Pulses' or cat=='2'):
         p=Pulses.objects.get(id=num)
-    if(cat=='Vegetables'):
+    if(cat=='Vegetables' or cat=='3'):
         p=Vegetables.objects.get(id=num)
-    if(cat=='Bakery'):
-        p=Bakery.objects.get(id=num)
-    if(cat=='Snacks'):
+    if(cat=='Fruits' or cat=='4'):
+        p=Fruits.objects.get(id=num)
+    if(cat=='Snacks' or cat=='5'):
         p=Snacks.objects.get(id=num)
+    if (cat == 'Spices' or cat == '6'):
+        p = Spices.objects.get(id=num)
+    if (cat == 'Bakery' or cat == '7'):
+        p = Bakery.objects.get(id=num)
+    if(cat=='FrozenFoods' or cat=='8'):
+        p=FrozenFoods.objects.get(id=num)
     dic={"Product":p, "KitCat": kit, "Quan": str(p.quantity)}
     return render(request, "productinfo.html", dic)
 
@@ -685,24 +687,6 @@ def editProduct(request,num, cat):
 
 @login_required(login_url='/login/')
 def wishlist(request, num, cat):
-    # user = User.objects.get(username=request.user)
-    # if (user.is_superuser):
-    #     return HttpResponseRedirect('/admin')
-    # user = Buyer.objects.get(uname=request.user)
-    # w = WishList()
-    # w.frozenFoods = FrozenFoods.objects.get(id=num)
-    # w.bakery = Bakery.objects.get(id=num)
-    # w.spices = Spices.objects.get(id=num)
-    # w.pulses = Pulses.objects.get(id=num)
-    # w.vegetables = Vegetables.objects.get(id=num)
-    # w.snacks = Snacks.objects.get(id=num)
-    # w.fruits = Fruits.objects.get(id=num)
-    # w.beverages = Beverages.objects.get(id=num)
-    # w.user = user
-    # w.product = product
-    # w.save()
-    # return HttpResponseRedirect('/profile/')
-
     user = User.objects.get(username=request.user)
     if (user.is_superuser):
         return HttpResponseRedirect('/admin/')
@@ -714,6 +698,7 @@ def wishlist(request, num, cat):
                 w.bakery = Bakery.objects.get(id=num)
             if (cat == 'Beverages'):
                 w.beverages = Beverages.objects.get(id=num)
+                print("Sooooooooo")
             if (cat == 'Spices'):
                 w.spices = Spices.objects.get(id=num)
             if (cat == 'Snacks'):
@@ -728,7 +713,7 @@ def wishlist(request, num, cat):
                 w.vegetables = Vegetables.objects.get(id=num)
             w.user = Buyer.objects.get(uname=request.user)
             w.cat = KitchenCategory.objects.get(name=cat)
-            c.save()
+            w.save()
             return HttpResponseRedirect('/wishlistdetails/')
         except:
             return HttpResponseRedirect('/login/')
@@ -758,7 +743,7 @@ def wishlistDelete(request, num):
         return HttpResponseRedirect('/admin/')
     wish = WishList.objects.get(id=num)
     wish.delete()
-    return HttpResponseRedirect('/wishlist/')
+    return HttpResponseRedirect('/wishlistdetails/')
 
 
 def checkOut(request):
