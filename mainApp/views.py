@@ -87,6 +87,12 @@ def profile(request):
                 s.phone = request.POST.get('phone')
                 s.address = request.POST.get('address')
                 s.city = request.POST.get('city')
+                s.pin = request.POST.get('pin')
+                s.state = request.POST.get('state')
+                s.landmark = request.POST.get('landmark')
+                s.bankName = request.POST.get('bankName')
+                s.ifscCode = request.POST.get('ifscCode')
+                s.accountNumber = request.POST.get('accountNumber')
                 s.save()
                 return HttpResponseRedirect('/profile/')
             return render(request, "seller.html", {
@@ -108,7 +114,8 @@ def profile(request):
                 b.name = request.POST.get('name')
                 b.uname = request.POST.get('uname')
                 b.email = request.POST.get('email')
-                b.address1 = request.POST.get('address1')
+                b.phone = request.POST.get('phone')
+                b.address = request.POST.get('address')
                 b.landmark = request.POST.get('landmark')
                 b.city = request.POST.get('city')
                 b.state = request.POST.get('state')
@@ -423,7 +430,6 @@ def cartDetails(request):
         finalAmount = subtotal + delivery
 
     return render(request,"cart.html", {"KitCat": kit, "Cart": cart, "Sub": subtotal, "Delivery": delivery, "Final": finalAmount})
-
 
 
 @login_required(login_url='/login/')

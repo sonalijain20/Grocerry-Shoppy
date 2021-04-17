@@ -5,143 +5,204 @@
 <div class="privacy">
     <div class="container">
         <!-- tittle heading -->
-        <h3 class="tittle-w3l">Personal Information <br><br>
-            <div class="contact agileits">
-                <div class="contact-agileinfo">
-                    <div class="contact-form wthree">
-                        <p>Welcome</p><h2>{{User.uname}}</h2><br>
-                        <form method="post">
-                            {%csrf_token %}
-                            <div class="">
-                                <input type="text" name="name" placeholder="Name" value="{{User.name}}">
-                            </div>
-                            <div class="">
-                                <input class="text" type="text" name="uname" placeholder="Username" value="{{User.uname}}" >
-                            </div>
-                            <div class="">
-                                <input class="email" type="email" name="email" placeholder="Email"  value="{{User.email}}" >
-                            </div>
-                            <div class="">
-                                <input class="text" type="text" name="address1" placeholder="Address" value="{{User.address1}}" required="">
-                            </div>
-                            <div class="">
-                                <input class="text" type="text" name="landmark" placeholder="Landmark" value="{{User.landmark}}" required="">
-                            </div>
-                            <div class="">
-                                <input class="text" type="text" name="city" placeholder="City" value="{{User.city}}" required="">
-                            </div>
-                            <div class="">
-                                <input class="text" type="text" name="state" placeholder="State" value="{{User.state}}" required="">
-                            </div>
-                            <div class="">
-                                <input class="text" type="text" name="pin" placeholder="Pin" value="{{User.pin}}" required="">
-                            </div>
-                            <h1 class="tittle-w3l">Bank Details</h1>
-                            <div class="">
-                                <input type="text" name="bankName" placeholder="Bank Name" value="{{User.bankName}}" >
-                            </div>
-                            <div class="">
-                                <input class="text" type="text" name="accountNumber" placeholder="Account Number" value="{{User.accountNumber}}" required="">
-                            </div>
-                            <input type="submit" value="Update">
-                        </form>
+        <a href="#" data-toggle="modal" data-target="#myModal7">
+            <h3 class="tittle-w3l">Personal Information
+                <span class="heading-style">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </span>
+            </h3>
+        </a>
+        <a href="#" data-toggle="modal" data-target="#myModal8">
+            <h3 class="tittle-w3l">Order History
+                <span class="heading-style">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </span>
+            </h3>
+        </a>
+
+<!--        myModal7-->
+        <div class="modal fade" id="myModal7" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body modal-body-sub_agile">
+                        <div class="modal_body_left modal_body_left1">
+
+                            <h3 class="agileinfo_sign">Personal Information </h3>
+
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="styled-input agile-styled-input-top">
+                                    <label>Name</label>
+                                    <input type="text" name="name" value="{{User.name}}" >
+                                </div>
+                                <div class="styled-input agile-styled-input-top">
+                                    <label>Username</label>
+                                    <input class="text" type="text" name="uname" value="{{User.uname}}" >
+                                </div>
+                                <div class="styled-input">
+                                    <label>Email Address</label>
+                                    <input class="email" type="email" name="email"  value="{{User.email}}" >
+                                </div>
+                                <div class="styled-input">
+                                    <label>Phone Number</label>
+                                    <input class="text" type="text" name="phone"  value="{{User.phone}}">
+                                </div>
+                                <div class="styled-input">
+                                    <label>Address</label>
+                                    <input class="text" type="text" name="address"  value="{{User.address}}" >
+                                </div>
+                                <div class="styled-input">
+                                    <label>Landmark</label>
+                                    <input class="text" type="text" name="landmark" value="{{User.landmark}}" required="">
+                                </div>
+                                <div class="styled-input">
+                                    <label>City</label>
+                                    <input class="text" type="text" name="city"  value="{{User.city}}" >
+                                </div>
+                                <div class="styled-input">
+                                    <label>State</label>
+                                    <input class="text" type="text" name="state"  value="{{User.state}}" required="">
+                                </div>
+                                <div class="styled-input">
+                                    <label>Pincode</label>
+                                    <input class="text" type="text" name="pin" value="{{User.pin}}" required="">
+                                </div>
+                                <div class="styled-input">
+                                    <label>Bank Name</label>
+                                    <input type="text" name="bankName" placeholder="Name" value="{{User.bankName}}" >
+                                </div>
+                                <div class="styled-input">
+                                    <label>Account Number</label>
+                                    <input type="text" name="accountNumber" value="{{User.accountNumber}}" >
+                                </div>
+                                <h3 class="tittle-w3l">
+                                    <input type="submit" value="Update">
+                                </h3>
+                            </form>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
                 </div>
+                <!-- //Modal content-->
             </div>
-        </h3>
-<div class="privacy">
-    <div class="container">
-        <!-- tittle heading -->
-        <h3 class="tittle-w3l">Your Order History
-            <span class="heading-style">
-                <i></i>
-                <i></i>
-                <i></i>
-            </span>
-        </h3>
+        </div>
+<!--        //myModal7-->
+<!--        myModal8-->
+        <div class="modal fade" id="myModal8" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body modal-body-sub_agile">
+                        <div class="modal_body_left modal_body_left1">
+                            <h3 class="agileinfo_sign">Your Orders</h3>
+                            <h4>
+                                <div class="checkout-right">
+                                    <div class="table-responsive">
+                                        <table class="timetable_sub">
+                                            <thead>
+                                                <tr>
+                                                    <th>Product</th>
+                                                    <th>Product Name</th>
+                                                    <th>Quantity</th>
+                                                    <th>Price</th>
+                                                    <th>Date</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for i in Order %}
+                                                <tr class="rem1">
+
+                                                    {% if i.snacks %}
+                                                    <td class="invert-image"><img src="{{i.snacks.img1.url}}"></td>
+                                                    {% endif %}
+                                                    {% if i.pulses %}
+                                                    <td class="invert"><img src="{{i.pulses.img1.url}}" width="50px" height="50px"></td>
+                                                    {% endif %}
+                                                    {% if i.bakery %}
+                                                    <td class="invert"><img src="{{i.bakery.img1.url}}" width="50px" height="50px"></td>
+                                                    {% endif %}
+                                                    {% if i.vegetables %}
+                                                    <td class="invert"><img src="{{i.vegetables.img1.url}}" width="50px" height="50px"></td>
+                                                    {% endif %}
+                                                    {% if i.fruits %}
+                                                    <td class="invert"><img src="{{i.fruits.img1.url}}" width="50px" height="50px"></td>
+                                                    {% endif %}
+                                                    {% if i.spices %}
+                                                    <td class="invert"><img src="{{i.spices.img1.url}}" width="50px" height="50px"></td>
+                                                    {% endif %}
+                                                    {% if i.frozenFoods %}
+                                                    <td class="invert"><img src="{{i.frozenFoods.img1.url}}" width="50px" height="50px"></td>
+                                                    {% endif %}
+                                                    {% if i.beverages %}
+                                                    <td class="invert"><img src="{{i.beverages.img1.url}}" width="50px" height="50px"></td>
+                                                    {% endif %}
+
+                                                    {% if i.snacks %}
+                                                    <td class="invert">{{i.snacks}}</td>
+                                                    {% endif %}
+                                                    {% if i.pulses %}
+                                                    <td class="invert">{{i.pulses}}</td>
+                                                    {% endif %}
+                                                    {% if i.bakery %}
+                                                    <td class="invert">{{i.bakery}}</td>
+                                                    {% endif %}
+                                                    {% if i.vegetables %}
+                                                    <td class="invert">{{i.vegetables}}</td>
+                                                    {% endif %}
+                                                    {% if i.fruits %}
+                                                    <td class="invert">{{i.fruits}}</td>
+                                                    {% endif %}
+                                                    {% if i.spices %}
+                                                    <td class="invert">{{i.spices}}</td>
+                                                    {% endif %}
+                                                    {% if i.frozenFoods %}
+                                                    <td class="invert">{{i.frozenFoods}}</td>
+                                                    {% endif %}
+                                                    {% if i.beverages %}
+                                                    <td class="invert">{{i.beverages}}</td>
+                                                    {% endif %}
+
+                                                    <td class="invert">{{i.quantity}}</td>
+                                                    <td class="invert">{{i.finalPrice}}</td>
+                                                    <td>{{i.date}}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </h4>
+
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <!-- //Modal content-->
+            </div>
+        </div>
 
 
-<div class="checkout-right">
-<!--    <h4>Your shopping cart contains:-->
-<!--        <span>3 Products</span>-->
-<!--    </h4>-->
-    <div class="table-responsive">
-        <table class="timetable_sub">
-            <thead>
-                <tr>
 
-                    <th>Product</th>
-                    <th>Product Name</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Date</th>
 
-                </tr>
-            </thead>
-            <tbody>
-            {% for i in Order %}
-                <tr class="rem1">
+<!--        //myModal8-->
 
-                    {% if i.snacks %}
-                    <td class="invert-image"><img src="{{i.snacks.img1.url}}"></td>
-                    {% endif %}
-                    {% if i.pulses %}
-                    <td class="invert"><img src="{{i.pulses.img1.url}}" width="50px" height="50px"></td>
-                    {% endif %}
-                    {% if i.bakery %}
-                    <td class="invert"><img src="{{i.bakery.img1.url}}" width="50px" height="50px"></td>
-                    {% endif %}
-                    {% if i.vegetables %}
-                    <td class="invert"><img src="{{i.vegetables.img1.url}}" width="50px" height="50px"></td>
-                    {% endif %}
-                    {% if i.fruits %}
-                    <td class="invert"><img src="{{i.fruits.img1.url}}" width="50px" height="50px"></td>
-                    {% endif %}
-                    {% if i.spices %}
-                    <td class="invert"><img src="{{i.spices.img1.url}}" width="50px" height="50px"></td>
-                    {% endif %}
-                    {% if i.frozenFoods %}
-                    <td class="invert"><img src="{{i.frozenFoods.img1.url}}" width="50px" height="50px"></td>
-                    {% endif %}
-                    {% if i.beverages %}
-                    <td class="invert"><img src="{{i.beverages.img1.url}}" width="50px" height="50px"></td>
-                    {% endif %}
 
-                    {% if i.snacks %}
-                    <td class="invert">{{i.snacks}}</td>
-                    {% endif %}
-                    {% if i.pulses %}
-                    <td class="invert">{{i.pulses}}</td>
-                    {% endif %}
-                    {% if i.bakery %}
-                    <td class="invert">{{i.bakery}}</td>
-                    {% endif %}
-                    {% if i.vegetables %}
-                    <td class="invert">{{i.vegetables}}</td>
-                    {% endif %}
-                    {% if i.fruits %}
-                    <td class="invert">{{i.fruits}}</td>
-                    {% endif %}
-                    {% if i.spices %}
-                    <td class="invert">{{i.spices}}</td>
-                    {% endif %}
-                    {% if i.frozenFoods %}
-                    <td class="invert">{{i.frozenFoods}}</td>
-                    {% endif %}
-                    {% if i.beverages %}
-                    <td class="invert">{{i.beverages}}</td>
-                    {% endif %}
 
-                    <td class="invert">{{i.quantity}}</td>
-                    <td class="invert">{{i.finalPrice}}</td>
-                    <td>{{i.date}}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-
-    </div>
-</div>
 <div class="privacy">
     <div class="container">
 
