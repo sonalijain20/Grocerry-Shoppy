@@ -36,16 +36,23 @@ urlpatterns = [
     path('addfrozenfood/', views.addFrozenfoods),
     path('addspices/', views.addSpices),
     path('addbeverages/', views.addBeverages),
+
+    path('deleteproduct/<int:num>/<str:cat>/', views.deleteProduct),
+    path('editproduct/<int:num>/<str:cat>/', views.editProduct),
+
+    path('checkout/', views.checkOut),
+    path('payment/', views.payment),
+    path('contact/', views.contactDetails),
+
     path('cart/<int:num>/<str:cat>/', views.cart),
     path('cartdetails/', views.cartDetails),
     path('deletecart/<int:num>/', views.deleteCart),
-    path('deleteproduct/<int:num>/<str:cat>/', views.deleteProduct),
-    path('editproduct/<int:num>/<str:cat>/', views.editProduct),
-    path('wishlist/<int:num>/', views.wishlistDetails),
-    path('wishlist/', views.wishlistBuyer),
+
+
+
+    path('wishlist/<int:num>/<str:cat>/', views.wishlist),
+    path('wishlistdetails/', views.wishlistDetails),
     path('deletewishlist/<int:num>/', views.wishlistDelete),
-    path('checkout/', views.checkOut),
-    path('payment/', views.payment)
 
     #path('productinfo/<int:id>/', views.productInfo),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

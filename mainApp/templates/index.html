@@ -97,7 +97,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<!-- wishlist -->
 				<div class="top_nav_right">
 					<div class="wthreecartaits wthreecartaits2 cart cart box_1">
-						<form method="post" action="/wishlist/">
+						<form method="post" action="/wishlistdetails/">
 							{% csrf_token %}
 							<button class="w3view-cart" type="submit" >
 								<i class="fa fa-heart"></i>
@@ -105,7 +105,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</form>
 					</div>
 				</div>
-				<!-- wishlist close -->
+				<!-- //wishlist -->
 				<!-- cart details -->
 				<div class="top_nav_right">
 					<div class="wthreecartaits wthreecartaits2 cart cart box_1">
@@ -233,22 +233,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="ban-top">
 		<div class="container">
 			<div class="agileits-navi_search">
-<!--				<form action="#" method="post">-->
-<!--					<select id="agileinfo-nav_search" name="agileinfo_search" required="">-->
-<!--						<option value="">All Categories</option>-->
-<!--						<option value="Kitchen">Kitchen</option>-->
-<!--						<option value="Household">Household</option>-->
-<!--						<option value="Snacks &amp; Beverages">Snacks & Beverages</option>-->
-<!--						<option value="Personal Care">Personal Care</option>-->
-<!--						<option value="Gift Hampers">Gift Hampers</option>-->
-<!--						<option value="Fruits &amp; Vegetables">Fruits & Vegetables</option>-->
-<!--						<option value="Baby Care">Baby Care</option>-->
-<!--						<option value="Soft Drinks &amp; Juices">Soft Drinks & Juices</option>-->
-<!--						<option value="Frozen Food">Frozen Food</option>-->
-<!--						<option value="Bread &amp; Bakery">Bread & Bakery</option>-->
-<!--						<option value="Sweets">Sweets</option>-->
-<!--					</select>-->
-<!--				</form>-->
 			</div>
 			<div class="top_nav_left">
 				<nav class="navbar navbar-default">
@@ -286,21 +270,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										{% endfor %}
 									</ul>
 								</li>
-<!--								<li class="dropdown">-->
-<!--									<a class="nav-stylehead dropdown-toggle" href="#" data-toggle="dropdown">House Hold-->
-<!--										<b class="caret"></b>-->
-<!--									</a>-->
-<!--									<ul class="dropdown-menu agile_short_dropdown">-->
-<!--										{% for i in KitCat %}-->
-<!--										<li>-->
-<!--											<a href="/product/{{i.name}}/">{{i.name}}</a>-->
-<!--										</li>-->
-<!--										{% endfor %}-->
-<!--									</ul>-->
-<!--								</li>-->
-
 								<li class="">
-									<a class="nav-stylehead" href="contact.html">Contact</a>
+									<a class="nav-stylehead" href="/contact/">Contact</a>
 								</li>
 							</ul>
 						</div>
