@@ -39,7 +39,7 @@ class Seller(models.Model):
 
 class FrozenFoods(models.Model):
     name = models.CharField(max_length=50)
-    cat=models.CharField(default='FrozenFoods', max_length=20)
+    cat=models.CharField(default='Frozen Foods', max_length=20)
     desc = models.TextField()
     img1 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     img2 = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
@@ -244,9 +244,13 @@ class CheckOut(models.Model):
     pin = models.CharField(max_length=20)
     date = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return str(self.id)
+
 
 class OrdersPlaced(models.Model):
     user = models.ForeignKey(Buyer, on_delete=models.CASCADE)
+    seller_details = models.ForeignKey(Seller, on_delete = models.CASCADE, null = True, blank = True)
     frozenFoods = models.ForeignKey(FrozenFoods, on_delete=models.CASCADE, null=True, blank=True)
     bakery = models.ForeignKey(Bakery, on_delete=models.CASCADE, null=True, blank=True)
     spices = models.ForeignKey(Spices, on_delete=models.CASCADE, null=True, blank=True)
@@ -260,8 +264,5 @@ class OrdersPlaced(models.Model):
     finalPrice = models.IntegerField(default=0)
     date = models.DateTimeField(auto_now=True)
 
-class Simran(models.Model):
-    name = models.CharField(max_length=50)
-
     def __str__(self):
-        return str(self.id) + " " + self.name
+        return str(self.id)
