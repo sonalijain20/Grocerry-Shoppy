@@ -683,7 +683,7 @@ def editProduct(request,num, cat):
             return HttpResponseRedirect('/profile/')
 
     if (cat == 'Vegetables'):
-        veg = Vegetables.objects.get(id=num)
+        p = Vegetables.objects.get(id=num)
         if (request.method == 'POST'):
             s = Seller.objects.get(uname=request.user)
             p.name = request.POST.get('name')
@@ -1036,3 +1036,8 @@ def contactDetails(request):
         return HttpResponseRedirect('/contact/')
 
     return render(request, "contact.html")
+
+
+def aboutUs(request):
+    kit = KitchenCategory.objects.all()
+    return render(request, "about.html", {"KitCat": kit})
