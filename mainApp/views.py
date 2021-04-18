@@ -871,3 +871,8 @@ def checkOut(request):
 
 def payment(request):
     return render(request, "payment.html")
+
+
+def aboutUs(request):
+    kit = KitchenCategory.objects.all()
+    return render(request, "about.html", {"KitCat": kit})

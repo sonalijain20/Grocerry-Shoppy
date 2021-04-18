@@ -45,7 +45,10 @@ urlpatterns = [
     path('wishlist/', views.wishlistBuyer),
     path('deletewishlist/<int:num>/', views.wishlistDelete),
     path('checkout/', views.checkOut),
-    path('payment/', views.payment)
+    path('payment/', views.payment),
+    path('about/', views.aboutUs),
+
+
 
     #path('productinfo/<int:id>/', views.productInfo),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
