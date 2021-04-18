@@ -817,7 +817,7 @@ def wishlist(request, num, cat):
         return HttpResponseRedirect('/admin/')
     kit = KitchenCategory.objects.all()
     if (request.method == 'POST'):
-        # try:
+        try:
             w = WishList()
             if (cat == 'Bakery'):
                 w.bakery = Bakery.objects.get(id=num)
@@ -830,8 +830,6 @@ def wishlist(request, num, cat):
             if (cat == 'Pulses'):
                 w.pulses = Pulses.objects.get(id=num)
             if (cat == 'Frozen Foods'):
-                print("\n\n\n\n\nn\n\n\n\n\n")
-                print(cat)
                 w.frozenFoods = FrozenFoods.objects.get(id=num)
                 print(w.frozenFoods)
             if (cat == 'Fruits'):
@@ -842,9 +840,9 @@ def wishlist(request, num, cat):
             w.cat = KitchenCategory.objects.get(name=cat)
             w.save()
             return HttpResponseRedirect('/wishlistdetails/')
-    #     except:
-    #         return HttpResponseRedirect('/login/')
-    # return render(request, "wishlist.html", {"KitCat": kit})
+        except:
+            return HttpResponseRedirect('/login/')
+    return render(request, "wishlist.html", {"KitCat": kit})
 
 
 @login_required(login_url='/login/')
