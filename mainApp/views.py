@@ -423,13 +423,12 @@ def cartDetails(request):
         subtotal = 0
         for i in cart:
             subtotal += i.total
-        if (subtotal < 1000):
+        if (subtotal < 500):
             delivery = 150
         else:
             delivery = 0
         finalAmount = subtotal + delivery
-
-    return render(request,"cart.html", {"KitCat": kit, "Cart": cart, "Sub": subtotal, "Delivery": delivery, "Final": finalAmount})
+        return render(request,"cart.html", {"KitCat": kit, "Cart": cart, "Sub": subtotal, "Delivery": delivery, "Final": finalAmount})
 
 
 @login_required(login_url='/login/')
@@ -686,33 +685,44 @@ def editProduct(request,num, cat):
 
 
 @login_required(login_url='/login/')
-def wishlistDetails(request, num):
+def wishlist(request, num, cat):
     user = User.objects.get(username=request.user)
     if (user.is_superuser):
-        return HttpResponseRedirect('/admin')
-    try:
-        user = Seller.objects.get(uname=request.user)
-        return HttpResponseRedirect('/profile/')
-    except:
-        user = Buyer.objects.get(uname=request.user)
-        w = WishList()
-        w.frozenFoods = FrozenFoods.objects.get(id=num)
-        w.bakery = Bakery.objects.get(id=num)
-        w.spices = Spices.objects.get(id=num)
-        w.pulses = Pulses.objects.get(id=num)
-        w.vegetables = Vegetables.objects.get(id=num)
-        w.snacks = Snacks.objects.get(id=num)
-        w.fruits = Fruits.objects.get(id=num)
-        w.beverages = Beverages.objects.get(id=num)
-        w.user = user
-        w.product = product
-        w.save()
-        return HttpResponseRedirect('/profile/')
+        return HttpResponseRedirect('/admin/')
+    kit = KitchenCategory.objects.all()
+    if (request.method == 'POST'):
+        try:
+            w = WishList()
+            if (cat == 'Bakery'):
+                w.bakery = Bakery.objects.get(id=num)
+            if (cat == 'Beverages'):
+                w.beverages = Beverages.objects.get(id=num)
+                print("Sooooooooo")
+            if (cat == 'Spices'):
+                w.spices = Spices.objects.get(id=num)
+            if (cat == 'Snacks'):
+                w.snacks = Snacks.objects.get(id=num)
+            if (cat == 'Pulses'):
+                w.pulses = Pulses.objects.get(id=num)
+            if (cat == 'Frozen Foods'):
+                w.frozenFoods = FrozenFoods.objects.get(id=num)
+            if (cat == 'Fruits'):
+                w.fruits = Fruits.objects.get(id=num)
+            if (cat == 'Vegetables'):
+                w.vegetables = Vegetables.objects.get(id=num)
+            w.user = Buyer.objects.get(uname=request.user)
+            w.cat = KitchenCategory.objects.get(name=cat)
+            w.save()
+            return HttpResponseRedirect('/wishlistdetails/')
+        except:
+            return HttpResponseRedirect('/login/')
+    return render(request, "wishlist.html", {"KitCat": kit})
 
 
 @login_required(login_url='/login/')
-def wishlistBuyer(request):
+def wishlistDetails(request):
     user = User.objects.get(username=request.user)
+    kit = KitchenCategory.objects.all()
     if (user.is_superuser):
         return HttpResponseRedirect('/admin')
     try:
@@ -722,14 +732,17 @@ def wishlistBuyer(request):
         user = Buyer.objects.get(uname=request.user)
         wish = WishList.objects.filter(user=user)
         return render(request, "wishlist.html",
-                      {"Wish": wish})
+                      {"Wish": wish, "KitCat": kit})
 
 
 @login_required(login_url='/login/')
 def wishlistDelete(request, num):
+    user = User.objects.get(username=request.user)
+    if (user.is_superuser):
+        return HttpResponseRedirect('/admin/')
     wish = WishList.objects.get(id=num)
     wish.delete()
-    return HttpResponseRedirect('/wishlist/')
+    return HttpResponseRedirect('/wishlistdetails/')
 
 
 def checkOut(request):
@@ -871,6 +884,21 @@ def checkOut(request):
 
 def payment(request):
     return render(request, "payment.html")
+
+
+
+def contactDetails(request):
+    if(request.method == "POST"):
+        c = Contact()
+        c.name = request.POST.get('name')
+        c.email = request.POST.get('email')
+        c.subject = request.POST.get('subject')
+        c.msg = request.POST.get('message')
+        c.save()
+        messages.success(request, "Message Sent")
+        return HttpResponseRedirect('/contact/')
+
+    return render(request, "contact.html")
 
 
 def aboutUs(request):

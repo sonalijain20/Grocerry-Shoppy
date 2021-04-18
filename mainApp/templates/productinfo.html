@@ -44,19 +44,28 @@
 				<h3><b>{{Product.name}}</b></h3>
 				<h7>{{Product.size}}</h7>
 				<p>
-					<span class="item_price">Rs{{Product.basePrice}}</span>
-					<del>{{Product.finalPrice}}</del>
+					<span class="item_price">Rs{{Product.finalPrice}}</span>
+					<del>Rs.{{Product.basePrice}}</del>
 				</p>
 				<form action="/cart/{{Product.id}}/{{Product.cat}}/" method="post">
 					{% csrf_token %}
+					{% if Product.stock %}
 					<div class="occasion-cart">
 						<label>Quantity </label>
-					<input type="number" max="{{Product.quantity}}" name="quantity" value="0"><br>
-					<input type="hidden" name="fprice" value="{{Product.finalPrice}}"><br>
+						<input type="number" max="{{Product.quantity}}" name="quantity" value="0"><br>
+						<input type="hidden" name="fprice" value="{{Product.finalPrice}}"><br>
 						<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
 							<br><input type="submit" name="submit" value="Add to cart" class="button" />
 						</div>
 					</div>
+					{% else %}
+					<div class="occasion-cart">
+					<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
+							<br><input type="submit" name="submit" value="Out of Stock" class="button" style="pointer-events: none" />
+						</div>
+					</div>
+					{% endif %}
+
 				</form>
 				<div class="product-single-w3l">
 					<p>

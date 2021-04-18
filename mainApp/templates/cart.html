@@ -3,136 +3,123 @@
 {% block body %}
 <div class="privacy">
     <div class="container">
-        <!-- tittle heading -->
+        {% if not Cart %}
+            <h3 class="tittle-w3l">Your Cart is empty. </h3>
+        {% else %}
+            <h3 class="tittle-w3l">Your Cart
+                <span class="heading-style">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </span>
+            </h3>
+        <div class="checkout-right">
+            <h4>Your shopping cart contains:
+                <span></span>
+            </h4>
+            <div class="table-responsive">
+                <table class="timetable_sub">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Name</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for i in Cart %}
+                        <tr class="rem1">
+                            {% if i.snacks %}
+                            <td class="invert-image"><img src="{{i.snacks.img1.url}}"></td>
+                            {% endif %}
+                            {% if i.pulses %}
+                            <td class="invert"><img src="{{i.pulses.img1.url}}" width="50px" height="50px"></td>
+                            {% endif %}
+                            {% if i.bakery %}
+                            <td class="invert"><img src="{{i.bakery.img1.url}}" width="50px" height="50px"></td>
+                            {% endif %}
+                            {% if i.vegetables %}
+                            <td class="invert"><img src="{{i.vegetables.img1.url}}" width="50px" height="50px"></td>
+                            {% endif %}
+                            {% if i.fruits %}
+                            <td class="invert"><img src="{{i.fruits.img1.url}}" width="50px" height="50px"></td>
+                            {% endif %}
+                            {% if i.spices %}
+                            <td class="invert"><img src="{{i.spices.img1.url}}" width="50px" height="50px"></td>
+                            {% endif %}
+                            {% if i.frozenFoods %}
+                            <td class="invert"><img src="{{i.frozenFoods.img1.url}}" width="50px" height="50px"></td>
+                            {% endif %}
+                            {% if i.beverages %}
+                            <td class="invert"><img src="{{i.beverages.img1.url}}" width="50px" height="50px"></td>
+                            {% endif %}
 
-{% if not Cart %}
-        <h3 class="tittle-w3l">Your Cart is empty. </h3>
-{% else %}
-        <h3 class="tittle-w3l">Your Cart
-            <span class="heading-style">
-                <i></i>
-                <i></i>
-                <i></i>
-            </span>
-        </h3>
-<div class="checkout-right">
-    <h4>Your shopping cart contains:
-        <span></span>
-    </h4>
+                            {% if i.snacks %}
+                            <td class="invert">{{i.snacks.name}}</td>
+                            {% endif %}
+                            {% if i.pulses %}
+                            <td class="invert">{{i.pulses.name}}</td>
+                            {% endif %}
+                            {% if i.bakery %}
+                            <td class="invert">{{i.bakery.name}}</td>
+                            {% endif %}
+                            {% if i.vegetables %}
+                            <td class="invert">{{i.vegetables.name}}</td>
+                            {% endif %}
+                            {% if i.fruits %}
+                            <td class="invert">{{i.fruits.name}}</td>
+                            {% endif %}
+                            {% if i.spices %}
+                            <td class="invert">{{i.spices.name}}</td>
+                            {% endif %}
+                            {% if i.frozenFoods %}
+                            <td class="invert">{{i.frozenFoods.name}}</td>
+                            {% endif %}
+                            {% if i.beverages %}
+                            <td class="invert">{{i.beverages.name}}</td>
+                            {% endif %}
 
-    <div class="table-responsive">
-        <table class="timetable_sub">
-            <thead>
-                <tr>
+                            <td class="invert">{{i.quantity}}</td>
+                            <td class="invert">{{i.total}}</td>
 
-                    <th>Product</th>
-                    <th>Name</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Remove</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for i in Cart %}
-                <tr class="rem1">
-                    {% if i.snacks %}
-                    <td class="invert-image"><img src="{{i.snacks.img1.url}}"></td>
+                            <td class="invert">
+                                <div class="rem">
+                                   <a href="/deletecart/{{i.id}}/" class="fa fa-trash"></a><br>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="4" class="invert"><b>Subtotal</b></td>
+                        <td class="invert">{{Sub}}</td>
+                    </tr>
+                    {% if Delivery %}
+                        <tr>
+                            <td class="invert" colspan="4"><b>Shipping Cost</b> (Free shipping above Rs.500 order)</td>
+                            <td class="invert">{{Delivery}}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td class="invert" colspan="4"><b>Shipping Cost</b> (Free shipping above Rs.500 order)</td>
+                            <td class="invert">Free</td>
+                        </tr>
                     {% endif %}
-                    {% if i.pulses %}
-                    <td class="invert"><img src="{{i.pulses.img1.url}}" width="50px" height="50px"></td>
-                    {% endif %}
-                    {% if i.bakery %}
-                    <td class="invert"><img src="{{i.bakery.img1.url}}" width="50px" height="50px"></td>
-                    {% endif %}
-                    {% if i.vegetables %}
-                    <td class="invert"><img src="{{i.vegetables.img1.url}}" width="50px" height="50px"></td>
-                    {% endif %}
-                    {% if i.fruits %}
-                    <td class="invert"><img src="{{i.fruits.img1.url}}" width="50px" height="50px"></td>
-                    {% endif %}
-                    {% if i.spices %}
-                    <td class="invert"><img src="{{i.spices.img1.url}}" width="50px" height="50px"></td>
-                    {% endif %}
-                    {% if i.frozenFoods %}
-                    <td class="invert"><img src="{{i.frozenFoods.img1.url}}" width="50px" height="50px"></td>
-                    {% endif %}
-                    {% if i.beverages %}
-                    <td class="invert"><img src="{{i.beverages.img1.url}}" width="50px" height="50px"></td>
-                    {% endif %}
-
-                    {% if i.snacks %}
-                    <td class="invert">{{i.snacks}}</td>
-                    {% endif %}
-                    {% if i.pulses %}
-                    <td class="invert">{{i.pulses}}</td>
-                    {% endif %}
-                    {% if i.bakery %}
-                    <td class="invert">{{i.bakery}}</td>
-                    {% endif %}
-                    {% if i.vegetables %}
-                    <td class="invert">{{i.vegetables}}</td>
-                    {% endif %}
-                    {% if i.fruits %}
-                    <td class="invert">{{i.fruits}}</td>
-                    {% endif %}
-                    {% if i.spices %}
-                    <td class="invert">{{i.spices}}</td>
-                    {% endif %}
-                    {% if i.frozenFoods %}
-                    <td class="invert">{{i.frozenFoods}}</td>
-                    {% endif %}
-                    {% if i.beverages %}
-                    <td class="invert">{{i.beverages}}</td>
-                    {% endif %}
-
-                    <td class="invert">{{i.quantity}}</td>
-                    <td class="invert">{{i.total}}</td>
-
-                    <td class="invert">
-                        <div class="rem">
-                           <a href="/deletecart/{{i.id}}/" class="fa fa-trash"></a><br>
-                        </div>
-                    </td>
-                </tr>
-            {% endfor %}
-
-            <tr>
-                            <td colspan="4" class="invert"><b>Subtotal</b></td>
-                            <td class="invert">{{Sub}}</td>
-            </tr>
-             {% if Delivery %}
-                         <tr>
-                             <td class="invert" colspan="4"><b>Shipping Cost</b></td>
-                             <td class="invert">{{Delivery}}</td>
-                         </tr>
-                         {% else %}
-                         <tr>
-                             <td class="invert" colspan="4"><b>Shipping Cost</b></td>
-                             <td class="invert">Free</td>
-                         </tr>
-							{% endif %}
-                         <tr>
-                             <td class="invert" colspan="4"><h4><b>Total</b></h4></td>
-                             <td class="invert"><b>{{Final}}</b></td>
-                         </tr>
-
-            </tbody>
-        </table>
-                        <div class="checkout-right-basket" >
-
-                                <a href="/checkout/">Proceed to Checkout
-							<span class="fa fa-hand-o-right" aria-hidden="true"></span>
-						</a>
-
-
+                        <tr>
+                            <td class="invert" colspan="4"><h4><b>Total</b></h4></td>
+                            <td class="invert"><b>{{Final}}</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="checkout-right-basket" >
+                    <a href="/checkout/">Proceed to Checkout
+                        <span class="fa fa-hand-o-right" aria-hidden="true"></span>
+                    </a>
                 </div>
-
-
-
-
+            </div>
+        </div>
+        {% endif %}
     </div>
 </div>
-        {% endif %}
-        <div class="privacy">
-    <div class="container">
 {% endblock %}

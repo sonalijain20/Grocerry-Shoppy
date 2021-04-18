@@ -13,6 +13,7 @@ admin.site.register(Beverages)
 admin.site.register(Snacks)
 admin.site.register(Spices)
 admin.site.register(Cart)
+admin.site.register(WishList)
 admin.site.register(CheckOut)
 # admin.site.register(OrdersPlaced)
 
