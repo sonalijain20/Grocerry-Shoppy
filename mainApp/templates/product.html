@@ -87,7 +87,6 @@
 										{% csrf_token %}
 										<button type="submit" >Add to Wishlist</button><br><br>
 									</form>
-
 									<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
 										<form method="post" action="/cart/{{i.id}}/{{i.cat}}/">
 											{% csrf_token %}
@@ -98,6 +97,7 @@
 												<i class="fa fa-cart-plus">Out of Stock</i>
 											</button><br><br><br>
 											{% else %}
+
 											<button type="submit"class="btn btn-info" type="submit" name="submit">
 												<i class="fa fa-cart-plus">Add to Cart</i>
 											</button><br><br><br>

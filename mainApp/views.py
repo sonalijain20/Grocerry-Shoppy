@@ -129,52 +129,23 @@ def profile(request):
 
 def product(request, cat):
     kit = KitchenCategory.objects.all()
-    if(request.user.is_anonymous):
-        if(cat=='Beverages'):
-            p=Beverages.objects.all()
-        if(cat=='Frozen Foods'):
-            p=FrozenFoods.objects.all()
-        if(cat=='Pulses'):
-            p=Pulses.objects.all()
-        if(cat=='Vegetables'):
-            p=Vegetables.objects.all()
-        if(cat=='Fruits'):
-            p=Fruits.objects.all()
-        if(cat=='Snacks'):
-            p=Snacks.objects.all()
-        if(cat=='Spices'):
-            p=Spices.objects.all()
-        if(cat=='Bakery'):
-            p=Bakery.objects.all()
-        print("\n\n\n\n-------------------------")
-        print(cat)
-        return render(request, "product.html", {"Product": p, "Category": cat, "KitCat": kit})
-    user = User.objects.get(username=request.user)
-    if (user.is_superuser):
-        return HttpResponseRedirect('/admin/')
-    try:
-        user = Seller.objects.get(uname=request.user)
-        return HttpResponseRedirect('/profile/')
-    except:
-        b = Buyer.objects.get(uname=request.user)
-        cart = Cart.objects.filter(user=b)
-        if (cat == 'Beverages'):
-            p = Beverages.objects.all()
-        if (cat == 'Frozen Foods'):
-            p = FrozenFoods.objects.all()
-        if (cat == 'Pulses'):
-            p = Pulses.objects.all()
-        if (cat == 'Vegetables'):
-            p = Vegetables.objects.all()
-        if (cat == 'Fruits'):
-            p = Fruits.objects.all()
-        if (cat == 'Snacks'):
-            p = Snacks.objects.all()
-        if (cat == 'Spices'):
-            p = Spices.objects.all()
-        if (cat == 'Bakery'):
-            p = Bakery.objects.all()
-        return render(request, "product.html", {"Product": p, "Category": cat, "KitCat": kit, "Cart": cart})
+    if(cat=='Beverages'):
+        p=Beverages.objects.all()
+    if(cat=='Frozen Foods'):
+        p=FrozenFoods.objects.all()
+    if(cat=='Pulses'):
+        p=Pulses.objects.all()
+    if(cat=='Vegetables'):
+        p=Vegetables.objects.all()
+    if(cat=='Fruits'):
+        p=Fruits.objects.all()
+    if(cat=='Snacks'):
+        p=Snacks.objects.all()
+    if(cat=='Spices'):
+        p=Spices.objects.all()
+    if(cat=='Bakery'):
+        p=Bakery.objects.all()
+    return render(request, "product.html", {"Product": p, "Category": cat, "KitCat": kit})
 
 
 def addBakery(request):
