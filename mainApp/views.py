@@ -80,6 +80,7 @@ def profile(request):
             fruits = Fruits.objects.filter(seller_details=s)
             beverages = Beverages.objects.filter(seller_details=s)
             pulses = Pulses.objects.filter(seller_details=s)
+            orders = OrdersPlaced.objects.filter(seller_details = s)
             if (request.method == "POST"):
                 s.name = request.POST.get('name')
                 s.uname = request.POST.get('uname')
@@ -105,7 +106,8 @@ def profile(request):
                 "Vegetables":vegetables,
                 "Fruits":fruits,
                 "FrozenFoods":frozenfoods,
-                "Pulses":pulses
+                "Pulses":pulses,
+                "Order":orders,
             })
         except:
             b = Buyer.objects.get(uname=request.user)
@@ -411,32 +413,184 @@ def cart(request, num, cat):
         return HttpResponseRedirect('/admin/')
     kit = KitchenCategory.objects.all()
     if (request.method == 'POST'):
+
         try:
-            c = Cart()
-            if(cat=='Bakery'):
-                c.bakery=Bakery.objects.get(id=num)
-            if(cat=='Beverages'):
-                c.beverages=Beverages.objects.get(id=num)
-            if(cat=='Spices'):
-                c.spices=Spices.objects.get(id=num)
-            if(cat=='Snacks'):
-                c.snacks=Snacks.objects.get(id=num)
-            if(cat=='Pulses'):
-                c.pulses=Pulses.objects.get(id=num)
-            if (cat == 'Frozen Foods'):
-                c.frozenFoods = FrozenFoods.objects.get(id=num)
-            if (cat == 'Fruits'):
-                c.fruits = Fruits.objects.get(id=num)
+            if(cat == 'Fruits'):
+                try:
+                    c = Cart.objects.get(fruits = num)
+                    q = int(request.POST.get('quantity'))
+                    c.quantity = c.quantity + q
+                    quan = c.fruits.quantity
+                    if (c.quantity > quan):
+                        c.quantity = quan
+                    c.total = c.finalPrice * c.quantity
+                    c.save()
+                    return HttpResponseRedirect('/cartdetails/')
+                except:
+                    c = Cart()
+                    c.fruits = Fruits.objects.get(id=num)
+                    c.user = Buyer.objects.get(uname=request.user)
+                    c.cat = KitchenCategory.objects.get(name=cat)
+                    c.quantity = int(request.POST.get('quantity'))
+                    c.finalPrice = int(request.POST.get('fprice'))
+                    c.total = c.finalPrice * c.quantity
+                    c.save()
+                    return HttpResponseRedirect('/cartdetails/')
+
+            if (cat == 'Beverages'):
+                try:
+                    c = Cart.objects.get(beverages=num)
+                    q = int(request.POST.get('quantity'))
+                    c.quantity = c.quantity + q
+                    quan = c.beverages.quantity
+                    if(c.quantity  > quan):
+                        c.quantity = quan
+                    c.total = c.finalPrice * c.quantity
+                    c.save()
+                    return HttpResponseRedirect('/cartdetails/')
+                except:
+                    c = Cart()
+                    c.beverages = Beverages.objects.get(id=num)
+                    c.user = Buyer.objects.get(uname=request.user)
+                    c.cat = KitchenCategory.objects.get(name=cat)
+                    c.quantity = int(request.POST.get('quantity'))
+                    c.finalPrice = int(request.POST.get('fprice'))
+                    c.total = c.finalPrice * c.quantity
+                    c.save()
+                    return HttpResponseRedirect('/cartdetails/')
+
+            if (cat == 'Snacks'):
+                try:
+                    c = Cart.objects.get(snacks=num)
+                    q = int(request.POST.get('quantity'))
+                    c.quantity = c.quantity + q
+                    quan = c.snacks.quantity
+                    if (c.quantity > quan):
+                        c.quantity = quan
+                    c.total = c.finalPrice * c.quantity
+                    c.save()
+                    return HttpResponseRedirect('/cartdetails/')
+                except:
+                    c = Cart()
+                    c.snacks = Snacks.objects.get(id=num)
+                    c.user = Buyer.objects.get(uname=request.user)
+                    c.cat = KitchenCategory.objects.get(name=cat)
+                    c.quantity = int(request.POST.get('quantity'))
+                    c.finalPrice = int(request.POST.get('fprice'))
+                    c.total = c.finalPrice * c.quantity
+                    c.save()
+                    return HttpResponseRedirect('/cartdetails/')
+
+            if (cat == 'Spices'):
+                try:
+                    c = Cart.objects.get(spices=num)
+                    q = int(request.POST.get('quantity'))
+                    c.quantity = c.quantity + q
+                    quan = c.spices.quantity
+                    if (c.quantity > quan):
+                        c.quantity = quan
+                    c.total = c.finalPrice * c.quantity
+                    c.save()
+                    return HttpResponseRedirect('/cartdetails/')
+                except:
+                    c = Cart()
+                    c.spices = Spices.objects.get(id=num)
+                    c.user = Buyer.objects.get(uname=request.user)
+                    c.cat = KitchenCategory.objects.get(name=cat)
+                    c.quantity = int(request.POST.get('quantity'))
+                    c.finalPrice = int(request.POST.get('fprice'))
+                    c.total = c.finalPrice * c.quantity
+                    c.save()
+                    return HttpResponseRedirect('/cartdetails/')
+
             if (cat == 'Vegetables'):
-                c.vegetables = Vegetables.objects.get(id=num)
-            c.user = Buyer.objects.get(uname=request.user)
-            c.cat = KitchenCategory.objects.get(name=cat)
-            c.quantity = int(request.POST.get('quantity'))
-            print(type(c.quantity))
-            c.finalPrice = int(request.POST.get('fprice'))
-            c.total = c.finalPrice * c.quantity
-            c.save()
-            return HttpResponseRedirect('/cartdetails/')
+                try:
+                    c = Cart.objects.get(vegetables=num)
+                    q = int(request.POST.get('quantity'))
+                    c.quantity = c.quantity + q
+                    quan = c.vegetables.quantity
+                    if (c.quantity > quan):
+                        c.quantity = quan
+                    c.total = c.finalPrice * c.quantity
+                    c.save()
+                    return HttpResponseRedirect('/cartdetails/')
+                except:
+                    c = Cart()
+                    c.vegetables = Vegetables.objects.get(id=num)
+                    c.user = Buyer.objects.get(uname=request.user)
+                    c.cat = KitchenCategory.objects.get(name=cat)
+                    c.quantity = int(request.POST.get('quantity'))
+                    c.finalPrice = int(request.POST.get('fprice'))
+                    c.total = c.finalPrice * c.quantity
+                    c.save()
+                    return HttpResponseRedirect('/cartdetails/')
+
+            if (cat == 'Bakery'):
+                try:
+                    c = Cart.objects.get(bakery=num)
+                    q = int(request.POST.get('quantity'))
+                    c.quantity = c.quantity + q
+                    quan = c.bakery.quantity
+                    if (c.quantity > quan):
+                        c.quantity = quan
+                    c.total = c.finalPrice * c.quantity
+                    c.save()
+                    return HttpResponseRedirect('/cartdetails/')
+                except:
+                    c = Cart()
+                    c.bakery = Bakery.objects.get(id=num)
+                    c.user = Buyer.objects.get(uname=request.user)
+                    c.cat = KitchenCategory.objects.get(name=cat)
+                    c.quantity = int(request.POST.get('quantity'))
+                    c.finalPrice = int(request.POST.get('fprice'))
+                    c.total = c.finalPrice * c.quantity
+                    c.save()
+                    return HttpResponseRedirect('/cartdetails/')
+
+            if (cat == 'Pulses'):
+                try:
+                    c = Cart.objects.get(pulses=num)
+                    q = int(request.POST.get('quantity'))
+                    c.quantity = c.quantity + q
+                    quan = c.pulses.quantity
+                    if (c.quantity > quan):
+                        c.quantity = quan
+                    c.total = c.finalPrice * c.quantity
+                    c.save()
+                    return HttpResponseRedirect('/cartdetails/')
+                except:
+                    c = Cart()
+                    c.pulses = Pulses.objects.get(id=num)
+                    c.user = Buyer.objects.get(uname=request.user)
+                    c.cat = KitchenCategory.objects.get(name=cat)
+                    c.quantity = int(request.POST.get('quantity'))
+                    c.finalPrice = int(request.POST.get('fprice'))
+                    c.total = c.finalPrice * c.quantity
+                    c.save()
+                    return HttpResponseRedirect('/cartdetails/')
+
+            if (cat == 'Frozen Foods'):
+                try:
+                    c = Cart.objects.get(frozenFoods=num)
+                    q = int(request.POST.get('quantity'))
+                    quan = c.frozenFoods.quantity
+                    if (c.quantity > quan):
+                        c.quantity = quan
+                    c.quantity = c.quantity + q
+                    c.total = c.finalPrice * c.quantity
+                    c.save()
+                    return HttpResponseRedirect('/cartdetails/')
+                except:
+                    c = Cart()
+                    c.frozenFoods = FrozenFoods.objects.get(id=num)
+                    c.user = Buyer.objects.get(uname=request.user)
+                    c.cat = KitchenCategory.objects.get(name=cat)
+                    c.quantity = int(request.POST.get('quantity'))
+                    c.finalPrice = int(request.POST.get('fprice'))
+                    c.total = c.finalPrice * c.quantity
+                    c.save()
+                    return HttpResponseRedirect('/cartdetails/')
+
         except:
             return HttpResponseRedirect('/login/')
 
@@ -663,13 +817,12 @@ def wishlist(request, num, cat):
         return HttpResponseRedirect('/admin/')
     kit = KitchenCategory.objects.all()
     if (request.method == 'POST'):
-        try:
+        # try:
             w = WishList()
             if (cat == 'Bakery'):
                 w.bakery = Bakery.objects.get(id=num)
             if (cat == 'Beverages'):
                 w.beverages = Beverages.objects.get(id=num)
-                print("Sooooooooo")
             if (cat == 'Spices'):
                 w.spices = Spices.objects.get(id=num)
             if (cat == 'Snacks'):
@@ -677,7 +830,10 @@ def wishlist(request, num, cat):
             if (cat == 'Pulses'):
                 w.pulses = Pulses.objects.get(id=num)
             if (cat == 'Frozen Foods'):
+                print("\n\n\n\n\nn\n\n\n\n\n")
+                print(cat)
                 w.frozenFoods = FrozenFoods.objects.get(id=num)
+                print(w.frozenFoods)
             if (cat == 'Fruits'):
                 w.fruits = Fruits.objects.get(id=num)
             if (cat == 'Vegetables'):
@@ -686,9 +842,9 @@ def wishlist(request, num, cat):
             w.cat = KitchenCategory.objects.get(name=cat)
             w.save()
             return HttpResponseRedirect('/wishlistdetails/')
-        except:
-            return HttpResponseRedirect('/login/')
-    return render(request, "wishlist.html", {"KitCat": kit})
+    #     except:
+    #         return HttpResponseRedirect('/login/')
+    # return render(request, "wishlist.html", {"KitCat": kit})
 
 
 @login_required(login_url='/login/')
@@ -719,6 +875,7 @@ def wishlistDelete(request, num):
 
 def checkOut(request):
     user = User.objects.get(username=request.user)
+    kit = KitchenCategory.objects.all()
     if (user.is_superuser):
         return HttpResponseRedirect('/admin/')
     try:
@@ -744,6 +901,7 @@ def checkOut(request):
                 if(i.cat == KitchenCategory.objects.get(name = 'Fruits')):
                     order.user = i.user
                     order.fruits = i.fruits
+                    order.seller_details = i.fruits.seller_details
                     order.quantity = i.quantity
                     order.finalPrice = i.total
                     order.save()
@@ -757,6 +915,7 @@ def checkOut(request):
                 if (i.cat == KitchenCategory.objects.get(name='Bakery')):
                     order.user = i.user
                     order.bakery = i.bakery
+                    order.seller_details = i.bakery.seller_details
                     order.quantity = i.quantity
                     order.finalPrice = i.total
                     order.save()
@@ -770,6 +929,7 @@ def checkOut(request):
                 if (i.cat == KitchenCategory.objects.get(name='Spices')):
                     order.user = i.user
                     order.spices = i.spices
+                    order.seller_details = i.spices.seller_details
                     order.quantity = i.quantity
                     order.finalPrice = i.total
                     order.save()
@@ -783,6 +943,7 @@ def checkOut(request):
                 if (i.cat == KitchenCategory.objects.get(name='Snacks')):
                     order.user = i.user
                     order.snacks = i.snacks
+                    order.seller_details = i.snacks.seller_details
                     order.quantity = i.quantity
                     order.finalPrice = i.total
                     order.save()
@@ -796,6 +957,7 @@ def checkOut(request):
                 if (i.cat == KitchenCategory.objects.get(name='Beverages')):
                     order.user = i.user
                     order.beverages = i.beverages
+                    order.seller_details = i.beverages.seller_details
                     order.quantity = i.quantity
                     order.finalPrice = i.total
                     order.save()
@@ -809,6 +971,7 @@ def checkOut(request):
                 if (i.cat == KitchenCategory.objects.get(name='Pulses')):
                     order.user = i.user
                     order.pulses = i.pulses
+                    order.seller_details = i.pulses.seller_details
                     order.quantity = i.quantity
                     order.finalPrice = i.total
                     order.save()
@@ -822,6 +985,7 @@ def checkOut(request):
                 if (i.cat == KitchenCategory.objects.get(name='Frozen Foods')):
                     order.user = i.user
                     order.frozenFoods = i.frozenFoods
+                    order.seller_details = i.frozenFoods.seller_details
                     order.quantity = i.quantity
                     order.finalPrice = i.total
                     order.save()
@@ -832,9 +996,10 @@ def checkOut(request):
                     else:
                         p.stock = False
                     p.save()
-                if (i.cat == KitchenCategory.objects.get(name='Snacks')):
+                if (i.cat == KitchenCategory.objects.get(name='Vegetables')):
                     order.user = i.user
                     order.vegetables = i.vegetables
+                    order.seller_details = i.vegetables.seller_details
                     order.quantity = i.quantity
                     order.finalPrice = i.total
                     order.save()
@@ -851,11 +1016,13 @@ def checkOut(request):
             ch.save()
             cart.delete()
             return HttpResponseRedirect('/payment/')
-        return render(request, "checkout.html", {"User": user})
+        return render(request, "checkout.html", {"User": user, "KitCat":kit})
 
 
 def payment(request):
-    return render(request, "payment.html")
+    user = User.objects.get(username=request.user)
+    kit = KitchenCategory.objects.all()
+    return render(request, "payment.html", {"User": user, "KitCat":kit})
 
 
 

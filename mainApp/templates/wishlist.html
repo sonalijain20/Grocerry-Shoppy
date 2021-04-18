@@ -31,7 +31,7 @@
 						{% for i in Wish %}
 							<tr class="rem1">
 								{% if i.snacks %}
-								<td class="invert-image"><img src="{{i.snacks.img1.url}}"></td>
+								<td class="invert-image"><img src="{{i.snacks.img1.url}}" width="50px" height="50px"></td>
 								{% endif %}
 								{% if i.pulses %}
 								<td class="invert"><img src="{{i.pulses.img1.url}}" width="50px" height="50px"></td>
@@ -191,6 +191,56 @@
 								{% if i.beverages %}
 									<td>
 										<form method="post" action="/productinfo/{{i.beverages.id}}/{{i.cat}}/">
+											{% csrf_token %}
+											<button type="submit">
+												<i class="fa fa-shopping-bag" aria-hidden="true"></i>
+											</button>
+										</form>
+									</td>
+								{% endif %}
+								{% if i.snacks %}
+									<td>
+										<form method="post" action="/productinfo/{{i.snacks.id}}/{{i.cat}}/">
+											{% csrf_token %}
+											<button type="submit">
+												<i class="fa fa-shopping-bag" aria-hidden="true"></i>
+											</button>
+										</form>
+									</td>
+								{% endif %}
+								{% if i.pulses %}
+									<td>
+										<form method="post" action="/productinfo/{{i.pulses.id}}/{{i.cat}}/">
+											{% csrf_token %}
+											<button type="submit">
+												<i class="fa fa-shopping-bag" aria-hidden="true"></i>
+											</button>
+										</form>
+									</td>
+								{% endif %}
+								{% if i.fruits %}
+									<td>
+										<form method="post" action="/productinfo/{{i.fruits.id}}/{{i.cat}}/">
+											{% csrf_token %}
+											<button type="submit">
+												<i class="fa fa-shopping-bag" aria-hidden="true"></i>
+											</button>
+										</form>
+									</td>
+								{% endif %}
+								{% if i.vegetables %}
+									<td>
+										<form method="post" action="/productinfo/{{i.vegetables.id}}/{{i.cat}}/">
+											{% csrf_token %}
+											<button type="submit">
+												<i class="fa fa-shopping-bag" aria-hidden="true"></i>
+											</button>
+										</form>
+									</td>
+								{% endif %}
+								{% if i.frozenFoods %}
+									<td>
+										<form method="post" action="/productinfo/{{i.frozenFoods.id}}/{{i.cat}}/">
 											{% csrf_token %}
 											<button type="submit">
 												<i class="fa fa-shopping-bag" aria-hidden="true"></i>
