@@ -106,7 +106,8 @@ def profile(request):
                 "Vegetables":vegetables,
                 "Fruits":fruits,
                 "FrozenFoods":frozenfoods,
-                "Pulses":pulses
+                "Pulses":pulses,
+                "Order":orders,
             })
         except:
             b = Buyer.objects.get(uname=request.user)
@@ -130,52 +131,23 @@ def profile(request):
 
 def product(request, cat):
     kit = KitchenCategory.objects.all()
-    if(request.user.is_anonymous):
-        if(cat=='Beverages'):
-            p=Beverages.objects.all()
-        if(cat=='Frozen Foods'):
-            p=FrozenFoods.objects.all()
-        if(cat=='Pulses'):
-            p=Pulses.objects.all()
-        if(cat=='Vegetables'):
-            p=Vegetables.objects.all()
-        if(cat=='Fruits'):
-            p=Fruits.objects.all()
-        if(cat=='Snacks'):
-            p=Snacks.objects.all()
-        if(cat=='Spices'):
-            p=Spices.objects.all()
-        if(cat=='Bakery'):
-            p=Bakery.objects.all()
-        print("\n\n\n\n-------------------------")
-        print(cat)
-        return render(request, "product.html", {"Product": p, "Category": cat, "KitCat": kit})
-    user = User.objects.get(username=request.user)
-    if (user.is_superuser):
-        return HttpResponseRedirect('/admin/')
-    try:
-        user = Seller.objects.get(uname=request.user)
-        return HttpResponseRedirect('/profile/')
-    except:
-        b = Buyer.objects.get(uname=request.user)
-        cart = Cart.objects.filter(user=b)
-        if (cat == 'Beverages'):
-            p = Beverages.objects.all()
-        if (cat == 'Frozen Foods'):
-            p = FrozenFoods.objects.all()
-        if (cat == 'Pulses'):
-            p = Pulses.objects.all()
-        if (cat == 'Vegetables'):
-            p = Vegetables.objects.all()
-        if (cat == 'Fruits'):
-            p = Fruits.objects.all()
-        if (cat == 'Snacks'):
-            p = Snacks.objects.all()
-        if (cat == 'Spices'):
-            p = Spices.objects.all()
-        if (cat == 'Bakery'):
-            p = Bakery.objects.all()
-        return render(request, "product.html", {"Product": p, "Category": cat, "KitCat": kit, "Cart": cart})
+    if(cat=='Beverages'):
+        p=Beverages.objects.all()
+    if(cat=='Frozen Foods'):
+        p=FrozenFoods.objects.all()
+    if(cat=='Pulses'):
+        p=Pulses.objects.all()
+    if(cat=='Vegetables'):
+        p=Vegetables.objects.all()
+    if(cat=='Fruits'):
+        p=Fruits.objects.all()
+    if(cat=='Snacks'):
+        p=Snacks.objects.all()
+    if(cat=='Spices'):
+        p=Spices.objects.all()
+    if(cat=='Bakery'):
+        p=Bakery.objects.all()
+    return render(request, "product.html", {"Product": p, "Category": cat, "KitCat": kit})
 
 
 def addBakery(request):
@@ -851,7 +823,6 @@ def wishlist(request, num, cat):
                 w.bakery = Bakery.objects.get(id=num)
             if (cat == 'Beverages'):
                 w.beverages = Beverages.objects.get(id=num)
-                print("Sooooooooo")
             if (cat == 'Spices'):
                 w.spices = Spices.objects.get(id=num)
             if (cat == 'Snacks'):
@@ -859,8 +830,6 @@ def wishlist(request, num, cat):
             if (cat == 'Pulses'):
                 w.pulses = Pulses.objects.get(id=num)
             if (cat == 'Frozen Foods'):
-                print("\n\n\n\n\nn\n\n\n\n\n")
-                print(cat)
                 w.frozenFoods = FrozenFoods.objects.get(id=num)
                 print(w.frozenFoods)
             if (cat == 'Fruits'):
@@ -875,6 +844,8 @@ def wishlist(request, num, cat):
             return HttpResponseRedirect('/login/')
     return render(request, "wishlist.html", {"KitCat": kit})
 
+
+@login_required(login_url='/login/')
 def wishlistDetails(request):
     user = User.objects.get(username=request.user)
     kit = KitchenCategory.objects.all()

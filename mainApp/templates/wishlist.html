@@ -4,7 +4,7 @@
 <div class="privacy">
     <div class="container">
 		{% if not Wish %}
-			<h3 class="tittle-w3l">Your Cart is empty. </h3>
+			<h3 class="tittle-w3l">Your Wishlist is empty. </h3>
 		{% else %}
 			<h3 class="tittle-w3l">Your Wishlist
                 <span class="heading-style">
@@ -118,37 +118,37 @@
 
 								{% if i.snacks %}
 								<td class="cart_price">
-									<p>Rs{{i.snacks.discount}}</p>
+									<p>{{i.snacks.discount}}%</p>
 								</td>
 								{% endif %}
 								{% if i.pulses %}
 								<td class="cart_price">
-									<p>Rs{{i.pulses.discount}}</p>
+									<p>{{i.pulses.discount}}%</p>
 								</td>
 								{% endif %}
 								{% if i.bakery %}
 								<td class="cart_price">
-									<p>Rs{{i.bakery.discount}}</p>
+									<p>{{i.bakery.discount}}%</p>
 								</td>
 								{% endif %}
 								{% if i.vegetables %}
 								<td class="cart_price">
-									<p>Rs{{i.vegetables.discount}}</p>
+									<p>{{i.vegetables.discount}}%</p>
 								</td>
 								{% endif %}
 								{% if i.fruits %}
 								<td class="cart_price">
-									<p>Rs{{i.fruits.discount}}</p>
+									<p>{{i.fruits.discount}}%</p>
 								</td>
 								{% endif %}
 								{% if i.frozenFoods %}
 								<td class="cart_price">
-									<p>Rs{{i.frozenFoods.discount}}</p>
+									<p>{{i.frozenFoods.discount}}%</p>
 								</td>
 								{% endif %}
 								{% if i.beverages %}
 								<td class="cart_price">
-									<p>Rs{{i.beverages.discount}}</p>
+									<p>{{i.beverages.discount}}%</p>
 								</td>
 								{% endif %}
 
@@ -189,12 +189,19 @@
 								{% endif %}
 
 								{% if i.beverages %}
+
 									<td>
 										<form method="post" action="/productinfo/{{i.beverages.id}}/{{i.cat}}/">
 											{% csrf_token %}
+											{% if i.beverages.stock %}
 											<button type="submit">
 												<i class="fa fa-shopping-bag" aria-hidden="true"></i>
 											</button>
+											{% else %}
+											<button type="=submit" style="pointer-events: none" class="btn btn-danger">Out of Stock
+
+											</button>
+											{% endif %}
 										</form>
 									</td>
 								{% endif %}
@@ -202,9 +209,15 @@
 									<td>
 										<form method="post" action="/productinfo/{{i.snacks.id}}/{{i.cat}}/">
 											{% csrf_token %}
+											{% if i.snacks.stock %}
 											<button type="submit">
 												<i class="fa fa-shopping-bag" aria-hidden="true"></i>
 											</button>
+											{% else %}
+											<button type="=submit" style="pointer-events: none" class="btn btn-danger">Out of Stock
+
+											</button>
+											{% endif %}
 										</form>
 									</td>
 								{% endif %}
@@ -212,9 +225,15 @@
 									<td>
 										<form method="post" action="/productinfo/{{i.pulses.id}}/{{i.cat}}/">
 											{% csrf_token %}
+											{% if i.pulses.stock %}
 											<button type="submit">
 												<i class="fa fa-shopping-bag" aria-hidden="true"></i>
 											</button>
+											{% else %}
+											<button type="=submit" style="pointer-events: none" class="btn btn-danger">Out of Stock
+
+											</button>
+											{% endif %}
 										</form>
 									</td>
 								{% endif %}
@@ -222,9 +241,15 @@
 									<td>
 										<form method="post" action="/productinfo/{{i.fruits.id}}/{{i.cat}}/">
 											{% csrf_token %}
+											{% if i.fruits.stock %}
 											<button type="submit">
 												<i class="fa fa-shopping-bag" aria-hidden="true"></i>
 											</button>
+											{% else %}
+											<button type="=submit" style="pointer-events: none" class="btn btn-danger">Out of Stock
+
+											</button>
+											{% endif %}
 										</form>
 									</td>
 								{% endif %}
@@ -232,9 +257,15 @@
 									<td>
 										<form method="post" action="/productinfo/{{i.vegetables.id}}/{{i.cat}}/">
 											{% csrf_token %}
+											{% if i.vegetables.stock %}
 											<button type="submit">
 												<i class="fa fa-shopping-bag" aria-hidden="true"></i>
 											</button>
+											{% else %}
+											<button type="=submit" style="pointer-events: none" class="btn btn-danger">Out of Stock
+
+											</button>
+											{% endif %}
 										</form>
 									</td>
 								{% endif %}
@@ -242,9 +273,15 @@
 									<td>
 										<form method="post" action="/productinfo/{{i.frozenFoods.id}}/{{i.cat}}/">
 											{% csrf_token %}
+											{% if i.frozenFoods.stock %}
 											<button type="submit">
 												<i class="fa fa-shopping-bag" aria-hidden="true"></i>
 											</button>
+											{% else %}
+											<button type="=submit" style="pointer-events: none" class="btn btn-danger">Out of Stock
+
+											</button>
+											{% endif %}
 										</form>
 									</td>
 								{% endif %}

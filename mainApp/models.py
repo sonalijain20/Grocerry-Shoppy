@@ -266,3 +266,12 @@ class OrdersPlaced(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+class Contact(models.Model):
+    name = models.CharField(max_length=50)
+    email = models.EmailField()
+    subject = models.CharField(max_length=200)
+    message = models.TextField()
+
+    def str(self):
+        return str(self.id)+" "+self.name
