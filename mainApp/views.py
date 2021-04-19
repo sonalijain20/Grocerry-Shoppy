@@ -622,7 +622,7 @@ def productInfo(request, num, cat):
         p = Spices.objects.get(id=num)
     if (cat == 'Bakery' or cat == '7'):
         p = Bakery.objects.get(id=num)
-    if(cat=='FrozenFoods' or cat=='8'):
+    if(cat=='Frozen Foods' or cat=='8'):
         p=FrozenFoods.objects.get(id=num)
     dic={"Product":p, "KitCat": kit, "Quan": str(p.quantity)}
     return render(request, "productinfo.html", dic)
@@ -631,7 +631,7 @@ def productInfo(request, num, cat):
 def deleteProduct(request, num, cat):
     user = User.objects.get(username=request.user)
     kit = KitchenCategory.objects.all()
-    if(cat=='FrozenFoods'):
+    if(cat=='Frozen Foods'):
         p=FrozenFoods.objects.get(id=num)
         p.delete()
     if(cat=='Fruits'):
@@ -790,7 +790,7 @@ def editProduct(request,num, cat):
             p.save()
             return HttpResponseRedirect('/profile/')
 
-    if (cat == 'FrozenFoods'):
+    if (cat == 'Frozen Foods'):
         p = FrozenFoods.objects.get(id=num)
         if (request.method == 'POST'):
             s = Seller.objects.get(uname=request.user)
