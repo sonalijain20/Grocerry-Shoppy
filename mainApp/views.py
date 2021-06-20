@@ -86,7 +86,7 @@ def profile(request):
                 s.uname = request.POST.get('uname')
                 s.email = request.POST.get('email')
                 s.phone = request.POST.get('phone')
-                s.address = request.POST.get('address')
+                s.address = request.POST.get('address') 
                 s.city = request.POST.get('city')
                 s.pin = request.POST.get('pin')
                 s.state = request.POST.get('state')
