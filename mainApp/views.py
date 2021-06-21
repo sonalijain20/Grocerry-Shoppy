@@ -7,12 +7,12 @@ from django.contrib import messages
 
 
 def home(request):
-    kit = KitchenCategory.objects.all()
+    kit = KitchenCategory.objects.all() #to get all the objects of kitchen category module
     return render(request, "index.html", {"KitCat": kit})
 
 
 def signupUser(request):
-    choice = request.POST.get('option')
+    choice = request.POST.get('option') #to get the value of option feild from signup from.
     if (choice == 'seller'):
         s = Seller()
         s.name = request.POST.get('name')
@@ -21,7 +21,7 @@ def signupUser(request):
         pword = request.POST.get('password')
         try:
             user = User.objects.create_user(
-                username=s.uname, email=s.email, password=pword)
+                username=s.uname, email=s.email, password=pword) #create user
             s.save()
             return HttpResponseRedirect('/')
         except:
@@ -81,7 +81,7 @@ def profile(request):
             beverages = Beverages.objects.filter(seller_details=s)
             pulses = Pulses.objects.filter(seller_details=s)
             orders = OrdersPlaced.objects.filter(seller_details = s)
-            if (request.method == "POST"):
+            if (request.method == "POST"):              #to update the seller information
                 s.name = request.POST.get('name')
                 s.uname = request.POST.get('uname')
                 s.email = request.POST.get('email')
@@ -112,7 +112,7 @@ def profile(request):
         except:
             b = Buyer.objects.get(uname=request.user)
             order = OrdersPlaced.objects.filter(user = b)
-            if (request.method == "POST"):
+            if (request.method == "POST"):          #to update the buyer information
                 b.name = request.POST.get('name')
                 b.uname = request.POST.get('uname')
                 b.email = request.POST.get('email')
@@ -129,7 +129,7 @@ def profile(request):
             return render(request, "buyer.html", {"User": b, "KitCat": kit, "Order": order})
 
 
-def product(request, cat):
+def product(request, cat):              #to display the products according to the category
     kit = KitchenCategory.objects.all()
     if(cat=='Beverages'):
         p=Beverages.objects.all()
@@ -665,9 +665,9 @@ def editProduct(request,num, cat):
     if (user.is_superuser):
         return HttpResponseRedirect('/admin/')
     if(cat=='Beverages'):
-        p=Beverages.objects.get(id=num)
+        p=Beverages.objects.get(id=num)             #fetches the product infromation from beverages model
         if(request.method=='POST'):
-            s = Seller.objects.get(uname=request.user)
+            s = Seller.objects.get(uname=request.user)          #fetches the seller infromation from the seller model
             p.name = request.POST.get('name')
             p.desc = request.POST.get('description')
             p.basePrice = int(request.POST.get('baseprice'))
@@ -679,7 +679,7 @@ def editProduct(request,num, cat):
             else:
                 p.stock = False
             p.seller_details = s
-            p.save()
+            p.save()            #saves changes of the product in the database
             return HttpResponseRedirect('/profile/')
 
     if (cat == 'Vegetables'):
