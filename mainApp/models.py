@@ -226,7 +226,7 @@ class Cart(models.Model):
     cat = models.ForeignKey(KitchenCategory, on_delete=models.CASCADE, null=True, blank=True)
     quantity = models.PositiveIntegerField(default=1)
     finalPrice = models.IntegerField(default=0)
-    total=models.IntegerField(default=0)
+    total = models.IntegerField(default=0)
 
     def __str__(self):
         return str(self.id)

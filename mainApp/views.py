@@ -7,12 +7,12 @@ from django.contrib import messages
 
 
 def home(request):
-    kit = KitchenCategory.objects.all() #to get all the objects of kitchen category module
+    kit = KitchenCategory.objects.all()     #to get all the kitchen categories
     return render(request, "index.html", {"KitCat": kit})
 
 
 def signupUser(request):
-    choice = request.POST.get('option') #to get the value of option feild from signup from.
+    choice = request.POST.get('option') #to get the value of option field from signup from.
     if (choice == 'seller'):
         s = Seller()
         s.name = request.POST.get('name')
@@ -21,7 +21,7 @@ def signupUser(request):
         pword = request.POST.get('password')
         try:
             user = User.objects.create_user(
-                username=s.uname, email=s.email, password=pword) #create user
+                username=s.uname, email=s.email, password=pword)        #creates user
             s.save()
             return HttpResponseRedirect('/')
         except:
@@ -86,7 +86,7 @@ def profile(request):
                 s.uname = request.POST.get('uname')
                 s.email = request.POST.get('email')
                 s.phone = request.POST.get('phone')
-                s.address = request.POST.get('address') 
+                s.address = request.POST.get('address')
                 s.city = request.POST.get('city')
                 s.pin = request.POST.get('pin')
                 s.state = request.POST.get('state')
@@ -382,30 +382,6 @@ def addBeverages(request):
     return render(request, "addbeverages.html", {"KitCat": kit})
 
 
-def cartDetails(request):
-    kit = KitchenCategory.objects.all()
-    if(request.user.is_anonymous):
-        return HttpResponseRedirect('/login/')
-    user = User.objects.get(username=request.user)
-    if(user.is_superuser):
-        return HttpResponseRedirect('/admin/')
-    try:
-        Seller.objects.get(uname=request.user)
-        return HttpResponseRedirect('/profile/')
-    except:
-        b = Buyer.objects.get(uname=request.user)
-        cart = Cart.objects.filter(user=b)
-        subtotal = 0
-        for i in cart:
-            subtotal += i.total
-        if (subtotal < 500):
-            delivery = 150
-        else:
-            delivery = 0
-        finalAmount = subtotal + delivery
-        return render(request,"cart.html", {"KitCat": kit, "Cart": cart, "Sub": subtotal, "Delivery": delivery, "Final": finalAmount})
-
-
 @login_required(login_url='/login/')
 def cart(request, num, cat):
     user = User.objects.get(username=request.user)
@@ -413,20 +389,19 @@ def cart(request, num, cat):
         return HttpResponseRedirect('/admin/')
     kit = KitchenCategory.objects.all()
     if (request.method == 'POST'):
-
         try:
             if(cat == 'Fruits'):
-                try:
+                try:            #if the item is already present in cart
                     c = Cart.objects.get(fruits = num)
-                    q = int(request.POST.get('quantity'))
-                    c.quantity = c.quantity + q
-                    quan = c.fruits.quantity
+                    q = int(request.POST.get('quantity'))       #gets the quantity entered by the buyer
+                    c.quantity = c.quantity + q                 #adds the quantity to already added and new quantity
+                    quan = c.fruits.quantity                    #gets the quantity available or stock avaialble
                     if (c.quantity > quan):
-                        c.quantity = quan
+                        c.quantity = quan                       #sets the maximum quantity to available quantity
                     c.total = c.finalPrice * c.quantity
                     c.save()
                     return HttpResponseRedirect('/cartdetails/')
-                except:
+                except:             #if the item is not present in cart, then it creates a new one
                     c = Cart()
                     c.fruits = Fruits.objects.get(id=num)
                     c.user = Buyer.objects.get(uname=request.user)
@@ -595,6 +570,30 @@ def cart(request, num, cat):
             return HttpResponseRedirect('/login/')
 
     return render(request, "cart.html", {"KitCat": kit})
+
+
+def cartDetails(request):
+    kit = KitchenCategory.objects.all()
+    if(request.user.is_anonymous):
+        return HttpResponseRedirect('/login/')
+    user = User.objects.get(username=request.user)
+    if(user.is_superuser):
+        return HttpResponseRedirect('/admin/')
+    try:
+        Seller.objects.get(uname=request.user)
+        return HttpResponseRedirect('/profile/')
+    except:
+        b = Buyer.objects.get(uname=request.user)
+        cart = Cart.objects.filter(user=b)
+        subtotal = 0
+        for i in cart:
+            subtotal += i.total
+        if (subtotal < 500):            #checks for delivery charges
+            delivery = 150
+        else:
+            delivery = 0
+        finalAmount = subtotal + delivery
+        return render(request,"cart.html", {"KitCat": kit, "Cart": cart, "Sub": subtotal, "Delivery": delivery, "Final": finalAmount})
 
 
 def deleteCart(request, num):
@@ -882,7 +881,7 @@ def checkOut(request):
     except:
         user = Buyer.objects.get(uname=request.user)
         if (request.method == "POST"):
-            t=0
+            t=0                     #initializes total amount as 0
             ch = CheckOut()
             ch.user = user
             ch.address1 = request.POST.get('address1')
@@ -893,8 +892,8 @@ def checkOut(request):
             ch.email = request.POST.get('email')
             ch.phone = request.POST.get('phone')
             cart = Cart.objects.filter(user=user)
-            for i in cart:
-                t = t + i.total
+            for i in cart:          #to access all the items in cart
+                t = t + i.total     #calculates the total amount to be paid
                 order=OrdersPlaced()
                 if(i.cat == KitchenCategory.objects.get(name = 'Fruits')):
                     order.user = i.user
@@ -903,7 +902,7 @@ def checkOut(request):
                     order.quantity = i.quantity
                     order.finalPrice = i.total
                     order.save()
-                    p = Fruits.objects.get(id=i.fruits.id)
+                    p = Fruits.objects.get(id=i.fruits.id)          #updates the stock of each item in database
                     p.quantity = p.quantity - i.quantity
                     if (int(p.quantity) > 0):
                         p.stock = True
@@ -1008,11 +1007,11 @@ def checkOut(request):
                     else:
                         p.stock = False
                     p.save()
-            if(t<1000):
+            if(t<500):              #if total amount to be paid is less than 500, add delivery charges
                 t+=150
-            ch.total = t
+            ch.total = t            #sets the total checkout amount
             ch.save()
-            cart.delete()
+            cart.delete()           #deletes the cart items after placing the order
             return HttpResponseRedirect('/payment/')
         return render(request, "checkout.html", {"User": user, "KitCat":kit})
 
